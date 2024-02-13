@@ -8,6 +8,15 @@
     </head>
 
     <body style="margin: 0; overflow: hidden;">
+        <div id="uiContainer">
+        <button id="closeButton">Close</button>
+        </div>
+        <a-entity position="0 0 -3">
+        <div id="uiContainer" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 999;">
+        <button id="closeButton">Close</button>
+        </div>
+        </a-entity>
+
         <a-scene
             vr-mode-ui="enabled: false;"
             loading-screen="enabled: false;"
@@ -37,5 +46,10 @@
 
             <a-entity camera></a-entity>
         </a-scene>
+        
+        document.getElementById("closeButton").addEventListener("click", function() {
+        document.getElementById("uiContainer").style.display = "none";
+        });
+
     </body>
 </html>
