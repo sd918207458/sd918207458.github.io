@@ -25,12 +25,29 @@
         height: 100%;
         object-fit: cover;
     }
+        #closeButton {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 10000; /* 确保关闭按钮在最顶层 */
+    }
+
+    #closeButton img {
+        width: 50px; /* 调整按钮大小 */
+        height: 50px;
+        cursor: pointer; /* 鼠标指针样式 */
+    }
 </style>
 
 <body style="margin: 0; overflow: hidden;">
 
     <div id="uiContainer">
         <img src="assets/uiContainer.png" alt="UI Container Image">
+    </div>
+
+    
+    <div id="closeButton">
+        <img src="assets/closeButton.png" alt="Close Button">
     </div>
 
     <a-scene vr-mode-ui="enabled: false;" loading-screen="enabled: false;"
