@@ -17,6 +17,15 @@
         </div>
         </a-entity>
 
+<a-entity position="0 0 -3">
+  <a-plane src="#uiContainer" width="3" height="2" position="0 0 -5"></a-plane>
+  <a-image src="#closeButton" width="0.5" height="0.5" position="1.5 0.5 -5" onclick="closeUI"></a-image>
+</a-entity>
+
+<img id="uiContainer" src="path/to/uiContainer.png" style="display: none;">
+<img id="closeButton" src="path/to/closeButton.png" style="display: none;">
+
+        
         <a-scene
             vr-mode-ui="enabled: false;"
             loading-screen="enabled: false;"
