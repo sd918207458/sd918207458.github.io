@@ -8,6 +8,23 @@
         src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-detector.js"></script>
     <script
         src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-handler.js"></script>
+        <script>
+        // 在DOM加载完成后执行JavaScript代码
+        document.addEventListener("DOMContentLoaded", function () {
+            // 获取关闭按钮元素
+            var closeButton = document.getElementById('closeButton');
+
+            // 获取uiContainer元素
+            var uiContainer = document.getElementById('uiContainer');
+
+            // 监听关闭按钮的点击事件
+            closeButton.addEventListener('click', function () {
+                // 隐藏uiContainer和closeButton
+                uiContainer.style.display = 'none';
+                closeButton.style.display = 'none';
+            });
+        });
+    </script>
 </head>
 <style>
     #uiContainer {
