@@ -12,10 +12,10 @@
         // 在DOM加载完成后执行JavaScript代码
         document.addEventListener("DOMContentLoaded", function () {
             // 获取关闭按钮元素
-            var closeButton = document.getElementById('closeButton');
+            let closeButton = document.getElementById('closeButton');
 
             // 获取uiContainer元素
-            var uiContainer = document.getElementById('uiContainer');
+            let uiContainer = document.getElementById('uiContainer');
 
             // 监听关闭按钮的点击事件
             closeButton.addEventListener('click', function () {
@@ -52,8 +52,8 @@
     }
 
     #closeButton img {
-        width: 50px; /* 调整按钮大小 */
-        height: 50px;
+        width: 200px; /* 调整按钮大小 */
+        height: 200px;
         cursor: pointer; /* 鼠标指针样式 */
     }
 </style>
