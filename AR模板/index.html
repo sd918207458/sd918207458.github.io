@@ -6,24 +6,29 @@
         <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-detector.js"></script>
         <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-handler.js"></script>
     </head>
+<style>
+    #uiContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
 
+#uiContainer img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 让图片铺满容器并保持比例 */
+}
+</style>
+    
     <body style="margin: 0; overflow: hidden;">
-        <div id="uiContainer">
-        <button id="closeButton">Close</button>
-        </div>
-        <a-entity position="0 0 -3">
-        <div id="uiContainer" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 999;">
-        <button id="closeButton">Close</button>
-        </div>
-        </a-entity>
 
-<a-entity position="0 0 -3">
-  <a-plane src="#uiContainer" width="3" height="2" position="0 0 -5"></a-plane>
-  <a-image src="#closeButton" width="0.5" height="0.5" position="1.5 0.5 -5" onclick="closeUI"></a-image>
-</a-entity>
-<img id="uiContainer" src="AR模板/assets.uiContainer.png" style="display: none;">
-<img id="closeButton" src="AR模板/assets.closeButton.png" style="display: none;">
-
+<div id="uiContainer">
+  <!-- 这里放置你的图片 -->
+  <img src="your_image.jpg" alt="UI Container Image">
+</div>
         
         <a-scene
             vr-mode-ui="enabled: false;"
@@ -55,10 +60,7 @@
             <a-entity camera></a-entity>
         </a-scene>
         
-function closeUI() {
-  document.getElementById("uiContainer").style.display = "none";
-  document.getElementById("closeButton").style.display = "none";
-}
+
 
     </body>
 </html>
