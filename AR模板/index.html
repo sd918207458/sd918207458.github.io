@@ -12,10 +12,10 @@
         // 在DOM加载完成后执行JavaScript代码
         document.addEventListener("DOMContentLoaded", function () {
             // 获取关闭按钮元素
-            let closeButton = document.getElementById('closeButton');
+            var closeButton = document.getElementById('closeButton');
 
             // 获取uiContainer元素
-            let uiContainer = document.getElementById('uiContainer');
+            var uiContainer = document.getElementById('uiContainer');
 
             // 监听关闭按钮的点击事件
             closeButton.addEventListener('click', function () {
@@ -47,13 +47,13 @@
         position: fixed;
         top: 50%;
         left: 50%;
-        transform: translate(-50%, -10%); /* 将按钮位置移动到屏幕中心 */
+        transform: translate(-50%, -50%); /* 将按钮位置移动到屏幕中心 */
         z-index: 10000; /* 确保关闭按钮在最顶层 */
     }
 
     #closeButton img {
-        width: 200px; /* 调整按钮大小 */
-        height: 200px;
+        width: 50px; /* 调整按钮大小 */
+        height: 50px;
         cursor: pointer; /* 鼠标指针样式 */
     }
 </style>
@@ -61,11 +61,11 @@
 <body style="margin: 0; overflow: hidden;">
 
     <div id="uiContainer">
-        <img src="assets/uiContainer.png" alt="UI Container Image">
+        <img src="AR模板/assets/uiContainer.png" alt="UI Container Image">
     </div>
 
     <div id="closeButton">
-        <img src="assets/closeButton.png" alt="Close Button">
+        <img src="path_to_close_button_image/closeButton.png" alt="Close Button">
     </div>
 
     <a-scene vr-mode-ui="enabled: false;" loading-screen="enabled: false;"
@@ -74,13 +74,11 @@
             raycaster="objects: .clickable" emitevents="true" cursor="fuse: false; rayOrigin: mouse;" id="markerA">
             <a-image src="assets/asset.png" scale="1 1 1" class="clickable" rotation="-90 0 0"
                 gesture-handler></a-image>
-            <a-text value="圖片中這隻青蛙叫什麼?"></a-text>
+            
+            <!-- 在这里添加a-text实体 -->
+            <a-text value="Hello, AR World!" color="red" position="0 0.5 -1"></a-text>
         </a-marker>
 
-            <!-- 在这里添加a-text实体 -->
-            <a-text value="請問圖片中的青蛙叫什麼?" color="red" position="0 0.5 -1"></a-text>
-        </a-marker>
-        
         <a-entity camera></a-entity>
     </a-scene>
 
