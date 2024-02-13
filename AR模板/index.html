@@ -2,12 +2,92 @@
 <html>
 
 <head>
+    <!-- A-Frame和AR.js库 -->
     <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
-    <script
-        src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-detector.js"></script>
-    <script
-        src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-handler.js"></script>
+
+    <!-- 手势识别和处理脚本 -->
+    <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-detector.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-handler.js"></script>
+
+    <style>
+        /* 样式表 */
+        #uiContainer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 9999; /* 设置在AR场景之上 */
+        }
+
+        #uiContainer img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        #closeButton {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -10%); /* 将按钮位置移动到屏幕中心 */
+            z-index: 10000; /* 确保关闭按钮在最顶层 */
+        }
+
+        #closeButton img {
+            width: 200px; /* 调整按钮大小 */
+            height: 200px;
+            cursor: pointer; /* 鼠标指针样式 */
+        }
+
+        /* 文字样式 */
+        a-text {
+            font-family: 'Roboto', sans-serif;
+        }
+    </style>
+</head>
+
+<body style="margin: 0; overflow: hidden;">
+
+    <!-- UI容器 -->
+    <div id="uiContainer">
+        <img src="assets/uiContainer.png" alt="UI Container Image">
+    </div>
+
+    <!-- 关闭按钮 -->
+    <div id="closeButton">
+        <img src="assets/closeButton.png" alt="Close Button">
+    </div>
+
+    <!-- AR场景 -->
+    <a-scene vr-mode-ui="enabled: false;" loading-screen="enabled: false;"
+        arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;" id="scene" embedded gesture-detector>
+
+        <!-- AR标记 -->
+        <a-marker id="animated-marker" type="pattern" preset="custom" url="assets/marker.patt"
+            raycaster="objects: .clickable" emitevents="true" cursor="fuse: false; rayOrigin: mouse;" id="markerA">
+
+            <!-- 可交互的图片 -->
+            <a-image src="assets/asset.png" scale="1 1 1" class="clickable" rotation="-90 0 0" gesture-handler></a-image>
+
+            <!-- 使用a-font加载Roboto字体 -->
+            <a-font id="robotoFont" src="https://cdn.aframe.io/fonts/Roboto-msdf.json"></a-font>
+
+            <!-- 使用Roboto字体的文本实体 -->
+            <a-text font="src: #robotoFont" value="Hello, Roboto!" position="0 0.5 -1.5"></a-text>
+            
+            <!-- 在这里添加额外的文本实体 -->
+            <a-text value="請問圖片中的青蛙叫什麼?" color="red" position="0 0.5 -0.5" rotation="-30 0 0"></a-text>
+
+        </a-marker>
+
+        <!-- 摄像机实体 -->
+        <a-entity camera></a-entity>
+    </a-scene>
+
+    <!-- JavaScript代码 -->
     <script>
         // 在DOM加载完成后执行JavaScript代码
         document.addEventListener("DOMContentLoaded", function () {
@@ -25,76 +105,6 @@
             });
         });
     </script>
-
-</head>
-<style>
-    #uiContainer {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        z-index: 9999; /* 设置在AR场景之上 */
-    }
-
-    #uiContainer img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    #closeButton {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -10%); /* 将按钮位置移动到屏幕中心 */
-        z-index: 10000; /* 确保关闭按钮在最顶层 */
-    }
-
-    #closeButton img {
-        width: 200px; /* 调整按钮大小 */
-        height: 200px;
-        cursor: pointer; /* 鼠标指针样式 */
-    }
-
-a-text {
-body {
-    font-family: 'Roboto', sans-serif;
-}
-
-</style>
-
-<body style="margin: 0; overflow: hidden;">
-
-    <div id="uiContainer">
-        <img src="assets/uiContainer.png" alt="UI Container Image">
-    </div>
-
-    <div id="closeButton">
-        <img src="assets/closeButton.png" alt="Close Button">
-    </div>
-
-    <a-scene vr-mode-ui="enabled: false;" loading-screen="enabled: false;"
-        arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;" id="scene" embedded gesture-detector>
-        <a-marker id="animated-marker" type="pattern" preset="custom" url="assets/marker.patt"
-            raycaster="objects: .clickable" emitevents="true" cursor="fuse: false; rayOrigin: mouse;" id="markerA">
-            <a-image src="assets/asset.png" scale="1 1 1" class="clickable" rotation="-90 0 0"
-                gesture-handler></a-image>
-
-       <!-- Use a-font to load Roboto font from URL -->
-        <a-font id="robotoFont" src="https://cdn.aframe.io/fonts/Roboto-msdf.json"></a-font>
-
-        <!-- Text entity using Roboto font -->
-        <a-text font="src: #robotoFont" value="Hello, Roboto!" position="0 0.5 -1.5"></a-text>
-            
-            <!-- 在这里添加a-text实体 -->
-            <a-text value="請問圖片中的青蛙叫什麼?" color="red" position="0 0.5 -0.5" rotation="-30 0 0"></a-text>
-            
-        </a-marker>
-
-        <a-entity camera></a-entity>
-    </a-scene>
 
 </body>
 
