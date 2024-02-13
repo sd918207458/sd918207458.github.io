@@ -25,6 +25,7 @@
             });
         });
     </script>
+
 </head>
 <style>
     #uiContainer {
@@ -56,14 +57,12 @@
         height: 200px;
         cursor: pointer; /* 鼠标指针样式 */
     }
-    @font-face {
-  font-family: 'Microsoft JhengHei';
-  src: url('assets/Microsoft-JhengHei.ttf') format('truetype');
-}
 
 a-text {
-  font-family: 'Microsoft JhengHei', Arial, sans-serif;
+body {
+    font-family: 'Roboto', sans-serif;
 }
+
 </style>
 
 <body style="margin: 0; overflow: hidden;">
@@ -82,10 +81,16 @@ a-text {
             raycaster="objects: .clickable" emitevents="true" cursor="fuse: false; rayOrigin: mouse;" id="markerA">
             <a-image src="assets/asset.png" scale="1 1 1" class="clickable" rotation="-90 0 0"
                 gesture-handler></a-image>
+
+       <!-- Use a-font to load Roboto font from URL -->
+        <a-font id="robotoFont" src="https://cdn.aframe.io/fonts/Roboto-msdf.json"></a-font>
+
+        <!-- Text entity using Roboto font -->
+        <a-text font="src: #robotoFont" value="Hello, Roboto!" position="-1 1 -3"></a-text>
             
             <!-- 在这里添加a-text实体 -->
             <a-text value="請問圖片中的青蛙叫什麼?" color="red" position="0 0.5 -1"></a-text>
-            <a-entity text="value: 請問圖片中的青蛙叫什麼?;font: https://cdn.aframe.io/fonts/mozillavr.fnt"></a-entity>
+            
         </a-marker>
 
         <a-entity camera></a-entity>
