@@ -83,14 +83,18 @@
 
         </a-marker>
 
-        <a-box position="-1 0.5 -3" rotation="0 45 0" color="red" onclick="checkAnswer('wrong')">Option 1</a-box>
-        <a-box position="1 0.5 -3" rotation="0 45 0" color="green" onclick="checkAnswer('correct')">Option 2</a-box>
-        <a-box position="-1 0 -3" rotation="0 45 0" color="red" onclick="checkAnswer('wrong')">Option 3</a-box>
-        <a-box position="1 0 -3" rotation="0 45 0" color="red" onclick="checkAnswer('wrong')">Option 4</a-box>
+        <!-- 添加四个选项的父级容器 -->
+        <a-entity position="0 0 -5">
+            <!-- 添加四个选项 -->
+            <a-box position="-1 0.5 0" rotation="0 45 0" color="red" onclick="checkAnswer('wrong')">Option 1</a-box>
+            <a-box position="1 0.5 0" rotation="0 45 0" color="green" onclick="checkAnswer('correct')">Option 2</a-box>
+            <a-box position="-1 0.5 -2" rotation="0 45 0" color="red" onclick="checkAnswer('wrong')">Option 3</a-box>
+            <a-box position="1 0.5 -2" rotation="0 45 0" color="red" onclick="checkAnswer('wrong')">Option 4</a-box>
+        </a-entity>
 
-                <!-- 添加用于播放true.gif和false.gif的 <a-image> 元素 -->
-        <a-image id="trueImage" src="assets/true.gif" width="0.5" height="0.5" position="0 1 -2" visible="false"></a-image>
-        <a-image id="falseImage" src="assets/false.gif" width="0.5" height="0.5" position="0 1 -2" visible="false"></a-image>
+        <!-- 添加用于播放true.gif和false.gif的 <a-image> 元素 -->
+        <a-image id="trueImage" src="assets/true.gif" width="1" height="1" position="0 1 -2" visible="false"></a-image>
+        <a-image id="falseImage" src="assets/false.gif" width="1" height="1" position="0 1 -2" visible="false"></a-image>
 
         <!-- 摄像机实体 -->
         <a-entity camera></a-entity>
@@ -125,6 +129,7 @@
                     trueImage.setAttribute('visible', 'false');
                 }, 1000);
 
+                alert('Congratulations! You chose the correct answer!');
             } else {
                 // 显示false.gif
                 var falseImage = document.getElementById('falseImage');
@@ -135,6 +140,7 @@
                     falseImage.setAttribute('visible', 'false');
                 }, 1000);
 
+                alert('Sorry, wrong answer. Try again!');
             }
         }
     </script>
