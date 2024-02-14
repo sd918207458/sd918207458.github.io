@@ -51,6 +51,32 @@
 
 <body style="margin: 0; overflow: hidden;">
 
+            function checkAnswer(option) {
+            if (option === 'correct') {
+                // 顯示true.gif
+                let trueImage = document.getElementById('trueImage');
+                trueImage.style.display = 'block';
+        
+                // 1 秒後隱藏
+                setTimeout(function() {
+                    trueImage.style.display = 'none';
+                }, 1000);
+        
+                alert('Congratulations! You chose the correct answer!');
+            } else {
+                // 顯示false.gif
+                let falseImage = document.getElementById('falseImage');
+                falseImage.style.display = 'block';
+        
+                // 1 秒後隱藏
+                setTimeout(function() {
+                    falseImage.style.display = 'none';
+                }, 1000);
+        
+                alert('Sorry, wrong answer. Try again!');
+            }
+        }
+
     <!-- UI容器 -->
     <div id="uiContainer">
         <img src="assets/UI.jpg" alt="UI Container Image">
@@ -76,20 +102,6 @@
             <!-- 在这里添加额外的文本实体 -->
             <a-text value="請問圖片中的青蛙叫什麼?" color="red" position="0 0.5 -0.5" rotation="-30 0 0"></a-text>
 
-                                <!-- 添加四个选项的父级容器 -->
-            <a-entity position="0 0 -5">
-                
-            <!-- 添加四個選項 -->
-            <a-box position="1 0 0.5" rotation="0 45 0" color="red" onclick="checkAnswer('wrong')">Option 1</a-box>
-            <a-box position="-1 0 0.5" rotation="0 45 0" color="green" onclick="checkAnswer('correct')">Option 2</a-box>
-            <a-box position="1 0 -0.5" rotation="0 45 0" color="red" onclick="checkAnswer('wrong')">Option 3</a-box>
-            <a-box position="-1 0 -0.5" rotation="0 45 0" color="red" onclick="checkAnswer('wrong')">Option 4</a-box>
-
-            </a-entity>
-    
-            <!-- 添加用于播放true.gif和false.gif的 <a-image> 元素 -->
-            <a-image id="trueImage" src="assets/true.gif" width="1" height="1" position="0 0 0" rotation="45 0 0" visible="false"></a-image>
-            <a-image id="falseImage" src="assets/false.gif" width="1" height="1" position="0 0 0" rotation="45 0 0" visible="false"></a-image>
             
         </a-marker>
 
@@ -117,32 +129,34 @@
                 closeButton.style.display = 'none';
             });
         });
+        
         // 检查答案
         function checkAnswer(option) {
             if (option === 'correct') {
-                // 显示true.gif
+                // 顯示true.gif
                 let trueImage = document.getElementById('trueImage');
-                trueImage.setAttribute('visible', 'true');
-
-                // 播放true.gif 1 秒后隐藏
+                trueImage.style.display = 'block';
+        
+                // 1 秒後隱藏
                 setTimeout(function() {
-                    trueImage.setAttribute('visible', 'false');
+                    trueImage.style.display = 'none';
                 }, 1000);
-
+        
                 alert('Congratulations! You chose the correct answer!');
             } else {
-                // 显示false.gif
+                // 顯示false.gif
                 let falseImage = document.getElementById('falseImage');
-                falseImage.setAttribute('visible', 'true');
-
-                // 播放false.gif 1 秒后隐藏
+                falseImage.style.display = 'block';
+        
+                // 1 秒後隱藏
                 setTimeout(function() {
-                    falseImage.setAttribute('visible', 'false');
+                    falseImage.style.display = 'none';
                 }, 1000);
-
+        
                 alert('Sorry, wrong answer. Try again!');
             }
         }
+
     </script>
 
 </body>
