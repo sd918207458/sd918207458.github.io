@@ -100,21 +100,23 @@
             <!-- 在这里添加额外的文本实体 -->
             <a-text value="請問圖片中的青蛙叫什麼?" color="red" position="0 0.5 -0.5" rotation="-30 0 0"></a-text>
 
+            <!-- 添加用于播放true.gif和false.gif的 <img> 元素 -->
+            <img id="trueImage" src="assets/true.gif" width="100" height="100" class="centered" style="display:none;">
+            <img id="falseImage" src="assets/false.gif" width="100" height="100" class="centered" style="display:none;">
+        
+            <!-- 红色区域 -->
+            <div id="bottomLeft" class="bottomArea" style="background-color: red;"></div>
+        
+            <!-- 绿色区域 -->
+            <div id="bottomRight" class="bottomArea" style="background-color: green;"></div>
+            
         </a-marker>
 
         <!-- 摄像机实体 -->
         <a-entity camera></a-entity>
     </a-scene>
 
-    <!-- 添加用于播放true.gif和false.gif的 <img> 元素 -->
-    <img id="trueImage" src="assets/true.gif" width="100" height="100" class="centered" style="display:none;">
-    <img id="falseImage" src="assets/false.gif" width="100" height="100" class="centered" style="display:none;">
 
-    <!-- 红色区域 -->
-    <div id="bottomLeft" class="bottomArea" style="background-color: red;"></div>
-
-    <!-- 绿色区域 -->
-    <div id="bottomRight" class="bottomArea" style="background-color: green;"></div>
 
     <!-- JavaScript代码 -->
     <script>
