@@ -88,6 +88,10 @@
         <a-box position="-1 0.5 -5" rotation="0 45 0" color="red" onclick="checkAnswer('wrong')">Option 3</a-box>
         <a-box position="1 0.5 -5" rotation="0 45 0" color="red" onclick="checkAnswer('wrong')">Option 4</a-box>
 
+                <!-- 添加用于播放true.gif和false.gif的 <a-image> 元素 -->
+        <a-image id="trueImage" src="assets/true.gif" width="1" height="1" position="0 1 -2" visible="false"></a-image>
+        <a-image id="falseImage" src="assets/false.gif" width="1" height="1" position="0 1 -2" visible="false"></a-image>
+
         <!-- 摄像机实体 -->
         <a-entity camera></a-entity>
     </a-scene>
@@ -109,11 +113,29 @@
                 closeButton.style.display = 'none';
             });
         });
-                // 检查答案
+        // 检查答案
         function checkAnswer(option) {
             if (option === 'correct') {
+                // 显示true.gif
+                var trueImage = document.getElementById('trueImage');
+                trueImage.setAttribute('visible', 'true');
+
+                // 播放true.gif 1 秒后隐藏
+                setTimeout(function() {
+                    trueImage.setAttribute('visible', 'false');
+                }, 1000);
+
                 alert('Congratulations! You chose the correct answer!');
             } else {
+                // 显示false.gif
+                var falseImage = document.getElementById('falseImage');
+                falseImage.setAttribute('visible', 'true');
+
+                // 播放false.gif 1 秒后隐藏
+                setTimeout(function() {
+                    falseImage.setAttribute('visible', 'false');
+                }, 1000);
+
                 alert('Sorry, wrong answer. Try again!');
             }
         }
