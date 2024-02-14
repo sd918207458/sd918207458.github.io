@@ -88,23 +88,24 @@
             <!-- 可交互的图片 -->
             <a-image src="assets/asset.png" scale="1 1 1" class="clickable" rotation="-90 0 0" gesture-handler></a-image>
 
-            
             <!-- 在这里添加额外的文本实体 -->
             <a-text value="請問圖片中的青蛙叫什麼?" color="red" position="0 0.5 -0.5" rotation="-30 0 0"></a-text>
 
-
-            <div id="bottomLeft" class="bottomArea" style="background-color: red;"></div>
-            <div id="bottomRight" class="bottomArea" style="background-color: green;"></div>
-            
-            <!-- 添加用於播放true.gif和false.gif的 <img> 元素 -->
-            <img id="trueImage" src="assets/true.gif" width="100" height="100" style="display:none;">
-            <img id="falseImage" src="assets/false.gif" width="100" height="100" style="display:none;">
-            
         </a-marker>
 
         <!-- 摄像机实体 -->
         <a-entity camera></a-entity>
     </a-scene>
+
+    <!-- 添加用於播放true.gif和false.gif的 <img> 元素 -->
+    <img id="trueImage" src="assets/true.gif" width="100" height="100" style="display:none;">
+    <img id="falseImage" src="assets/false.gif" width="100" height="100" style="display:none;">
+
+    <!-- 红色区域 -->
+    <div id="bottomLeft" class="bottomArea" style="background-color: red;"></div>
+
+    <!-- 绿色区域 -->
+    <div id="bottomRight" class="bottomArea" style="background-color: green;"></div>
 
     <!-- JavaScript代码 -->
     <script>
@@ -122,44 +123,41 @@
                 uiContainer.style.display = 'none';
                 closeButton.style.display = 'none';
             });
-        });
-        
-        // 检查答案
-            // 紅色區域的點擊事件監聽
-            document.getElementById('redArea').addEventListener('click', function() {
+
+            // 红色区域的点击事件
+            document.getElementById('bottomLeft').addEventListener('click', function() {
                 showFalse();
             });
-            
-            // 綠色區域的點擊事件監聽
-            document.getElementById('greenArea').addEventListener('click', function() {
+
+            // 绿色区域的点击事件
+            document.getElementById('bottomRight').addEventListener('click', function() {
                 showTrue();
             });
-            
-            function showTrue() {
-                // 顯示true.gif
-                let trueImage = document.getElementById('trueImage');
-                trueImage.style.display = 'block';
-            
-                // 1 秒後隱藏
-                setTimeout(function() {
-                    trueImage.style.display = 'none';
-                }, 1000);
+        });
+        
+        function showTrue() {
+            // 顯示true.gif
+            let trueImage = document.getElementById('trueImage');
+            trueImage.style.display = 'block';
+        
+            // 1 秒後隱藏
+            setTimeout(function() {
+                trueImage.style.display = 'none';
+            }, 1000);
 
-            }
-            
-            function showFalse() {
-                // 顯示false.gif
-                let falseImage = document.getElementById('falseImage');
-                falseImage.style.display = 'block';
-            
-                // 1 秒後隱藏
-                setTimeout(function() {
-                    falseImage.style.display = 'none';
-                }, 1000);
+        }
+        
+        function showFalse() {
+            // 顯示false.gif
+            let falseImage = document.getElementById('falseImage');
+            falseImage.style.display = 'block';
+        
+            // 1 秒後隱藏
+            setTimeout(function() {
+                falseImage.style.display = 'none';
+            }, 1000);
 
-            }
-
-
+        }
     </script>
 
 </body>
