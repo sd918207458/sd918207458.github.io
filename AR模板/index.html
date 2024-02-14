@@ -51,31 +51,13 @@
 
 <body style="margin: 0; overflow: hidden;">
 
-            function checkAnswer(option) {
-            if (option === 'correct') {
-                // 顯示true.gif
-                let trueImage = document.getElementById('trueImage');
-                trueImage.style.display = 'block';
-        
-                // 1 秒後隱藏
-                setTimeout(function() {
-                    trueImage.style.display = 'none';
-                }, 1000);
-        
-                alert('Congratulations! You chose the correct answer!');
-            } else {
-                // 顯示false.gif
-                let falseImage = document.getElementById('falseImage');
-                falseImage.style.display = 'block';
-        
-                // 1 秒後隱藏
-                setTimeout(function() {
-                    falseImage.style.display = 'none';
-                }, 1000);
-        
-                alert('Sorry, wrong answer. Try again!');
-            }
-        }
+    <div id="redArea" style="width: 50%; height: 50px; background-color: red;"></div>
+    <div id="greenArea" style="width: 50%; height: 50px; background-color: green;"></div>
+    
+    <!-- 添加用於播放true.gif和false.gif的 <img> 元素 -->
+    <img id="trueImage" src="assets/true.gif" width="100" height="100" style="display:none;">
+    <img id="falseImage" src="assets/false.gif" width="100" height="100" style="display:none;">
+
 
     <!-- UI容器 -->
     <div id="uiContainer">
@@ -131,31 +113,42 @@
         });
         
         // 检查答案
-        function checkAnswer(option) {
-            if (option === 'correct') {
+            // 紅色區域的點擊事件監聽
+            document.getElementById('redArea').addEventListener('click', function() {
+                showFalse();
+            });
+            
+            // 綠色區域的點擊事件監聽
+            document.getElementById('greenArea').addEventListener('click', function() {
+                showTrue();
+            });
+            
+            function showTrue() {
                 // 顯示true.gif
                 let trueImage = document.getElementById('trueImage');
                 trueImage.style.display = 'block';
-        
+            
                 // 1 秒後隱藏
                 setTimeout(function() {
                     trueImage.style.display = 'none';
                 }, 1000);
-        
+            
                 alert('Congratulations! You chose the correct answer!');
-            } else {
+            }
+            
+            function showFalse() {
                 // 顯示false.gif
                 let falseImage = document.getElementById('falseImage');
                 falseImage.style.display = 'block';
-        
+            
                 // 1 秒後隱藏
                 setTimeout(function() {
                     falseImage.style.display = 'none';
                 }, 1000);
-        
+            
                 alert('Sorry, wrong answer. Try again!');
             }
-        }
+
 
     </script>
 
