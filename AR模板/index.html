@@ -46,6 +46,22 @@
         a-text {
             font-family: 'Roboto', sans-serif;
         }
+
+        .bottomArea {
+            position: fixed;
+            width: 50%;
+            height: 50px;
+            bottom: 0;
+        }
+        
+        #bottomLeft {
+            left: 0;
+        }
+        
+        #bottomRight {
+            right: 0;
+        }
+
     </style>
 </head>
 
@@ -132,8 +148,7 @@
                 setTimeout(function() {
                     trueImage.style.display = 'none';
                 }, 1000);
-            
-                alert('Congratulations! You chose the correct answer!');
+
             }
             
             function showFalse() {
@@ -145,8 +160,7 @@
                 setTimeout(function() {
                     falseImage.style.display = 'none';
                 }, 1000);
-            
-                alert('Sorry, wrong answer. Try again!');
+
             }
 
 
