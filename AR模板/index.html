@@ -67,14 +67,6 @@
 
 <body style="margin: 0; overflow: hidden;">
 
-    <div id="redArea" style="width: 50%; height: 50px; background-color: red;"></div>
-    <div id="greenArea" style="width: 50%; height: 50px; background-color: green;"></div>
-    
-    <!-- 添加用於播放true.gif和false.gif的 <img> 元素 -->
-    <img id="trueImage" src="assets/true.gif" width="100" height="100" style="display:none;">
-    <img id="falseImage" src="assets/false.gif" width="100" height="100" style="display:none;">
-
-
     <!-- UI容器 -->
     <div id="uiContainer">
         <img src="assets/UI.jpg" alt="UI Container Image">
@@ -100,11 +92,15 @@
             <!-- 在这里添加额外的文本实体 -->
             <a-text value="請問圖片中的青蛙叫什麼?" color="red" position="0 0.5 -0.5" rotation="-30 0 0"></a-text>
 
+
+            <div id="bottomLeft" class="bottomArea" style="background-color: red;"></div>
+            <div id="bottomRight" class="bottomArea" style="background-color: green;"></div>
+            
+            <!-- 添加用於播放true.gif和false.gif的 <img> 元素 -->
+            <img id="trueImage" src="assets/true.gif" width="100" height="100" style="display:none;">
+            <img id="falseImage" src="assets/false.gif" width="100" height="100" style="display:none;">
             
         </a-marker>
-
-
-
 
         <!-- 摄像机实体 -->
         <a-entity camera></a-entity>
