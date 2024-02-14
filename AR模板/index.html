@@ -78,16 +78,18 @@
 
                                 <!-- 添加四个选项的父级容器 -->
             <a-entity position="0 0 -5">
-                <!-- 添加四个选项 -->
-                <a-box position="-3 -20 10" rotation="0 45 0" color="red" onclick="checkAnswer('wrong')">Option 1</a-box>
-                <a-box position="3 -20 10" rotation="0 45 0" color="green" onclick="checkAnswer('correct')">Option 2</a-box>
-                <a-box position="-3 -30 10" rotation="0 45 0" color="red" onclick="checkAnswer('wrong')">Option 3</a-box>
-                <a-box position="3 -30 10" rotation="0 45 0" color="red" onclick="checkAnswer('wrong')">Option 4</a-box>
+                
+            <!-- 添加四個選項 -->
+            <a-box position="-3 -1 -10" rotation="0 45 0" color="red" onclick="checkAnswer('wrong')">Option 1</a-box>
+            <a-box position="3 -1 -10" rotation="0 45 0" color="green" onclick="checkAnswer('correct')">Option 2</a-box>
+            <a-box position="-3 -1 -15" rotation="0 45 0" color="red" onclick="checkAnswer('wrong')">Option 3</a-box>
+            <a-box position="3 -1 -15" rotation="0 45 0" color="red" onclick="checkAnswer('wrong')">Option 4</a-box>
+
             </a-entity>
     
             <!-- 添加用于播放true.gif和false.gif的 <a-image> 元素 -->
-            <a-image id="trueImage" src="assets/true.gif" width="1" height="1" position="0 1 -2" visible="false"></a-image>
-            <a-image id="falseImage" src="assets/false.gif" width="1" height="1" position="0 1 -2" visible="false"></a-image>
+            <a-image id="trueImage" src="assets/true.gif" width="1" height="1" position="0 0 -1"></a-image>
+            <a-image id="falseImage" src="assets/false.gif" width="1" height="1" position="0 0 -1"></a-image>
             
         </a-marker>
 
