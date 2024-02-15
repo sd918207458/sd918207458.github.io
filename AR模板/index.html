@@ -79,8 +79,6 @@
     <!-- UI容器 -->
     <div id="uiContainer">
         <img src="assets/UI.jpg" alt="UI Container Image">
-        <!-- 添加亮度控制滑條 -->
-        <a-cylinder id="brightnessSlider" position="0 0 -5" radius="0.1" height="1" color="#777" draggable></a-cylinder>
     </div>
 
     <!-- 关闭按钮 -->
@@ -91,9 +89,6 @@
     <!-- AR场景 -->
     <a-scene vr-mode-ui="enabled: false;" loading-screen="enabled: false;"
         arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;" id="scene" embedded gesture-detector>
-
-        <!-- 光源 -->
-        <a-light id="light" type="ambient" intensity="1"></a-light>
 
         <!-- AR标记 -->
         <a-marker id="animated-marker" type="pattern" preset="custom" url="assets/marker.patt"
@@ -132,12 +127,6 @@
             // 获取uiContainer元素
             let uiContainer = document.getElementById('uiContainer');
 
-            // 获取光源元素
-            let light = document.getElementById('light');
-
-            // 获取滑條元素
-            let brightnessSlider = document.getElementById('brightnessSlider');
-
             // 监听关闭按钮的点击事件
             closeButton.addEventListener('click', function () {
                 // 隐藏uiContainer和closeButton
@@ -161,41 +150,30 @@
             document.getElementById('bottomRight').addEventListener('click', function() {
                 showTrue(); // 显示true.gif
             });
-
-            // 监听滑條的变化事件
-            brightnessSlider.addEventListener('componentchanged', function (event) {
-                // 检查事件是否是 position 组件变化
-                if (event.detail.name === 'position') {
-                    // 获取滑條当前的位置
-                    let position = brightnessSlider.getAttribute('position');
-                    // 计算亮度值（位置的 y 坐标映射到 [0, 1] 范围）
-                    let brightnessValue = 1 - ((position.y + 0.1) / 2);
-                    // 设置光源的亮度
-                    light.setAttribute('intensity', brightnessValue);
-                }
-            });
         });
-
+        
         function showTrue() {
             // 顯示true.gif
             let trueImage = document.getElementById('trueImage');
             trueImage.style.display = 'block';
-
+        
             // 1 秒後隱藏
             setTimeout(function() {
                 trueImage.style.display = 'none';
             }, 1000);
-        }
 
+        }
+        
         function showFalse() {
             // 顯示false.gif
             let falseImage = document.getElementById('falseImage');
             falseImage.style.display = 'block';
-
+        
             // 1 秒後隱藏
             setTimeout(function() {
                 falseImage.style.display = 'none';
             }, 1000);
+
         }
     </script>
 
