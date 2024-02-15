@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <!-- A-Frame和AR.js库 -->
+    <!-- A-Frame和AR.js庫 -->
     <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
 
@@ -71,6 +71,24 @@
             transform: translate(-50%, -50%);
         }
 
+        /* 盒子樣式 */
+        .scoreBox {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .scoreBox h3 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+        }
+
     </style>
 </head>
 
@@ -117,8 +135,16 @@
     <!-- 綠色區域 -->
     <div id="bottomRight" class="bottomArea" style="background-color: green; color: white; font-weight: bold; font-size: 40px; text-align: center;">諸羅樹蛙</div>
 
+    <!-- 分數盒子 -->
+    <div class="scoreBox">
+        <h3 id="scoreDisplay">分數: 0</h3>
+    </div>
+
     <!-- JavaScript代碼 -->
     <script>
+        // 分數計數器
+        let score = 0;
+
         // 在DOM加載完成後執行JavaScript代碼
         document.addEventListener("DOMContentLoaded", function () {
             // 獲取關閉按鈕元素
@@ -157,6 +183,12 @@
             let trueImage = document.getElementById('trueImage');
             trueImage.style.display = 'block';
         
+            // 增加分數
+            score += 100;
+
+            // 更新分數顯示
+            updateScoreDisplay();
+
             // 1 秒後隱藏
             setTimeout(function() {
                 trueImage.style.display = 'none';
@@ -174,6 +206,12 @@
                 falseImage.style.display = 'none';
             }, 1000);
 
+        }
+
+        // 更新分數顯示
+        function updateScoreDisplay() {
+            let scoreDisplay = document.getElementById('scoreDisplay');
+            scoreDisplay.innerText = '分數: ' + score;
         }
     </script>
 
