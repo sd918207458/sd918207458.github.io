@@ -71,6 +71,24 @@
             transform: translate(-50%, -50%);
         }
 
+        /* 盒子样式 */
+        .box {
+            position: fixed;
+            top: 20px;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .box:hover {
+            background-color: #ddd;
+        }
+
+        .box h3 {
+            margin: 0;
+            font-size: 18px;
+            text-align: center;
+        }
+
     </style>
 </head>
 
@@ -79,8 +97,6 @@
     <!-- UI容器 -->
     <div id="uiContainer">
         <img src="assets/UI.jpg" alt="UI Container Image">
-        <!-- 添加亮度控制滑條 -->
-        <a-cylinder id="brightnessSlider" position="0 0 -5" radius="0.1" height="1" color="#777" draggable></a-cylinder>
     </div>
 
     <!-- 关闭按钮 -->
@@ -122,6 +138,14 @@
     <!-- 绿色区域 -->
     <div id="bottomRight" class="bottomArea" style="background-color: green; color: white; font-weight: bold; font-size: 40px; text-align: center;">諸羅樹蛙</div>
 
+    <!-- 添加调整光源亮度的盒子 -->
+    <div class="box" style="left: 20px;" onclick="increaseBrightness()">
+        <h3>Increase Brightness</h3>
+    </div>
+    <div class="box" style="right: 20px;" onclick="decreaseBrightness()">
+        <h3>Decrease Brightness</h3>
+    </div>
+
     <!-- JavaScript代码 -->
     <script>
         // 在DOM加载完成后执行JavaScript代码
@@ -131,12 +155,6 @@
 
             // 获取uiContainer元素
             let uiContainer = document.getElementById('uiContainer');
-
-            // 获取光源元素
-            let light = document.getElementById('light');
-
-            // 获取滑條元素
-            let brightnessSlider = document.getElementById('brightnessSlider');
 
             // 监听关闭按钮的点击事件
             closeButton.addEventListener('click', function () {
@@ -161,19 +179,6 @@
             document.getElementById('bottomRight').addEventListener('click', function() {
                 showTrue(); // 显示true.gif
             });
-
-            // 监听滑條的变化事件
-            brightnessSlider.addEventListener('componentchanged', function (event) {
-                // 检查事件是否是 position 组件变化
-                if (event.detail.name === 'position') {
-                    // 获取滑條当前的位置
-                    let position = brightnessSlider.getAttribute('position');
-                    // 计算亮度值（位置的 y 坐标映射到 [0, 1] 范围）
-                    let brightnessValue = 1 - ((position.y + 0.1) / 2);
-                    // 设置光源的亮度
-                    light.setAttribute('intensity', brightnessValue);
-                }
-            });
         });
 
         function showTrue() {
@@ -196,6 +201,23 @@
             setTimeout(function() {
                 falseImage.style.display = 'none';
             }, 1000);
+        }
+
+        // 增加光源亮度的函数
+        function increaseBrightness() {
+            let light = document.getElementById('light');
+            let intensity = parseFloat(light.getAttribute('intensity'));
+            intensity += 0.1; // 增加 0.1
+            light.setAttribute('intensity', intensity.toFixed(1)); // 保留一位小数
+        }
+
+        // 减少光源亮度的函数
+        function decreaseBrightness() {
+            let light = document.getElementById('light');
+            let intensity = parseFloat(light.getAttribute('intensity'));
+            intensity -= 0.1; // 减少 0.1
+            if (intensity < 0) intensity = 0; // 亮度不能小于0
+            light.setAttribute('intensity', intensity.toFixed(1)); // 保留一位小数
         }
     </script>
 
