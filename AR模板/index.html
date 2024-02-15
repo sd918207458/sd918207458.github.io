@@ -102,7 +102,8 @@
 
             <!-- 在这里添加额外的文本实体 -->
             <a-text value="What's this frog?" color="red" position="-0.5 0.5 -0.5" rotation="-60 0 0"></a-text>
-
+            <!-- Dim ambient lighting. -->
+            <a-light type="ambient" color="#222"></a-light>
         </a-marker>
 
         <!-- 摄像机实体 -->
@@ -133,6 +134,9 @@
         // 获取滑條元素
         let brightnessSlider = document.getElementById('brightnessSlider');
     
+        // 获取光源元素
+        let light = document.getElementById('light');
+    
         // 监听关闭按钮的点击事件
         closeButton.addEventListener('click', function () {
             // 隐藏uiContainer和closeButton
@@ -161,8 +165,8 @@
         brightnessSlider.addEventListener('input', function() {
             // 获取滑條的值
             let brightnessValue = brightnessSlider.value;
-            // 设置场景亮度
-            document.getElementById('scene').setAttribute('brightness', brightnessValue);
+            // 设置光源亮度
+            light.setAttribute('intensity', brightnessValue / 100);
         });
     });
     
@@ -175,7 +179,6 @@
         setTimeout(function() {
             trueImage.style.display = 'none';
         }, 1000);
-    
     }
     
     function showFalse() {
@@ -187,7 +190,6 @@
         setTimeout(function() {
             falseImage.style.display = 'none';
         }, 1000);
-    
     }
 
     </script>
