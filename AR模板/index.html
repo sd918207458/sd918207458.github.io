@@ -200,6 +200,12 @@
             // 顯示false.gif
             let falseImage = document.getElementById('falseImage');
             falseImage.style.display = 'block';
+
+            // 減少分數
+            score += 100;
+
+            // 更新分數顯示
+            updateScoreDisplay();
         
             // 1 秒後隱藏
             setTimeout(function() {
