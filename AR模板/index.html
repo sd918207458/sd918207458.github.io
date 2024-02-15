@@ -6,12 +6,12 @@
     <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
 
-    <!-- 手势识别和处理脚本 -->
+    <!-- 手勢識別和處理腳本 -->
     <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-detector.js"></script>
     <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-handler.js"></script>
 
     <style>
-        /* 样式表 */
+        /* 樣式表 */
         #uiContainer {
             position: fixed;
             top: 0;
@@ -19,7 +19,7 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            z-index: 9999; /* 设置在AR场景之上 */
+            z-index: 9999; /* 設置在AR場景之上 */
         }
 
         #uiContainer img {
@@ -32,17 +32,17 @@
             position: fixed;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -10%); /* 将按钮位置移动到屏幕中心 */
-            z-index: 10000; /* 确保关闭按钮在最顶层 */
+            transform: translate(-50%, -10%); /* 將按鈕位置移動到螢幕中心 */
+            z-index: 10000; /* 確保關閉按鈕在最頂層 */
         }
 
         #closeButton img {
-            width: 200px; /* 调整按钮大小 */
+            width: 200px; /* 調整按鈕大小 */
             height: 200px;
-            cursor: pointer; /* 鼠标指针样式 */
+            cursor: pointer; /* 滑鼠指標樣式 */
         }
 
-        /* 文字样式 */
+        /* 文字樣式 */
         a-text {
             font-family: 'Roboto', sans-serif;
         }
@@ -52,7 +52,7 @@
             width: 50%;
             height: 50px;
             bottom: 0;
-            display: none; /* 初始隐藏 */
+            display: none; /* 初始隱藏 */
         }
         
         #bottomLeft {
@@ -63,30 +63,12 @@
             right: 0;
         }
 
-        /* 在屏幕中间显示 */
+        /* 在螢幕中間顯示 */
         .centered {
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-        }
-
-        /* 盒子样式 */
-        .box {
-            position: fixed;
-            top: 20px;
-            padding: 10px;
-            cursor: pointer;
-        }
-
-        .box:hover {
-            background-color: #ddd;
-        }
-
-        .box h3 {
-            margin: 0;
-            font-size: 18px;
-            text-align: center;
         }
 
     </style>
@@ -96,128 +78,102 @@
 
     <!-- UI容器 -->
     <div id="uiContainer">
-        <img src="assets/UI.jpg" alt="UI Container Image">
+        <img src="assets/UI.jpg" alt="UI 容器圖片">
     </div>
 
-    <!-- 关闭按钮 -->
+    <!-- 關閉按鈕 -->
     <div id="closeButton">
-        <img src="assets/closeButton.png" alt="Close Button">
+        <img src="assets/closeButton.png" alt="關閉按鈕">
     </div>
 
-    <!-- AR场景 -->
+    <!-- AR場景 -->
     <a-scene vr-mode-ui="enabled: false;" loading-screen="enabled: false;"
         arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;" id="scene" embedded gesture-detector>
 
-        <!-- 光源 -->
-        <a-light id="light" type="ambient" intensity="1"></a-light>
-
-        <!-- AR标记 -->
+        <!-- AR標記 -->
         <a-marker id="animated-marker" type="pattern" preset="custom" url="assets/marker.patt"
             raycaster="objects: .clickable" emitevents="true" cursor="fuse: false; rayOrigin: mouse;" id="markerA">
 
-            <!-- 可交互的图片 -->
+            <!-- 可交互的圖片 -->
             <a-image src="assets/asset.png" scale="1 1 1" class="clickable" rotation="-90 0 0" gesture-handler></a-image>
 
-            <!-- 在这里添加额外的文本实体 -->
-            <a-text value="What's this frog?" color="red" position="-0.5 0.5 -0.5" rotation="-60 0 0"></a-text>
+            <!-- 在這裡添加額外的文字實體 -->
+            <a-text value="這是什麼青蛙？" color="red" position="-0.5 0.5 -0.5" rotation="-60 0 0"></a-text>
 
         </a-marker>
 
-        <!-- 摄像机实体 -->
+        <!-- 攝像機實體 -->
         <a-entity camera></a-entity>
     </a-scene>
 
-    <!-- 添加用于播放true.gif和false.gif的 <img> 元素 -->
+    <!-- 添加用於播放true.gif和false.gif的 <img> 元素 -->
     <img id="trueImage" src="assets/true.gif" width="100" height="100" class="centered" style="display:none;">
     <img id="falseImage" src="assets/false.gif" width="100" height="100" class="centered" style="display:none;">
 
-    <!-- 红色区域 -->
+    <!-- 紅色區域 -->
     <div id="bottomLeft" class="bottomArea" style="background-color: red; color: white; font-weight: bold; font-size: 40px; text-align: center;">莫氏樹蛙</div>
 
 
-    <!-- 绿色区域 -->
+    <!-- 綠色區域 -->
     <div id="bottomRight" class="bottomArea" style="background-color: green; color: white; font-weight: bold; font-size: 40px; text-align: center;">諸羅樹蛙</div>
 
-    <!-- 添加调整光源亮度的盒子 -->
-    <div class="box" style="left: 20px;" onclick="increaseBrightness()">
-        <h3>Increase Brightness</h3>
-    </div>
-    <div class="box" style="right: 20px;" onclick="decreaseBrightness()">
-        <h3>Decrease Brightness</h3>
-    </div>
-
-    <!-- JavaScript代码 -->
+    <!-- JavaScript代碼 -->
     <script>
-        // 在DOM加载完成后执行JavaScript代码
+        // 在DOM加載完成後執行JavaScript代碼
         document.addEventListener("DOMContentLoaded", function () {
-            // 获取关闭按钮元素
+            // 獲取關閉按鈕元素
             let closeButton = document.getElementById('closeButton');
 
-            // 获取uiContainer元素
+            // 獲取uiContainer元素
             let uiContainer = document.getElementById('uiContainer');
 
-            // 监听关闭按钮的点击事件
+            // 監聽關閉按鈕的點擊事件
             closeButton.addEventListener('click', function () {
-                // 隐藏uiContainer和closeButton
+                // 隱藏uiContainer和closeButton
                 uiContainer.style.display = 'none';
                 closeButton.style.display = 'none';
             });
 
-            // 监听a-marker的触发事件
+            // 監聽a-marker的觸發事件
             document.getElementById('animated-marker').addEventListener('markerFound', function() {
-                // 显示红色和绿色区域
+                // 顯示紅色和綠色區域
                 document.getElementById('bottomLeft').style.display = 'block';
                 document.getElementById('bottomRight').style.display = 'block';
             });
 
-            // 红色区域的点击事件
+            // 紅色區域的點擊事件
             document.getElementById('bottomLeft').addEventListener('click', function() {
-                showFalse(); // 显示false.gif
+                showFalse(); // 顯示false.gif
             });
 
-            // 绿色区域的点击事件
+            // 綠色區域的點擊事件
             document.getElementById('bottomRight').addEventListener('click', function() {
-                showTrue(); // 显示true.gif
+                showTrue(); // 顯示true.gif
             });
         });
-
+        
         function showTrue() {
             // 顯示true.gif
             let trueImage = document.getElementById('trueImage');
             trueImage.style.display = 'block';
-
+        
             // 1 秒後隱藏
             setTimeout(function() {
                 trueImage.style.display = 'none';
             }, 1000);
-        }
 
+        }
+        
         function showFalse() {
             // 顯示false.gif
             let falseImage = document.getElementById('falseImage');
             falseImage.style.display = 'block';
-
+        
             // 1 秒後隱藏
             setTimeout(function() {
                 falseImage.style.display = 'none';
             }, 1000);
-        }
 
-        // 增加光源亮度的函数
-        function increaseBrightness() {
-            let light = document.getElementById('light');
-            let intensity = parseFloat(light.getAttribute('intensity'));
-            intensity += 0.1; // 增加 0.1
-            light.setAttribute('intensity', intensity.toFixed(1)); // 保留一位小数
-        }
-
-        // 减少光源亮度的函数
-        function decreaseBrightness() {
-            let light = document.getElementById('light');
-            let intensity = parseFloat(light.getAttribute('intensity'));
-            intensity -= 0.1; // 减少 0.1
-            if (intensity < 0) intensity = 0; // 亮度不能小于0
-            light.setAttribute('intensity', intensity.toFixed(1)); // 保留一位小数
         }
     </script>
 
