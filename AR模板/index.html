@@ -75,11 +75,14 @@
 </head>
 
 <body style="margin: 0; overflow: hidden;">
-
+    
     <!-- UI容器 -->
     <div id="uiContainer">
         <img src="assets/UI.jpg" alt="UI Container Image">
+        <!-- 添加亮度控制滑條 -->
+        <input type="range" id="brightnessSlider" min="0" max="100" value="100" step="1">
     </div>
+
 
     <!-- 关闭按钮 -->
     <div id="closeButton">
@@ -119,62 +122,74 @@
 
     <!-- JavaScript代码 -->
     <script>
-        // 在DOM加载完成后执行JavaScript代码
-        document.addEventListener("DOMContentLoaded", function () {
-            // 获取关闭按钮元素
-            let closeButton = document.getElementById('closeButton');
-
-            // 获取uiContainer元素
-            let uiContainer = document.getElementById('uiContainer');
-
-            // 监听关闭按钮的点击事件
-            closeButton.addEventListener('click', function () {
-                // 隐藏uiContainer和closeButton
-                uiContainer.style.display = 'none';
-                closeButton.style.display = 'none';
-            });
-
-            // 监听a-marker的触发事件
-            document.getElementById('animated-marker').addEventListener('markerFound', function() {
-                // 显示红色和绿色区域
-                document.getElementById('bottomLeft').style.display = 'block';
-                document.getElementById('bottomRight').style.display = 'block';
-            });
-
-            // 红色区域的点击事件
-            document.getElementById('bottomLeft').addEventListener('click', function() {
-                showFalse(); // 显示false.gif
-            });
-
-            // 绿色区域的点击事件
-            document.getElementById('bottomRight').addEventListener('click', function() {
-                showTrue(); // 显示true.gif
-            });
+    // 在DOM加载完成后执行JavaScript代码
+    document.addEventListener("DOMContentLoaded", function () {
+        // 获取关闭按钮元素
+        let closeButton = document.getElementById('closeButton');
+    
+        // 获取uiContainer元素
+        let uiContainer = document.getElementById('uiContainer');
+    
+        // 获取滑條元素
+        let brightnessSlider = document.getElementById('brightnessSlider');
+    
+        // 监听关闭按钮的点击事件
+        closeButton.addEventListener('click', function () {
+            // 隐藏uiContainer和closeButton
+            uiContainer.style.display = 'none';
+            closeButton.style.display = 'none';
         });
-        
-        function showTrue() {
-            // 顯示true.gif
-            let trueImage = document.getElementById('trueImage');
-            trueImage.style.display = 'block';
-        
-            // 1 秒後隱藏
-            setTimeout(function() {
-                trueImage.style.display = 'none';
-            }, 1000);
+    
+        // 监听a-marker的触发事件
+        document.getElementById('animated-marker').addEventListener('markerFound', function() {
+            // 显示红色和绿色区域
+            document.getElementById('bottomLeft').style.display = 'block';
+            document.getElementById('bottomRight').style.display = 'block';
+        });
+    
+        // 红色区域的点击事件
+        document.getElementById('bottomLeft').addEventListener('click', function() {
+            showFalse(); // 显示false.gif
+        });
+    
+        // 绿色区域的点击事件
+        document.getElementById('bottomRight').addEventListener('click', function() {
+            showTrue(); // 显示true.gif
+        });
+    
+        // 监听滑條的变化事件
+        brightnessSlider.addEventListener('input', function() {
+            // 获取滑條的值
+            let brightnessValue = brightnessSlider.value;
+            // 设置场景亮度
+            document.getElementById('scene').setAttribute('brightness', brightnessValue);
+        });
+    });
+    
+    function showTrue() {
+        // 顯示true.gif
+        let trueImage = document.getElementById('trueImage');
+        trueImage.style.display = 'block';
+    
+        // 1 秒後隱藏
+        setTimeout(function() {
+            trueImage.style.display = 'none';
+        }, 1000);
+    
+    }
+    
+    function showFalse() {
+        // 顯示false.gif
+        let falseImage = document.getElementById('falseImage');
+        falseImage.style.display = 'block';
+    
+        // 1 秒後隱藏
+        setTimeout(function() {
+            falseImage.style.display = 'none';
+        }, 1000);
+    
+    }
 
-        }
-        
-        function showFalse() {
-            // 顯示false.gif
-            let falseImage = document.getElementById('falseImage');
-            falseImage.style.display = 'block';
-        
-            // 1 秒後隱藏
-            setTimeout(function() {
-                falseImage.style.display = 'none';
-            }, 1000);
-
-        }
     </script>
 
 </body>
