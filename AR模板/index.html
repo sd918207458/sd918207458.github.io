@@ -175,9 +175,6 @@
                 bottomRight.style.display = 'block';
             });
         
-            // 定義紅色區域和綠色區域的初始位置
-            let initialLeft = bottomLeft.style.left;
-            let initialRight = bottomRight.style.right;
             
             // 紅色區域的點擊事件
             bottomLeft.addEventListener('click', function() {
@@ -191,10 +188,7 @@
                 // 替換a-text的內容
                 let text = document.querySelector('a-text');
                 text.setAttribute('value', 'What river is this?');
-            
-                // 隨機設定紅色區域的位置
-                bottomLeft.style.left = initialLeft + Math.random() * 100 + 'px';
-                bottomLeft.style.top = initialLeft + Math.random() * 100 + 'px';
+
             });
             
             // 綠色區域的點擊事件
@@ -209,10 +203,7 @@
                 // 替換a-text的內容
                 let text = document.querySelector('a-text');
                 text.setAttribute('value', 'What river is this?');
-            
-                // 隨機設定綠色區域的位置
-                bottomRight.style.left = initialRight + Math.random() * 100 + 'px';
-                bottomRight.style.top = initialRight + Math.random() * 100 + 'px';
+
             });
 
 
