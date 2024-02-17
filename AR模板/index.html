@@ -148,12 +148,11 @@
                 uiContainer.style.display = 'none';
                 closeButton.style.display = 'none';
             });
-
-            // 定義 JavaScript 代碼的函數，並接受一個參數作為配置
+            
             function runMyCode(config) {
                 // 解構參數對象，提取需要的屬性
-                const { bottomLeftId, bottomRightId, markerId } = config;
-            
+                const { bottomLeftId, bottomRightId, markerId, bottomLeftText, bottomRightText } = config;
+          
                 // 分數計數器
                 let score = 0;
             
@@ -234,14 +233,15 @@
                 }
             }
             
-            // 調用函數並傳遞配置參數
-            runMyCode({
-                bottomLeftId: 'bottomLeft', // 紅色區域的元素ID
-                bottomRightId: 'bottomRight', // 綠色區域的元素ID
-                markerId: 'animated-marker' // AR 標記的元素ID
-                bottomLeftText: '濁水溪', // 紅色區域的文字
-                bottomRightText: '鹽水溪' // 綠色區域的文字
-            });
+                runMyCode({
+                    bottomLeftId: 'bottomLeft', // 紅色區域的元素ID
+                    bottomRightId: 'bottomRight', // 綠色區域的元素ID
+                    markerId: 'animated-marker', // AR 標記的元素ID
+                    bottomLeftText: '濁水溪', // 紅色區域的文字
+                    bottomRightText: '鹽水溪' // 綠色區域的文字
+                });
+            }
+
 
     </script>
 
