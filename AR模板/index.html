@@ -138,12 +138,9 @@
         // 分數計數器
         let score = 0;
 
-        // 在DOM加載完成後執行JavaScript代碼
-        document.addEventListener("DOMContentLoaded", function () {
-            // 隨機決定紅色和綠色區域的位置
+        // 定義設置紅色和綠色區域位置的函數
+        function setAreasPosition() {
             let random = Math.random(); // 生成一個0到1之間的隨機數
-            let bottomLeft = document.getElementById('bottomLeft');
-            let bottomRight = document.getElementById('bottomRight');
         
             if (random < 0.5) {
                 // 將紅色區域放在左邊，綠色區域放在右邊
@@ -154,6 +151,12 @@
                 bottomLeft.style.right = '0';
                 bottomRight.style.left = '0';
             }
+        }
+        
+        // 在DOM加載完成後執行JavaScript代碼
+        document.addEventListener("DOMContentLoaded", function () {
+            // 調用函數設置區域位置
+            setAreasPosition();
         
             // 獲取關閉按鈕元素
             let closeButton = document.getElementById('closeButton');
@@ -175,36 +178,23 @@
                 bottomRight.style.display = 'block';
             });
         
-            
             // 紅色區域的點擊事件
             bottomLeft.addEventListener('click', function() {
-                // 替換紅色區域的文字
-                bottomLeft.innerText = "濁水溪";
-            
-                // 替換a-image的src屬性
-                let image = document.querySelector('a-image');
-                image.setAttribute('src', 'assets/river.jpg');
-            
-                // 替換a-text的內容
-                let text = document.querySelector('a-text');
-                text.setAttribute('value', 'What river is this?');
-
+                // 在點擊紅色區域後再次設置區域位置
+                setAreasPosition();
+        
+                // 其他操作...
             });
-            
+        
             // 綠色區域的點擊事件
             bottomRight.addEventListener('click', function() {
-                // 替換綠色區域的文字
-                bottomRight.innerText = "鹽水溪";
-            
-                // 替換a-image的src屬性
-                let image = document.querySelector('a-image');
-                image.setAttribute('src', 'assets/river.jpg');
-            
-                // 替換a-text的內容
-                let text = document.querySelector('a-text');
-                text.setAttribute('value', 'What river is this?');
-
+                // 在點擊綠色區域後再次設置區域位置
+                setAreasPosition();
+        
+                // 其他操作...
             });
+        });
+
 
 
         
