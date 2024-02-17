@@ -2,13 +2,13 @@
 <html>
 
 <head>
-<!-- A-Frame和AR.js庫 -->
-        <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js@3.0.1/aframe/build/aframe-ar.js"></script>
-        
-        <!-- 手勢識別和處理腳本 -->
-        <script src="gesture-detector.js"></script>
-        <script src="gesture-handler.js"></script>
+    <!-- A-Frame和AR.js庫 -->
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <script src="https://rawcdn.githack.com/AR-js-org/AR.js/2.3.0/aframe/build/aframe-ar-nft.js"></script>
+
+    <!-- 手勢識別和處理腳本 -->
+    <script src="https://rawcdn.githack.com/AR-js-org/studio-backend/08fffb751a675219e50b6d59586d08bb17a8e4f8/src/modules/marker/tools/gesture-detector.js"></script>
+    <script src="https://rawcdn.githack.com/AR-js-org/studio-backend/08fffb751a675219e50b6d59586d08bb17a8e4f8/src/modules/marker/tools/gesture-handler.js"></script>
 
     <style>
         /* 樣式表 */
@@ -99,10 +99,10 @@
 
     <!-- AR場景 -->
     <a-scene vr-mode-ui="enabled: false;" loading-screen="enabled: false;"
-        arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;" id="scene" embedded gesture-detector>
+        arjs="sourceType: webcam; debugUIEnabled: false;" id="scene" embedded gesture-detector>
 
         <!-- AR標記 -->
-        <a-marker id="animated-marker" type="pattern" preset="custom" url="assets/marker.patt"
+        <a-marker id="animated-marker" type="nft" url="assets/marker.nft"
             raycaster="objects: .clickable" emitevents="true" cursor="fuse: false; rayOrigin: mouse;" id="markerA">
 
             <!-- 可交互的圖片 -->
@@ -137,31 +137,23 @@
     <script>
         // 分數計數器
         let score = 0;
-    
+
         // 在DOM加載完成後執行JavaScript代碼
         document.addEventListener("DOMContentLoaded", function () {
-        // 獲取紅色和綠色區域的元素
-        let bottomLeft = document.getElementById('bottomLeft');
-        let bottomRight = document.getElementById('bottomRight');
-        
-        // 定義設置紅色和綠色區域位置的函數
-        function setAreasPosition() {
+            // 隨機決定紅色和綠色區域的位置
             let random = Math.random(); // 生成一個0到1之間的隨機數
+            let bottomLeft = document.getElementById('bottomLeft');
+            let bottomRight = document.getElementById('bottomRight');
         
             if (random < 0.5) {
                 // 將紅色區域放在左邊，綠色區域放在右邊
                 bottomLeft.style.left = '0';
-                bottomLeft.style.position = 'absolute'; // 設置為絕對定位
                 bottomRight.style.right = '0';
-                bottomRight.style.position = 'absolute'; // 設置為絕對定位
             } else {
                 // 將綠色區域放在左邊，紅色區域放在右邊
                 bottomLeft.style.right = '0';
-                bottomLeft.style.position = 'absolute'; // 設置為絕對定位
                 bottomRight.style.left = '0';
-                bottomRight.style.position = 'absolute'; // 設置為絕對定位
             }
-        }
         
             // 獲取關閉按鈕元素
             let closeButton = document.getElementById('closeButton');
@@ -186,13 +178,11 @@
             // 紅色區域的點擊事件
             bottomLeft.addEventListener('click', function() {
                 showFalse(); // 顯示false.gif
-                setAreasPosition(); // 重新設置區域位置
             });
-            
+        
             // 綠色區域的點擊事件
             bottomRight.addEventListener('click', function() {
                 showTrue(); // 顯示true.gif
-                setAreasPosition(); // 重新設置區域位置
             });
         });
 
