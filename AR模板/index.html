@@ -99,10 +99,10 @@
 
     <!-- AR場景 -->
     <a-scene vr-mode-ui="enabled: false;" loading-screen="enabled: false;"
-        arjs="sourceType: webcam; debugUIEnabled: false;" id="scene" embedded gesture-detector>
+        arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;" id="scene" embedded gesture-detector>
 
         <!-- AR標記 -->
-        <a-marker id="animated-marker" type="nft" url="assets/marker.patt"
+        <a-marker id="animated-marker" type="pattern" preset="custom" url="assets/marker.patt"
             raycaster="objects: .clickable" emitevents="true" cursor="fuse: false; rayOrigin: mouse;" id="markerA">
 
             <!-- 可交互的圖片 -->
@@ -132,7 +132,7 @@
     <div class="scoreBox">
         <h3 id="scoreDisplay">分數: 0</h3>
     </div>
-
+    
     <!-- JavaScript代碼 -->
     <script>
         // 分數計數器
