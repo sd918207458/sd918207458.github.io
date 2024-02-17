@@ -193,11 +193,13 @@
             // 紅色區域的點擊事件
             bottomLeft.addEventListener('click', function() {
                 showFalse(); // 顯示false.gif
+                setAreasPosition(); // 重新設置區域位置
             });
-        
+            
             // 綠色區域的點擊事件
             bottomRight.addEventListener('click', function() {
                 showTrue(); // 顯示true.gif
+                setAreasPosition(); // 重新設置區域位置
             });
         });
 
