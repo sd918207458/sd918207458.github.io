@@ -1,34 +1,70 @@
-/* styles.css */
+        /* 樣式表 */
+        #uiContainer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 9999; /* 設置在AR場景之上 */
+        }
 
-/* 样式表 */
-#uiContainer {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    z-index: 9999; /* 设置在AR场景之上 */
-}
+        #uiContainer img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
-#uiContainer img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
+        #closeButton {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -10%); /* 將按鈕位置移動到螢幕中心 */
+            z-index: 10000; /* 確保關閉按鈕在最頂層 */
+        }
 
-#closeButton {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -10%); /* 将按钮位置移动到屏幕中心 */
-    z-index: 10000; /* 确保关闭按钮在最顶层 */
-}
+        #closeButton img {
+            width: 200px; /* 調整按鈕大小 */
+            height: 200px;
+            cursor: pointer; /* 滑鼠指標樣式 */
+        }
 
-#closeButton img {
-    width: 200px; /* 调整按钮大小 */
-    height: 200px;
-    cursor: pointer; /* 鼠标指针样式 */
-}
+        /* 文字樣式 */
+        a-text {
+            font-family: 'Roboto', sans-serif;
+        }
 
-/* 其他样式... */
+        .bottomArea {
+            position: fixed;
+            width: 50%;
+            height: 50px;
+            bottom: 0;
+            display: none; /* 初始隱藏 */
+        }
+        
+
+        /* 在螢幕中間顯示 */
+        .centered {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* 盒子樣式 */
+        .scoreBox {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .scoreBox h3 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+        }
