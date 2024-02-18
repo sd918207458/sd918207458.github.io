@@ -10,79 +10,9 @@
     <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-detector.js"></script>
     <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-handler.js"></script>
 
-    <style>
-        /* 樣式表 */
-        #uiContainer {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: 9999; /* 設置在AR場景之上 */
-        }
-
-        #uiContainer img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        #closeButton {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -10%); /* 將按鈕位置移動到螢幕中心 */
-            z-index: 10000; /* 確保關閉按鈕在最頂層 */
-        }
-
-        #closeButton img {
-            width: 200px; /* 調整按鈕大小 */
-            height: 200px;
-            cursor: pointer; /* 滑鼠指標樣式 */
-        }
-
-        /* 文字樣式 */
-        a-text {
-            font-family: 'Roboto', sans-serif;
-        }
-
-        .bottomArea {
-            position: fixed;
-            width: 50%;
-            height: 50px;
-            bottom: 0;
-            display: none; /* 初始隱藏 */
-        }
-        
-
-        /* 在螢幕中間顯示 */
-        .centered {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        /* 盒子樣式 */
-        .scoreBox {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 10px;
-            background-color: #f0f0f0;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-        }
-
-        .scoreBox h3 {
-            margin: 0;
-            font-size: 16px;
-            font-weight: bold;
-            text-align: center;
-        }
-
-    </style>
+    <!-- 引用外部CSS文件 -->
+    <link rel="stylesheet" type="text/css" href="./styles.css">
+    
 </head>
 
 <body style="margin: 0; overflow: hidden;">
@@ -135,101 +65,97 @@
     
     <!-- JavaScript代碼 -->
     <script>
-        // 分數計數器
-        let score = 0;
+// 初始化遊戲邏輯
+function initializeGameLogic() {
+    // 分數計數器
+    let score = 0;
 
-        // 在DOM加載完成後執行JavaScript代碼
-        document.addEventListener("DOMContentLoaded", function () {
-            // 隨機決定紅色和綠色區域的位置
-            let random = Math.random(); // 生成一個0到1之間的隨機數
-            let bottomLeft = document.getElementById('bottomLeft');
-            let bottomRight = document.getElementById('bottomRight');
-        
-            if (random < 0.5) {
-                // 將紅色區域放在左邊，綠色區域放在右邊
-                bottomLeft.style.left = '0';
-                bottomRight.style.right = '0';
-            } else {
-                // 將綠色區域放在左邊，紅色區域放在右邊
-                bottomLeft.style.right = '0';
-                bottomRight.style.left = '0';
-            }
-        
-            // 獲取關閉按鈕元素
-            let closeButton = document.getElementById('closeButton');
-        
-            // 獲取uiContainer元素
-            let uiContainer = document.getElementById('uiContainer');
-        
-            // 監聽關閉按鈕的點擊事件
-            closeButton.addEventListener('click', function () {
-                // 隱藏uiContainer和closeButton
-                uiContainer.style.display = 'none';
-                closeButton.style.display = 'none';
-            });
-        
-            // 監聽a-marker的觸發事件
-            document.getElementById('animated-marker').addEventListener('markerFound', function() {
-                // 顯示紅色和綠色區域
-                bottomLeft.style.display = 'block';
-                bottomRight.style.display = 'block';
-            });
-        
-            // 紅色區域的點擊事件
-            bottomLeft.addEventListener('click', function() {
-                showFalse(); // 顯示false.gif
-            });
-        
-            // 綠色區域的點擊事件
-            bottomRight.addEventListener('click', function() {
-                showTrue(); // 顯示true.gif
-            });
+    // 在DOM加載完成後執行JavaScript代碼
+    document.addEventListener("DOMContentLoaded", function () {
+        // 隨機決定紅色和綠色區域的位置
+        let random = Math.random(); // 生成一個0到1之間的隨機數
+        let bottomLeft = document.getElementById('bottomLeft');
+        let bottomRight = document.getElementById('bottomRight');
+
+        if (random < 0.5) {
+            // 將紅色區域放在左邊，綠色區域放在右邊
+            bottomLeft.style.left = '0';
+            bottomRight.style.right = '0';
+        } else {
+            // 將綠色區域放在左邊，紅色區域放在右邊
+            bottomLeft.style.right = '0';
+            bottomRight.style.left = '0';
+        }
+
+        // 監聽a-marker的觸發事件
+        document.getElementById('animated-marker').addEventListener('markerFound', function() {
+            // 顯示紅色和綠色區域
+            bottomLeft.style.display = 'block';
+            bottomRight.style.display = 'block';
         });
 
-        
-        function showTrue() {
-            // 顯示true.gif
-            let trueImage = document.getElementById('trueImage');
-            trueImage.style.display = 'block';
-        
-            // 增加分數
-            score += 100;
+        // 紅色區域的點擊事件
+        bottomLeft.addEventListener('click', function() {
+            showFalse(); // 顯示false.gif
+        });
 
-            // 更新分數顯示
-            updateScoreDisplay();
+        // 綠色區域的點擊事件
+        bottomRight.addEventListener('click', function() {
+            showTrue(); // 顯示true.gif
+        });
+    });
 
-            // 1 秒後隱藏
-            setTimeout(function() {
-                trueImage.style.display = 'none';
-            }, 1000);
+    // 顯示 true.gif
+    function showTrue() {
+        let trueImage = document.getElementById('trueImage');
+        trueImage.style.display = 'block';
+        score += 100;
+        updateScoreDisplay();
+        setTimeout(function() {
+            trueImage.style.display = 'none';
+        }, 1000);
+    }
 
-        }
-        
-        function showFalse() {
-            // 顯示false.gif
-            let falseImage = document.getElementById('falseImage');
-            falseImage.style.display = 'block';
+    // 顯示 false.gif
+    function showFalse() {
+        let falseImage = document.getElementById('falseImage');
+        falseImage.style.display = 'block';
+        score -= 100;
+        updateScoreDisplay();
+        setTimeout(function() {
+            falseImage.style.display = 'none';
+        }, 1000);
+    }
 
-            // 減少分數
-            score -= 100;
+    // 更新分數顯示
+    function updateScoreDisplay() {
+        let scoreDisplay = document.getElementById('scoreDisplay');
+        scoreDisplay.innerText = '分數: ' + score;
+    }
+}
 
-            // 更新分數顯示
-            updateScoreDisplay();
-        
-            // 1 秒後隱藏
-            setTimeout(function() {
-                falseImage.style.display = 'none';
-            }, 1000);
+// 初始化關閉按鈕
+function initializeCloseButton() {
+    // 在DOM加載完成後執行JavaScript代碼
+    document.addEventListener("DOMContentLoaded", function () {
+        // 獲取關閉按鈕元素
+        let closeButton = document.getElementById('closeButton');
+        // 獲取uiContainer元素
+        let uiContainer = document.getElementById('uiContainer');
+        // 監聽關閉按鈕的點擊事件
+        closeButton.addEventListener('click', function () {
+            // 隱藏uiContainer和closeButton
+            uiContainer.style.display = 'none';
+            closeButton.style.display = 'none';
+        });
+    });
+}
 
-        }
+// 調用初始化函數
+initializeGameLogic(); // 初始化遊戲邏輯
+initializeCloseButton(); // 初始化關閉按鈕
 
-        // 更新分數顯示
-        function updateScoreDisplay() {
-            let scoreDisplay = document.getElementById('scoreDisplay');
-            scoreDisplay.innerText = '分數: ' + score;
-        }
     </script>
-
 </body>
 
 </html>
