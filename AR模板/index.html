@@ -151,26 +151,15 @@
         }
     }
     
-    // 初始化關閉按鈕
-    function initializeCloseButton() {
-        // 在DOM加載完成後執行JavaScript代碼
-        document.addEventListener("DOMContentLoaded", function () {
-            // 獲取關閉按鈕元素
-            let closeButton = document.getElementById('closeButton');
-            // 獲取uiContainer元素
-            let uiContainer = document.getElementById('uiContainer');
-            // 監聽關閉按鈕的點擊事件
-            closeButton.addEventListener('click', function () {
-                // 隱藏uiContainer和closeButton
-                uiContainer.style.display = 'none';
-                closeButton.style.display = 'none';
-            });
-        });
-    }
     
-    // 調用初始化函數
-    initializeGameLogic(); // 初始化遊戲邏輯
-    initializeCloseButton(); // 初始化關閉按鈕
+        // 調用初始化函數
+    document.addEventListener("DOMContentLoaded", function () {
+        initializeCloseButton(); // 調用初始化關閉按鈕的函數
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+        initializeGameLogic(); // 調用初始化遊戲邏輯的函數
+    });
+
 
     </script>
 </body>
