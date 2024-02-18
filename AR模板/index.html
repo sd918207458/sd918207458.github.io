@@ -84,17 +84,22 @@
                 bottomRight.style.left = '0';
             }
         
-            // 獲取關閉按鈕元素
-            let closeButton = document.getElementById('closeButton');
-        
-            // 獲取uiContainer元素
-            let uiContainer = document.getElementById('uiContainer');
-        
-            // 監聽關閉按鈕的點擊事件
-            closeButton.addEventListener('click', function () {
-                // 隱藏uiContainer和closeButton
-                uiContainer.style.display = 'none';
-                closeButton.style.display = 'none';
+            function initializeCloseButton() {
+                // 獲取關閉按鈕元素
+                let closeButton = document.getElementById('closeButton');
+            
+                // 獲取uiContainer元素
+                let uiContainer = document.getElementById('uiContainer');
+            
+                // 監聽關閉按鈕的點擊事件
+                closeButton.addEventListener('click', function () {
+                    // 隱藏uiContainer和closeButton
+                    uiContainer.style.display = 'none';
+                    closeButton.style.display = 'none';
+                });
+            }
+            document.addEventListener("DOMContentLoaded", function () {
+            initializeCloseButton(); // 調用初始化關閉按鈕的函數
             });
         
             // 監聽a-marker的觸發事件
