@@ -19,7 +19,7 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            z-index: 9999; /* 設置在AR場景之上 */
+            z-index: 9999; /* 设置在AR场景之上 */
         }
 
         #uiContainer img {
@@ -32,17 +32,17 @@
             position: fixed;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -10%); /* 將按鈕位置移動到螢幕中心 */
-            z-index: 10000; /* 確保關閉按鈕在最頂層 */
+            transform: translate(-50%, -10%); /* 将按钮位置移动到屏幕中心 */
+            z-index: 10000; /* 确保关闭按钮在最顶层 */
         }
 
         #closeButton img {
-            width: 200px; /* 調整按鈕大小 */
+            width: 200px; /* 调整按钮大小 */
             height: 200px;
-            cursor: pointer; /* 鼠標指針樣式 */
+            cursor: pointer; /* 鼠标指针样式 */
         }
 
-        /* 文字樣式 */
+        /* 文字样式 */
         a-text {
             font-family: 'Roboto', sans-serif;
         }
@@ -52,11 +52,10 @@
             width: 50%;
             height: 50px;
             bottom: 0;
-            display: none; /* 初始隱藏 */
+            display: none; /* 初始隐藏 */
         }
-        
 
-        /* 在螢幕中間顯示 */
+        /* 在屏幕中间显示 */
         .centered {
             position: fixed;
             top: 50%;
@@ -64,7 +63,7 @@
             transform: translate(-50%, -50%);
         }
 
-        /* 盒子樣式 */
+        /* 盒子样式 */
         .scoreBox {
             position: fixed;
             top: 20px;
@@ -89,178 +88,175 @@
 
     <!-- UI容器 -->
     <div id="uiContainer">
-        <img src="assets/UI.jpg" alt="UI 容器圖像">
+        <img src="assets/UI.jpg" alt="UI 容器图像">
     </div>
 
-    <!-- 關閉按鈕 -->
+    <!-- 关闭按钮 -->
     <div id="closeButton">
-        <img src="assets/closeButton.png" alt="關閉按鈕">
+        <img src="assets/closeButton.png" alt="关闭按钮">
     </div>
 
-        <!-- AR場景 -->
-        <a-scene vr-mode-ui="enabled: false;" loading-screen="enabled: false;"
-            arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;" id="scene" embedded gesture-detector>
-        
-            <!-- AR標記 -->
-            <a-marker id="animated-marker" type="pattern" preset="custom" url="assets/marker.patt"
-                raycaster="objects: .clickable" emitevents="true" cursor="fuse: false; rayOrigin: mouse;" id="markerA" ar-marker-events>
-        
-                <!-- 可交互的圖像 -->
-                <a-image id="image" src="assets/asset.png" scale="0 0 0" class="clickable" rotation="-90 0 0" gesture-handler>
-                    <a-animation attribute="scale"
-                        from="0 0 0" to="1 1 1"
-                        dur="1000"
-                        begin="popupAnimation"></a-animation>
-                </a-image>
-        
-                <!-- 在這裡添加額外的文字實體 -->
-                <a-text id="text" value="What's this frog？" color="red" position="-0.5 0.5 -0.5" rotation="-60 0 0">
-                    <a-animation attribute="scale"
-                        from="0 0 0" to="1 1 1"
-                        dur="1000"
-                        begin="popupAnimation"></a-animation>
-                </a-text>
-        
-            </a-marker>
-        
-            <a-entity camera></a-entity> <!-- 添加攝像頭實體 -->
-        
-        </a-scene>
+    <!-- AR场景 -->
+    <a-scene vr-mode-ui="enabled: false;" loading-screen="enabled: false;"
+        arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;" id="scene" embedded gesture-detector>
 
-    <!-- 添加用於播放true.gif和false.gif的 <img> 元素 -->
+        <!-- AR标记 -->
+        <a-marker id="animated-marker" type="pattern" preset="custom" url="assets/marker.patt"
+            raycaster="objects: .clickable" emitevents="true" cursor="fuse: false; rayOrigin: mouse;" id="markerA"
+            ar-marker-events>
+
+            <!-- 可交互的图像 -->
+            <a-image id="image" src="assets/asset.png" scale="0 0 0" class="clickable" rotation="-90 0 0"
+                gesture-handler>
+                <a-animation attribute="scale" from="0 0 0" to="1 1 1" dur="1000" begin="popupAnimation"></a-animation>
+            </a-image>
+
+            <!-- 在这里添加额外的文字实体 -->
+            <a-text id="text" value="What's this frog？" color="red" position="-0.5 0.5 -0.5" rotation="-60 0 0">
+                <a-animation attribute="scale" from="0 0 0" to="1 1 1" dur="1000" begin="popupAnimation"></a-animation>
+            </a-text>
+
+        </a-marker>
+
+        <a-entity camera></a-entity> <!-- 添加摄像头实体 -->
+
+    </a-scene>
+
+    <!-- 添加用于播放true.gif和false.gif的 <img> 元素 -->
     <img id="trueImage" src="assets/true.gif" width="100" height="100" class="centered" style="display:none;">
     <img id="falseImage" src="assets/false.gif" width="100" height="100" class="centered" style="display:none;">
 
-    <!-- 紅色區域 -->
-    <div id="bottomLeft" class="bottomArea" style="background-color: red; color: white; font-weight: bold; font-size: 40px; text-align: center;">莫氏樹蛙</div>
+    <!-- 红色区域 -->
+    <div id="bottomLeft" class="bottomArea"
+        style="background-color: red; color: white; font-weight: bold; font-size: 40px; text-align: center;">莫氏树蛙</div>
 
+    <!-- 绿色区域 -->
+    <div id="bottomRight" class="bottomArea"
+        style="background-color: green; color: white; font-weight: bold; font-size: 40px; text-align: center;">诸罗树蛙</div>
 
-    <!-- 綠色區域 -->
-    <div id="bottomRight" class="bottomArea" style="background-color: green; color: white; font-weight: bold; font-size: 40px; text-align: center;">諸羅樹蛙</div>
-
-    <!-- 分數盒子 -->
+    <!-- 分数盒子 -->
     <div class="scoreBox">
-        <h3 id="scoreDisplay">分數: 0</h3>
+        <h3 id="scoreDisplay">分数: 0</h3>
     </div>
-    
-    <!-- JavaScript代碼 -->
+
+    <!-- JavaScript代码 -->
     <script>
 
-            // 獲取關閉按鈕元素
-            let closeButton = document.getElementById('closeButton');
-        
-            // 獲取uiContainer元素
-            let uiContainer = document.getElementById('uiContainer');
-        
-            // 監聽關閉按鈕的點擊事件
-            closeButton.addEventListener('click', function () {
-                // 隱藏uiContainer和closeButton
-                uiContainer.style.display = 'none';
-                closeButton.style.display = 'none';
-            });
+        // 获取关闭按钮元素
+        let closeButton = document.getElementById('closeButton');
 
-            AFRAME.registerComponent('ar-marker-events', {
-              init: function () {
+        // 获取uiContainer元素
+        let uiContainer = document.getElementById('uiContainer');
+
+        // 监听关闭按钮的点击事件
+        closeButton.addEventListener('click', function () {
+            // 隐藏uiContainer和closeButton
+            uiContainer.style.display = 'none';
+            closeButton.style.display = 'none';
+        });
+
+        AFRAME.registerComponent('ar-marker-events', {
+            init: function () {
                 this.el.sceneEl.addEventListener('markerFound', () => {
-                  // 當 AR 標記被識別時，開始彈出動畫
-                  document.getElementById('image').emit('popupAnimation');
-                  document.getElementById('text').emit('popupAnimation');
+                    // 当 AR 标记被识别时，开始弹出动画
+                    document.getElementById('image').emit('popupAnimation');
+                    document.getElementById('text').emit('popupAnimation');
                 });
-              }
+            }
+        });
+
+
+        function runMyCode(config) {
+            // 解构参数对象，提取需要的属性
+            const { bottomLeftId, bottomRightId, markerId, bottomLeftText, bottomRightText } = config;
+
+            // 分数计数器
+            let score = 0;
+
+            // 在DOM加载完成后执行JavaScript代码
+            document.addEventListener("DOMContentLoaded", function () {
+                // 获取红色和绿色区域的元素
+                let bottomLeft = document.getElementById(bottomLeftId);
+                let bottomRight = document.getElementById(bottomRightId);
+
+                // 随机决定红色和绿色区域的位置
+                let random = Math.random(); // 生成一个0到1之间的随机数
+                if (random < 0.5) {
+                    // 将红色区域放在左边，绿色区域放在右边
+                    bottomLeft.style.left = '0';
+                    bottomRight.style.right = '0';
+                } else {
+                    // 将绿色区域放在左边，红色区域放在右边
+                    bottomLeft.style.right = '0';
+                    bottomRight.style.left = '0';
+                }
+
+                // 监听a-marker的触发事件
+                document.getElementById(markerId).addEventListener('markerFound', function () {
+                    // 显示红色和绿色区域
+                    bottomLeft.style.display = 'block';
+                    bottomRight.style.display = 'block';
+                });
+
+                // 红色区域的点击事件
+                bottomLeft.addEventListener('click', function () {
+                    showFalse(); // 显示false.gif
+                });
+
+                // 绿色区域的点击事件
+                bottomRight.addEventListener('click', function () {
+                    showTrue(); // 显示true.gif
+                });
             });
 
-        
-            function runMyCode(config) {
-                // 解構參數對象，提取需要的屬性
-                const { bottomLeftId, bottomRightId, markerId, bottomLeftText, bottomRightText } = config;
-          
-                // 分數計數器
-                let score = 0;
-            
-                // 在DOM加載完成後執行JavaScript代碼
-                document.addEventListener("DOMContentLoaded", function () {
-                    // 獲取紅色和綠色區域的元素
-                    let bottomLeft = document.getElementById(bottomLeftId);
-                    let bottomRight = document.getElementById(bottomRightId);
-            
-                    // 隨機決定紅色和綠色區域的位置
-                    let random = Math.random(); // 生成一個0到1之間的隨機數
-                    if (random < 0.5) {
-                        // 將紅色區域放在左邊，綠色區域放在右邊
-                        bottomLeft.style.left = '0';
-                        bottomRight.style.right = '0';
-                    } else {
-                        // 將綠色區域放在左邊，紅色區域放在右邊
-                        bottomLeft.style.right = '0';
-                        bottomRight.style.left = '0';
-                    }
-            
-                    // 監聽a-marker的觸發事件
-                    document.getElementById(markerId).addEventListener('markerFound', function() {
-                        // 顯示紅色和綠色區域
-                        bottomLeft.style.display = 'block';
-                        bottomRight.style.display = 'block';
-                    });
-            
-                    // 紅色區域的點擊事件
-                    bottomLeft.addEventListener('click', function() {
-                        showFalse(); // 顯示false.gif
-                    });
-            
-                    // 綠色區域的點擊事件
-                    bottomRight.addEventListener('click', function() {
-                        showTrue(); // 顯示true.gif
-                    });
-                });
-            
-                function showTrue() {
-                    // 顯示true.gif
-                    let trueImage = document.getElementById('trueImage');
-                    trueImage.style.display = 'block';
-            
-                    // 增加分數
-                    score += 100;
-            
-                    // 更新分數顯示
-                    updateScoreDisplay();
-            
-                    // 1 秒後隱藏
-                    setTimeout(function() {
-                        trueImage.style.display = 'none';
-                    }, 1000);
-                }
-            
-                function showFalse() {
-                    // 顯示false.gif
-                    let falseImage = document.getElementById('falseImage');
-                    falseImage.style.display = 'block';
-            
-                    // 減少分數
-                    score -= 100;
-            
-                    // 更新分數顯示
-                    updateScoreDisplay();
-            
-                    // 1 秒後隱藏
-                    setTimeout(function() {
-                        falseImage.style.display = 'none';
-                    }, 1000);
-                }
-            
-                // 更新分數顯示
-                function updateScoreDisplay() {
-                    let scoreDisplay = document.getElementById('scoreDisplay');
-                    scoreDisplay.innerText = '分數: ' + score;
-                }
+            function showTrue() {
+                // 显示true.gif
+                let trueImage = document.getElementById('trueImage');
+                trueImage.style.display = 'block';
+
+                // 增加分数
+                score += 100;
+
+                // 更新分数显示
+                updateScoreDisplay();
+
+                // 1 秒后隐藏
+                setTimeout(function () {
+                    trueImage.style.display = 'none';
+                }, 1000);
             }
-            
-            runMyCode({
-                bottomLeftId: 'bottomLeft', // 紅色區域的元素ID
-                bottomRightId: 'bottomRight', // 綠色區域的元素ID
-                markerId: 'animated-marker', // AR 標記的元素ID
-                bottomLeftText: '濁水溪', // 紅色區域的文字
-                bottomRightText: '鹽水溪' // 綠色區域的文字
-            });
+
+            function showFalse() {
+                // 显示false.gif
+                let falseImage = document.getElementById('falseImage');
+                falseImage.style.display = 'block';
+
+                // 减少分数
+                score -= 100;
+
+                // 更新分数显示
+                updateScoreDisplay();
+
+                // 1 秒后隐藏
+                setTimeout(function () {
+                    falseImage.style.display = 'none';
+                }, 1000);
+            }
+
+            // 更新分数显示
+            function updateScoreDisplay() {
+                let scoreDisplay = document.getElementById('scoreDisplay');
+                scoreDisplay.innerText = '分数: ' + score;
+            }
+        }
+
+        runMyCode({
+            bottomLeftId: 'bottomLeft', // 红色区域的元素ID
+            bottomRightId: 'bottomRight', // 绿色区域的元素ID
+            markerId: 'animated-marker', // AR 标记的元素ID
+            bottomLeftText: '濁水溪', // 红色区域的文字
+            bottomRightText: '鹽水溪' // 绿色区域的文字
+        });
 
     </script>
 
