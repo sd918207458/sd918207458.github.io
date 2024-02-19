@@ -35,10 +35,16 @@
             raycaster="objects: .clickable" emitevents="true" cursor="fuse: false; rayOrigin: mouse;" id="markerA">
 
             <!-- 可交互的圖片 -->
-            <a-image id="interactiveImage" src="assets/asset.png" scale="1 1 1" class="clickable" rotation="-90 0 0" gesture-handler></a-image>
+            <a-image id="interactiveImage" src="assets/asset.png" scale="1 1 1" class="clickable" rotation="-90 0 0" gesture-handler
+                animation__fadein="property: material.opacity; dur: 100;
+                easing: linear; from 0; to: 1; startEvents: fadein"
+            ></a-image>
 
             <!-- 在這裡添加額外的文字實體 -->
-            <a-text id="displayText" value="What's this frog？" color="red" position="-0.5 0.5 -0.5" rotation="-60 0 0"></a-text>
+            <a-text id="displayText" value="What's this frog？" color="red" position="-0.5 0.5 -0.5" rotation="-60 0 0"
+                animation__fadein="property: material.opacity; dur: 100;
+                easing: linear; from 0; to: 1; startEvents: fadein"
+            ></a-text>
 
         </a-marker>
 
