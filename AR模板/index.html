@@ -97,40 +97,45 @@
                 bottomLeft.addEventListener('click', function() {
                     showFalse(); // 顯示false.gif
                     // 替換圖片和文字內容
-                    document.getElementById('interactiveImage').setAttribute('src', 'assets/river.jpg');
-                    document.getElementById('displayText').setAttribute('value', '濁水溪');
                 });
 
                 // 綠色區域的點擊事件
                 bottomRight.addEventListener('click', function() {
                     showTrue(); // 顯示true.gif
-                    // 替換圖片和文字內容
-                    document.getElementById('interactiveImage').setAttribute('src', 'assets/river.jpg');
-                    document.getElementById('displayText').setAttribute('value', '鹽水溪');
                 });
             });
 
-            // 顯示 true.gif
-            function showTrue() {
-                let trueImage = document.getElementById('trueImage');
-                trueImage.style.display = 'block';
-                score += 100;
-                updateScoreDisplay();
-                setTimeout(function() {
-                    trueImage.style.display = 'none';
-                }, 1000);
-            }
+// 顯示 true.gif
+function showTrue() {
+    let trueImage = document.getElementById('trueImage');
+    trueImage.style.display = 'block';
+    score += 100;
+    updateScoreDisplay();
+    // 更新紅色或綠色區域內的文字
+    document.getElementById('bottomRight').innerText = '新的綠色區域文字';
+    setTimeout(function() {
+        trueImage.style.display = 'none';
+    }, 1000);
+// 替換圖片和文字內容
+    document.getElementById('interactiveImage').setAttribute('src', 'assets/river.jpg');
+    document.getElementById('displayText').setAttribute('value', 'Which stream is this?');
+}
 
-            // 顯示 false.gif
-            function showFalse() {
-                let falseImage = document.getElementById('falseImage');
-                falseImage.style.display = 'block';
-                score -= 100;
-                updateScoreDisplay();
-                setTimeout(function() {
-                    falseImage.style.display = 'none';
-                }, 1000);
-            }
+// 顯示 false.gif
+function showFalse() {
+    let falseImage = document.getElementById('鹽水溪');
+    falseImage.style.display = 'block';
+    score -= 100;
+    updateScoreDisplay();
+    // 更新紅色或綠色區域內的文字
+    document.getElementById('bottomLeft').innerText = '濁水溪';
+    setTimeout(function() {
+        falseImage.style.display = 'none';
+    }, 1000);
+    document.getElementById('interactiveImage').setAttribute('src', 'assets/river.jpg');
+    document.getElementById('displayText').setAttribute('value', 'Which stream is this?');
+}
+
 
             // 更新分數顯示
             function updateScoreDisplay() {
