@@ -104,11 +104,16 @@
                 bottomLeft.addEventListener('click', function() {
                     showFalse(); // 顯示false.gif
                     // 替換圖片和文字內容
+                    document.getElementById('interactiveImage').setAttribute('src', 'assets/river.jpg');
+                    document.getElementById('displayText').setAttribute('value', 'Which stream is this?');
                 });
 
                 // 綠色區域的點擊事件
                 bottomRight.addEventListener('click', function() {
                     showTrue(); // 顯示true.gif
+                    // 替換圖片和文字內容
+                    document.getElementById('interactiveImage').setAttribute('src', 'aassets/river.jpg');
+                    document.getElementById('displayText').setAttribute('value', 'Which stream is this?');
                 });
             });
 
@@ -118,14 +123,10 @@ function showTrue() {
     trueImage.style.display = 'block';
     score += 100;
     updateScoreDisplay();
-    // 更新紅色或綠色區域內的文字
-    document.getElementById('bottomRight').innerText = '鹽水溪';
+    updateAreaText(); // 更新紅色和綠色區域內的文字
     setTimeout(function() {
         trueImage.style.display = 'none';
     }, 1000);
-// 替換圖片和文字內容
-    document.getElementById('interactiveImage').setAttribute('src', 'assets/river.jpg');
-    document.getElementById('displayText').setAttribute('value', 'Which stream is this?');
 }
 
 // 顯示 false.gif
@@ -134,14 +135,18 @@ function showFalse() {
     falseImage.style.display = 'block';
     score -= 100;
     updateScoreDisplay();
-    // 更新紅色或綠色區域內的文字
-    document.getElementById('bottomLeft').innerText = '濁水溪';
+    updateAreaText(); // 更新紅色和綠色區域內的文字
     setTimeout(function() {
         falseImage.style.display = 'none';
     }, 1000);
-    document.getElementById('interactiveImage').setAttribute('src', 'assets/river.jpg');
-    document.getElementById('displayText').setAttribute('value', 'Which stream is this?');
 }
+
+// 更新紅色和綠色區域內的文字
+function updateAreaText() {
+    document.getElementById('bottomLeft').innerText = '濁水溪';
+    document.getElementById('bottomRight').innerText = '鹽水溪';
+}
+
 
 
             // 更新分數顯示
