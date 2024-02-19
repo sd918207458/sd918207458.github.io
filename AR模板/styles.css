@@ -25,15 +25,15 @@
             transition: transform 0.5s ease;
         }
 
-        #closeButton:active {
-            /* 在按鈕按下時，稍微縮小 */
-            transform: scale(0.95);
-        }
-
         #closeButton img {
             width: 200px; /* 調整按鈕大小 */
             height: 200px;
             cursor: pointer; /* 滑鼠指標樣式 */
+        }
+
+        #closeButton:active {
+            /* 在按鈕按下時，稍微縮小 */
+            transform: scale(0.9);
         }
 
         /* 文字樣式 */
