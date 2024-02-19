@@ -22,7 +22,7 @@
             transform: translate(-50%, -10%); /* 將按鈕位置移動到螢幕中心 */
             z-index: 10000; /* 確保關閉按鈕在最頂層 */
             /* 添加過渡效果 */
-            transition: transform 0.5s ease;
+            transition: transform 0.2s ease;
         }
 
         #closeButton img {
