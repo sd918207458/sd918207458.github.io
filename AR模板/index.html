@@ -136,20 +136,29 @@ function initializeGameLogic() {
 
 // 初始化關閉按鈕
 function initializeCloseButton() {
-    // 在DOM加載完成後執行JavaScript代碼
+    // 在DOM載入完成後執行JavaScript代碼
     document.addEventListener("DOMContentLoaded", function () {
         // 獲取關閉按鈕元素
         let closeButton = document.getElementById('closeButton');
-        // 獲取uiContainer元素
+        // 獲取 uiContainer 元素
         let uiContainer = document.getElementById('uiContainer');
         // 監聽關閉按鈕的點擊事件
         closeButton.addEventListener('click', function () {
-            // 隱藏uiContainer和closeButton
-            uiContainer.style.display = 'none';
-            closeButton.style.display = 'none';
+            // 添加點擊反饋效果
+            closeButton.style.transform = 'scale(0.95)';
+            // 延遲關閉 UI
+            setTimeout(function() {
+                // 隱藏 uiContainer 和 closeButton
+                uiContainer.style.display = 'none';
+                closeButton.style.display = 'none';
+            }, 200); // 設置延遲時間為 200 毫秒（即 0.2 秒）
         });
     });
 }
+
+// 調用初始化函數
+initializeCloseButton(); // 初始化關閉按鈕
+
 
 // 調用初始化函數
 initializeGameLogic(); // 初始化遊戲邏輯
