@@ -12,7 +12,6 @@
 
     <!-- 引用外部CSS文件 -->
     <link rel="stylesheet" type="text/css" href="./styles.css">
-    
 </head>
 
 <body style="margin: 0; overflow: hidden;">
@@ -36,10 +35,10 @@
             raycaster="objects: .clickable" emitevents="true" cursor="fuse: false; rayOrigin: mouse;" id="markerA">
 
             <!-- 可交互的圖片 -->
-            <a-image src="assets/asset.png" scale="1 1 1" class="clickable" rotation="-90 0 0" gesture-handler></a-image>
+            <a-image id="interactiveImage" src="assets/asset.png" scale="1 1 1" class="clickable" rotation="-90 0 0" gesture-handler></a-image>
 
             <!-- 在這裡添加額外的文字實體 -->
-            <a-text value="What's this frog？" color="red" position="-0.5 0.5 -0.5" rotation="-60 0 0"></a-text>
+            <a-text id="displayText" value="What's this frog？" color="red" position="-0.5 0.5 -0.5" rotation="-60 0 0"></a-text>
 
         </a-marker>
 
@@ -65,104 +64,108 @@
     
     <!-- JavaScript代碼 -->
     <script>
-// 初始化遊戲邏輯
-function initializeGameLogic() {
-    // 分數計數器
-    let score = 0;
+        // 初始化遊戲邏輯
+        function initializeGameLogic() {
+            // 分數計數器
+            let score = 0;
 
-    // 在DOM加載完成後執行JavaScript代碼
-    document.addEventListener("DOMContentLoaded", function () {
-        // 隨機決定紅色和綠色區域的位置
-        let random = Math.random(); // 生成一個0到1之間的隨機數
-        let bottomLeft = document.getElementById('bottomLeft');
-        let bottomRight = document.getElementById('bottomRight');
+            // 在DOM加載完成後執行JavaScript代碼
+            document.addEventListener("DOMContentLoaded", function () {
+                // 隨機決定紅色和綠色區域的位置
+                let random = Math.random(); // 生成一個0到1之間的隨機數
+                let bottomLeft = document.getElementById('bottomLeft');
+                let bottomRight = document.getElementById('bottomRight');
 
-        if (random < 0.5) {
-            // 將紅色區域放在左邊，綠色區域放在右邊
-            bottomLeft.style.left = '0';
-            bottomRight.style.right = '0';
-        } else {
-            // 將綠色區域放在左邊，紅色區域放在右邊
-            bottomLeft.style.right = '0';
-            bottomRight.style.left = '0';
+                if (random < 0.5) {
+                    // 將紅色區域放在左邊，綠色區域放在右邊
+                    bottomLeft.style.left = '0';
+                    bottomRight.style.right = '0';
+                } else {
+                    // 將綠色區域放在左邊，紅色區域放在右邊
+                    bottomLeft.style.right = '0';
+                    bottomRight.style.left = '0';
+                }
+
+                // 監聽a-marker的觸發事件
+                document.getElementById('animated-marker').addEventListener('markerFound', function() {
+                    // 顯示紅色和綠色區域
+                    bottomLeft.style.display = 'block';
+                    bottomRight.style.display = 'block';
+                });
+
+                // 紅色區域的點擊事件
+                bottomLeft.addEventListener('click', function() {
+                    showFalse(); // 顯示false.gif
+                    // 替換圖片和文字內容
+                    document.getElementById('interactiveImage').setAttribute('src', 'assets/river.jpg');
+                    document.getElementById('displayText').setAttribute('value', '濁水溪');
+                });
+
+                // 綠色區域的點擊事件
+                bottomRight.addEventListener('click', function() {
+                    showTrue(); // 顯示true.gif
+                    // 替換圖片和文字內容
+                    document.getElementById('interactiveImage').setAttribute('src', 'assets/river.jpg');
+                    document.getElementById('displayText').setAttribute('value', '鹽水溪');
+                });
+            });
+
+            // 顯示 true.gif
+            function showTrue() {
+                let trueImage = document.getElementById('trueImage');
+                trueImage.style.display = 'block';
+                score += 100;
+                updateScoreDisplay();
+                setTimeout(function() {
+                    trueImage.style.display = 'none';
+                }, 1000);
+            }
+
+            // 顯示 false.gif
+            function showFalse() {
+                let falseImage = document.getElementById('falseImage');
+                falseImage.style.display = 'block';
+                score -= 100;
+                updateScoreDisplay();
+                setTimeout(function() {
+                    falseImage.style.display = 'none';
+                }, 1000);
+            }
+
+            // 更新分數顯示
+            function updateScoreDisplay() {
+                let scoreDisplay = document.getElementById('scoreDisplay');
+                scoreDisplay.innerText = '分數: ' + score;
+            }
         }
 
-        // 監聽a-marker的觸發事件
-        document.getElementById('animated-marker').addEventListener('markerFound', function() {
-            // 顯示紅色和綠色區域
-            bottomLeft.style.display = 'block';
-            bottomRight.style.display = 'block';
-        });
+        // 初始化關閉按鈕
+        function initializeCloseButton() {
+            // 在DOM載入完成後執行JavaScript代碼
+            document.addEventListener("DOMContentLoaded", function () {
+                // 獲取關閉按鈕元素
+                let closeButton = document.getElementById('closeButton');
+                // 獲取 uiContainer 元素
+                let uiContainer = document.getElementById('uiContainer');
+                // 監聽關閉按鈕的點擊事件
+                closeButton.addEventListener('click', function () {
+                    // 添加點擊反饋效果
+                    closeButton.style.transform = 'scale(0.95)';
+                    // 延遲關閉 UI
+                    setTimeout(function() {
+                        // 隱藏 uiContainer 和 closeButton
+                        uiContainer.style.display = 'none';
+                        closeButton.style.display = 'none';
+                        // 初始化新一輪遊戲邏輯
+                        initializeGameLogic();
+                    }, 200); // 設置延遲時間為 200 毫秒（即 0.2 秒）
+                });
+            });
+        }
 
-        // 紅色區域的點擊事件
-        bottomLeft.addEventListener('click', function() {
-            showFalse(); // 顯示false.gif
-        });
-
-        // 綠色區域的點擊事件
-        bottomRight.addEventListener('click', function() {
-            showTrue(); // 顯示true.gif
-        });
-    });
-
-    // 顯示 true.gif
-    function showTrue() {
-        let trueImage = document.getElementById('trueImage');
-        trueImage.style.display = 'block';
-        score += 100;
-        updateScoreDisplay();
-        setTimeout(function() {
-            trueImage.style.display = 'none';
-        }, 1000);
-    }
-
-    // 顯示 false.gif
-    function showFalse() {
-        let falseImage = document.getElementById('falseImage');
-        falseImage.style.display = 'block';
-        score -= 100;
-        updateScoreDisplay();
-        setTimeout(function() {
-            falseImage.style.display = 'none';
-        }, 1000);
-    }
-
-    // 更新分數顯示
-    function updateScoreDisplay() {
-        let scoreDisplay = document.getElementById('scoreDisplay');
-        scoreDisplay.innerText = '分數: ' + score;
-    }
-}
-
-// 初始化關閉按鈕
-function initializeCloseButton() {
-    // 在DOM載入完成後執行JavaScript代碼
-    document.addEventListener("DOMContentLoaded", function () {
-        // 獲取關閉按鈕元素
-        let closeButton = document.getElementById('closeButton');
-        // 獲取 uiContainer 元素
-        let uiContainer = document.getElementById('uiContainer');
-        // 監聽關閉按鈕的點擊事件
-        closeButton.addEventListener('click', function () {
-            // 添加點擊反饋效果
-            closeButton.style.transform = 'scale(0.95)';
-            // 延遲關閉 UI
-            setTimeout(function() {
-                // 隱藏 uiContainer 和 closeButton
-                uiContainer.style.display = 'none';
-                closeButton.style.display = 'none';
-            }, 200); // 設置延遲時間為 200 毫秒（即 0.2 秒）
-        });
-    });
-}
-
-// 調用初始化函數
-initializeCloseButton(); // 初始化關閉按鈕
-
-
-// 調用初始化函數
-initializeGameLogic(); // 初始化遊戲邏輯
-initializeCloseButton(); // 初始化關閉按鈕
+        // 調用初始化函數
+        initializeCloseButton(); // 初始化關閉按鈕
+        initializeGameLogic(); // 初始化遊戲邏輯
 
     </script>
 </body>
