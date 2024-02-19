@@ -21,6 +21,15 @@
             left: 50%;
             transform: translate(-50%, -10%); /* 將按鈕位置移動到螢幕中心 */
             z-index: 10000; /* 確保關閉按鈕在最頂層 */
+            /* 添加陰影 */
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+            /* 添加過渡效果 */
+            transition: transform 0.2s ease;
+        }
+
+        #closeButton:active {
+            /* 在按鈕按下時，稍微向下移動 */
+            transform: translateY(2px);
         }
 
         #closeButton img {
