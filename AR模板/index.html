@@ -119,7 +119,7 @@ function showTrue() {
     score += 100;
     updateScoreDisplay();
     // 更新紅色或綠色區域內的文字
-    document.getElementById('bottomRight').innerText = '新的綠色區域文字';
+    document.getElementById('bottomRight').innerText = '鹽水溪';
     setTimeout(function() {
         trueImage.style.display = 'none';
     }, 1000);
@@ -130,7 +130,7 @@ function showTrue() {
 
 // 顯示 false.gif
 function showFalse() {
-    let falseImage = document.getElementById('鹽水溪');
+    let falseImage = document.getElementById('falseImage');
     falseImage.style.display = 'block';
     score -= 100;
     updateScoreDisplay();
