@@ -28,8 +28,8 @@
         }
 
         #closeButton:active {
-            /* 在按鈕按下時，稍微向下移動 */
-            transform: translateY(2px);
+            /* 在按鈕按下時，稍微縮小 */
+            transform: scale(0.95);
         }
 
         #closeButton img {
