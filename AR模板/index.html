@@ -5,9 +5,6 @@
     <!-- A-Frame和AR.js庫 -->
     <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
-    <!-- text-geometry-component -->
-    <script src="https://unpkg.com/aframe-text-geometry-component/dist/aframe-text-geometry-component.min.js"></script>
-    <script src="myfont.typeface.js"></script>
 
     <!-- 手勢識別和處理腳本 -->
     <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-detector.js"></script>
@@ -48,13 +45,6 @@
                 animation__fadein="property: material.opacity; dur: 100;
                 easing: linear; from 0; to: 1; startEvents: fadein"
             ></a-text>
-
-            <a-assets>
-                <a-asset-item id="optimerBoldFont" src="https://rawgit.com/mrdoob/three.js/dev/examples/fonts/optimer_bold.typeface.json"></a-asset-item>
-                <a-mixin id="boldFont" text="font: #optimerBoldFont"></a-mixin>
-            </a-assets>
-            <a-entity mixin="boldFont" text-geometry="value: What's up"></a-entity>
-            <a-entity text-geometry="value: Dog?; font: #optimerBoldFont"></a-entity>
 
         </a-marker>
 
@@ -175,16 +165,11 @@ function updateAreaText() {
                 let uiContainer = document.getElementById('uiContainer');
                 // 監聽關閉按鈕的點擊事件
                 closeButton.addEventListener('click', function () {
-                    // 添加點擊反饋效果
-                    closeButton.style.transform = 'scale(1)';
-                    // 延遲關閉 UI
-                    setTimeout(function() {
-                        // 隱藏 uiContainer 和 closeButton
-                        uiContainer.style.display = 'none';
-                        closeButton.style.display = 'none';
-                        // 初始化新一輪遊戲邏輯
-                        initializeGameLogic();
-                    }, 200); // 設置延遲時間為 200 毫秒（即 0.2 秒）
+                    // 隱藏 uiContainer 和 closeButton
+                    uiContainer.style.display = 'none';
+                    closeButton.style.display = 'none';
+                    // 初始化新一輪遊戲邏輯
+                    initializeGameLogic();
                 });
             });
         }
