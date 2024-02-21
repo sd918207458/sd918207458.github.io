@@ -89,27 +89,54 @@
                 document.getElementById('bottomRight').innerText = '鹽水溪';
             }
 
-            // 播放 win.gif
-            function playWin() {
-                let winImage = document.createElement('img');
-                winImage.src = 'assets/win.gif';
-                winImage.classList.add('centered');
-                document.body.appendChild(winImage);
-                setTimeout(function() {
-                    winImage.parentNode.removeChild(winImage);
-                }, 3000); // 3秒後移除 GIF
+        // 播放 win.gif
+        function playWin() {
+            let winImage = document.createElement('img');
+            winImage.src = 'assets/win.gif';
+            winImage.classList.add('centered');
+            document.body.appendChild(winImage);
+            setTimeout(function() {
+                winImage.parentNode.removeChild(winImage);
+                // 播放完动画后重置网页代码
+                resetGame();
+            }, 3000); // 3秒后移除 GIF
+        }
+        
+        // 播放 lose.gif
+        function playLose() {
+            let loseImage = document.createElement('img');
+            loseImage.src = 'assets/lose.gif';
+            loseImage.classList.add('centered');
+            document.body.appendChild(loseImage);
+            setTimeout(function() {
+                loseImage.parentNode.removeChild(loseImage);
+                // 播放完动画后重置网页代码
+                resetGame();
+            }, 3000); // 3秒后移除 GIF
+        }
+        
+        // 重置网页代码
+        function resetGame() {
+            // 在这里执行重置操作，比如重置分数、恢复初始状态等
+            let score = 0;
+            document.getElementById('scoreDisplay').innerText = '分数: ' + score;
+            // 还可以添加其他重置操作
+        }
+        
+        // 检查分数并播放相应的 GIF
+        function checkScore() {
+            if (score === 500) {
+                playWin();
+                uiContainer.style.display = 'block';
+                closeButton.style.display = 'block';
+            } else if (score < 0) {
+                playLose();
+                uiContainer.style.display = 'block';
+                closeButton.style.display = 'block';
             }
+        }
 
-            // 播放 lose.gif
-            function playLose() {
-                let loseImage = document.createElement('img');
-                loseImage.src = 'assets/lose.gif';
-                loseImage.classList.add('centered');
-                document.body.appendChild(loseImage);
-                setTimeout(function() {
-                    loseImage.parentNode.removeChild(loseImage);
-                }, 3000); // 3秒後移除 GIF
-            }
+
 
             // 更新分數顯示
             function updateScoreDisplay() {
