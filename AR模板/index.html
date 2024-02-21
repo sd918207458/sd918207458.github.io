@@ -159,6 +159,7 @@ function updateAreaText() {
             function updateScoreDisplay() {
                 let scoreDisplay = document.getElementById('scoreDisplay');
                 scoreDisplay.innerText = '分數: ' + score;
+                checkScore(); // 每次更新分數顯示後檢查分數
             }
         }
 
@@ -184,6 +185,41 @@ function updateAreaText() {
         // 調用初始化函數
         initializeCloseButton(); // 初始化關閉按鈕
         initializeGameLogic(); // 初始化遊戲邏輯
+
+        // 檢查分數並播放相應的 GIF
+        function checkScore() {
+            if (score === 500) {
+                playWin();
+            } else if (score < 0) {
+                playLose();
+            }
+        }
+        
+        // 播放 win.gif
+        function playWin() {
+            let winImage = document.createElement('img');
+            winImage.src = 'assets/win.gif';
+            winImage.classList.add('centered');
+            document.body.appendChild(winImage);
+            setTimeout(function() {
+                winImage.parentNode.removeChild(winImage);
+            }, 3000); // 3秒後移除 GIF
+            uiContainer.style.display = 'block';
+            closeButton.style.display = 'block';
+        }
+        
+        // 播放 lose.gif
+        function playLose() {
+            let loseImage = document.createElement('img');
+            loseImage.src = 'assets/lose.gif';
+            loseImage.classList.add('centered');
+            document.body.appendChild(loseImage);
+            setTimeout(function() {
+                loseImage.parentNode.removeChild(loseImage);
+            }, 3000); // 3秒後移除 GIF
+            uiContainer.style.display = 'block';
+            closeButton.style.display = 'block';
+        }
 
     </script>
 </body>
