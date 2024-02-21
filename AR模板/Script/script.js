@@ -1,4 +1,4 @@
-    <script>
+
         // 初始化遊戲邏輯
         function initializeGameLogic() {
             // 分數計數器
@@ -140,4 +140,3 @@
         // 調用初始化函數
         initializeCloseButton(); // 初始化關閉按鈕
         initializeGameLogic(); // 初始化遊戲邏輯
-    </script>
