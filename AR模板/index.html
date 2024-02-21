@@ -133,6 +133,13 @@ function showTrue() {
     setTimeout(function() {
         trueImage.style.display = 'none';
     }, 1000);
+
+    // 檢查分數並播放相應的 GIF
+    if (score === 500) {
+        playWin();
+    } else if (score < 0) {
+        playLose();
+    }
 }
 
 // 顯示 false.gif
@@ -145,6 +152,14 @@ function showFalse() {
     setTimeout(function() {
         falseImage.style.display = 'none';
     }, 1000);
+
+    
+    // 檢查分數並播放相應的 GIF
+    if (score === 500) {
+        playWin();
+    } else if (score < 0) {
+        playLose();
+    }
 }
 
 // 更新紅色和綠色區域內的文字
@@ -153,35 +168,33 @@ function updateAreaText() {
     document.getElementById('bottomRight').innerText = '鹽水溪';
 }
 
-        // 播放 win.gif
-        function playWin() {
-            let winImage = document.createElement('img');
-            winImage.src = 'assets/win.gif';
-            winImage.classList.add('centered');
-            document.body.appendChild(winImage);
-            setTimeout(function() {
-                winImage.parentNode.removeChild(winImage);
-            }, 3000); // 3秒後移除 GIF
-        }
-        
-        // 播放 lose.gif
-        function playLose() {
-            let loseImage = document.createElement('img');
-            loseImage.src = 'assets/lose.gif';
-            loseImage.classList.add('centered');
-            document.body.appendChild(loseImage);
-            setTimeout(function() {
-                loseImage.parentNode.removeChild(loseImage);
-            }, 3000); // 3秒後移除 GIF
-        }
+// 播放 win.gif
+function playWin() {
+    let winImage = document.createElement('img');
+    winImage.src = 'assets/win.gif';
+    winImage.classList.add('centered');
+    document.body.appendChild(winImage);
+    setTimeout(function() {
+        winImage.parentNode.removeChild(winImage);
+    }, 3000); // 3秒後移除 GIF
+}
 
-            // 更新分數顯示
-            function updateScoreDisplay() {
-                let scoreDisplay = document.getElementById('scoreDisplay');
-                scoreDisplay.innerText = '分數: ' + score;
-                checkScore(); // 每次更新分數顯示後檢查分數
-            }
-        }
+// 播放 lose.gif
+function playLose() {
+    let loseImage = document.createElement('img');
+    loseImage.src = 'assets/lose.gif';
+    loseImage.classList.add('centered');
+    document.body.appendChild(loseImage);
+    setTimeout(function() {
+        loseImage.parentNode.removeChild(loseImage);
+    }, 3000); // 3秒後移除 GIF
+}
+
+// 更新分數顯示
+function updateScoreDisplay() {
+    let scoreDisplay = document.getElementById('scoreDisplay');
+    scoreDisplay.innerText = '分數: ' + score;
+}
 
         // 初始化關閉按鈕
         function initializeCloseButton() {
