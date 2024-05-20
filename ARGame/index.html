@@ -1,46 +1,52 @@
 <!doctype html>
 <html>
-    <head>
-        <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1.3.0/dist/aframe-master.min.js"></script>
-        <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
-        <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-detector.js"></script>
-        <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-handler.js"></script>
-    </head>
+<head>
+    <!-- 引入 A-Frame 庫 -->
+    <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1.3.0/dist/aframe-master.min.js"></script>
+    <!-- 引入 AR.js 庫 -->
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <!-- 引入手勢檢測工具 -->
+    <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-detector.js"></script>
+    <!-- 引入手勢處理工具 -->
+    <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-handler.js"></script>
+</head>
 
-        <!-- 引用外部CSS文件 -->
+<body style="margin: 0; overflow: hidden;">
+    <!-- 引用外部 CSS 文件 -->
     <link rel="stylesheet" type="text/css" href="./styles.css">
-        <!-- JavaScript代碼 -->
+    <!-- 引入 JavaScript 代碼 -->
     <script src="./script.js"></script>
 
-    <body style="margin: 0; overflow: hidden;">
-        <a-scene
-            vr-mode-ui="enabled: false;"
-            loading-screen="enabled: false;"
-            arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
-            id="scene"
-            embedded
-            gesture-detector
+    <a-scene
+        vr-mode-ui="enabled: false;" <!-- 禁用 VR 模式 UI -->
+        loading-screen="enabled: false;" <!-- 禁用加載屏幕 -->
+        arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;" <!-- AR.js 配置 -->
+        id="scene" <!-- 場景 ID -->
+        embedded <!-- 嵌入場景 -->
+        gesture-detector <!-- 引入手勢檢測 -->
+    >
+        <!-- 標記定義 -->
+        <a-marker
+            id="animated-marker"
+            type="pattern"
+            preset="custom"
+            url="picture/default-marker.png"
+            raycaster="objects: .clickable" <!-- 光線投射配置 -->
+            emitevents="true" <!-- 啟用事件 -->
+            cursor="fuse: false; rayOrigin: mouse;" <!-- 游標配置 -->
         >
-            <a-marker
-                id="animated-marker"
-                type="pattern"
-                preset="custom"
-                url="assets/marker.patt"
-                raycaster="objects: .clickable"
-                emitevents="true"
-                cursor="fuse: false; rayOrigin: mouse;"
-                id="markerA"
-            >
-                <a-image
-                    src="assets/asset.png"
-                    scale="1 1 1"
-                    class="clickable"
-                    rotation="-90 0 0"
-                    gesture-handler
-                ></a-image>
-            </a-marker>
+            <!-- 在標記上顯示的圖像 -->
+            <a-image
+                src="picture/default-marker.png"
+                scale="1 1 1"
+                class="clickable" <!-- 可點擊 -->
+                rotation="-90 0 0" <!-- 旋轉設定 -->
+                gesture-handler <!-- 引入手勢處理 -->
+            ></a-image>
+        </a-marker>
 
-            <a-entity camera></a-entity>
-        </a-scene>
-    </body>
+        <!-- 定義攝像機 -->
+        <a-entity camera></a-entity>
+    </a-scene>
+</body>
 </html>
