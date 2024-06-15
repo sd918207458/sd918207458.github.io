@@ -24,9 +24,6 @@
   <body>
     <a-scene embedded arjs>
       <a-marker id="marker" type="pattern" url="assets/marker.patt">
-        <a-entity id="fixedRedBlock">
-          <a-box position="0 0.5 0" width="0.2" height="0.2" depth="0.2" color="red"></a-box>
-        </a-entity>
         <a-entity id="randomBlocks"></a-entity>
       </a-marker>
       <a-entity camera></a-entity>
@@ -34,6 +31,7 @@
     <button id="foundButton" onclick="handleEndGame()">找到了</button>
     <script>
       let blocksVisible = false;
+      const camera = document.querySelector('a-entity[camera]');
 
       // Generate random blocks
       document.addEventListener("DOMContentLoaded", () => {
@@ -73,7 +71,11 @@
         if (!blocksVisible) {
           blocksVisible = true;
           const randomBlocks = document.getElementById("randomBlocks");
-          randomBlocks.setAttribute("visible", "true");
+          const blocks = randomBlocks.children;
+          for (let block of blocks) {
+            camera.appendChild(block.cloneNode(true));
+          }
+          randomBlocks.innerHTML = '';
         }
       });
 
