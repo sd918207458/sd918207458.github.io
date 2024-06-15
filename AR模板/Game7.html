@@ -24,14 +24,15 @@
   <body>
     <a-scene embedded arjs>
       <a-marker id="marker" type="pattern" url="assets/marker.patt">
-        <a-entity id="randomBlocks"></a-entity>
+        <a-entity id="randomBlocks">
+          <a-box id="redBlock" position="0 0.5 0" width="0.2" height="0.2" depth="0.2" color="red" visible="false"></a-box>
+        </a-entity>
       </a-marker>
       <a-entity camera></a-entity>
     </a-scene>
     <button id="foundButton" onclick="handleEndGame()">找到了</button>
     <script>
       let blocksVisible = false;
-      const camera = document.querySelector('a-entity[camera]');
 
       // Generate random blocks
       document.addEventListener("DOMContentLoaded", () => {
@@ -39,22 +40,23 @@
         for (let i = 0; i < 9; i++) {
           createBlock(randomBlocks, "blue", i);
         }
-        createBlock(randomBlocks, "red", 9, true);
+        // Add red block
+        const redBlock = document.getElementById("redBlock");
+        redBlock.setAttribute("position", `${getRandom(-10, 10)} ${getRandom(0, 6)} ${getRandom(-10, 10)}`);
+        redBlock.setAttribute("visible", "true");
+        redBlock.addEventListener("click", () => {
+          document.getElementById("foundButton").style.display = "block";
+        });
       });
 
-      function createBlock(parent, color, index, isRed = false) {
+      function createBlock(parent, color, index) {
         const block = document.createElement("a-box");
-        block.setAttribute("position", `${getRandom(0, 5)} ${getRandom(0, 5)} ${getRandom(0, 1)}`);
-        block.setAttribute("width", "0.5");
-        block.setAttribute("height", "0.5");
-        block.setAttribute("depth", "0.5");
+        block.setAttribute("position", `${getRandom(-10, 10)} ${getRandom(0, 6)} ${getRandom(-10, 10)}`);
+        block.setAttribute("width", "0.2");
+        block.setAttribute("height", "0.2");
+        block.setAttribute("depth", "0.2");
         block.setAttribute("color", color);
-        if (isRed) {
-          block.setAttribute("class", "clickable");
-          block.addEventListener("click", () => {
-            document.getElementById("foundButton").style.display = "block";
-          });
-        }
+        block.setAttribute("visible", "false");
         parent.appendChild(block);
       }
 
@@ -73,16 +75,19 @@
           const randomBlocks = document.getElementById("randomBlocks");
           const blocks = randomBlocks.children;
           for (let block of blocks) {
-            camera.appendChild(block.cloneNode(true));
+            block.setAttribute("visible", "true");
           }
-          randomBlocks.innerHTML = '';
         }
       });
 
       document.querySelector('a-marker').addEventListener('markerLost', (event) => {
+        // Keep blocks visible even if marker is lost
         if (blocksVisible) {
           const randomBlocks = document.getElementById("randomBlocks");
-          randomBlocks.setAttribute("visible", "true"); // Keep blocks visible even if marker is lost
+          const blocks = randomBlocks.children;
+          for (let block of blocks) {
+            block.setAttribute("visible", "true");
+          }
         }
       });
     </script>
