@@ -23,7 +23,7 @@
   </head>
   <body>
     <a-scene embedded arjs>
-      <a-marker type="pattern" url="assets/marker.patt">
+      <a-marker id="marker" type="pattern" url="assets/marker.patt">
         <a-entity id="fixedRedBlock">
           <a-box position="0 0.5 0" width="0.2" height="0.2" depth="0.2" color="red"></a-box>
         </a-entity>
@@ -33,6 +33,8 @@
     </a-scene>
     <button id="foundButton" onclick="handleEndGame()">找到了</button>
     <script>
+      let blocksVisible = false;
+
       // Generate random blocks
       document.addEventListener("DOMContentLoaded", () => {
         const randomBlocks = document.getElementById("randomBlocks");
@@ -65,6 +67,22 @@
       function handleEndGame() {
         alert("遊戲結束");
       }
+
+      // Listen for marker detection events
+      document.querySelector('a-marker').addEventListener('markerFound', (event) => {
+        if (!blocksVisible) {
+          blocksVisible = true;
+          const randomBlocks = document.getElementById("randomBlocks");
+          randomBlocks.setAttribute("visible", "true");
+        }
+      });
+
+      document.querySelector('a-marker').addEventListener('markerLost', (event) => {
+        if (blocksVisible) {
+          const randomBlocks = document.getElementById("randomBlocks");
+          randomBlocks.setAttribute("visible", "true"); // Keep blocks visible even if marker is lost
+        }
+      });
     </script>
   </body>
 </html>
