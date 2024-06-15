@@ -46,10 +46,10 @@
 
       function createBlock(parent, color, index, isRed = false) {
         const block = document.createElement("a-box");
-        block.setAttribute("position", `${getRandom(-10, 10)} ${getRandom(0, 6)} ${getRandom(-10, 10)}`);
-        block.setAttribute("width", "0.2");
-        block.setAttribute("height", "0.2");
-        block.setAttribute("depth", "0.2");
+        block.setAttribute("position", `${getRandom(-5, 5)} ${getRandom(0, 3)} ${getRandom(-5, 5)}`);
+        block.setAttribute("width", "0.5");
+        block.setAttribute("height", "0.5");
+        block.setAttribute("depth", "0.5");
         block.setAttribute("color", color);
         if (isRed) {
           block.setAttribute("class", "clickable");
