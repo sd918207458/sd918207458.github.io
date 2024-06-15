@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>AR.js Game</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/3.3.2/aframe/build/aframe-ar-nft.js"></script>
+    <style>
+      #foundButton {
+        display: none;
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 10px 20px;
+        font-size: 20px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <a-scene embedded arjs>
+      <a-marker type="pattern" url="path/to/your/pattern-marker.patt">
+        <a-entity id="randomBlocks"></a-entity>
+      </a-marker>
+      <a-entity camera></a-entity>
+    </a-scene>
+    <button id="foundButton" onclick="handleEndGame()">找到了</button>
+    <script>
+      // Generate random blocks
+      document.addEventListener("DOMContentLoaded", () => {
+        const randomBlocks = document.getElementById("randomBlocks");
+        for (let i = 0; i < 9; i++) {
+          createBlock(randomBlocks, "blue", i);
+        }
+        createBlock(randomBlocks, "red", 9, true);
+      });
+
+      function createBlock(parent, color, index, isRed = false) {
+        const block = document.createElement("a-box");
+        block.setAttribute("position", `${getRandom(-1000, 1000)} ${getRandom(0, 600)} ${getRandom(-1000, 1000)}`);
+        block.setAttribute("width", "100");
+        block.setAttribute("height", "100");
+        block.setAttribute("depth", "100");
+        block.setAttribute("color", color);
+        if (isRed) {
+          block.setAttribute("class", "clickable");
+          block.addEventListener("click", () => {
+            document.getElementById("foundButton").style.display = "block";
+          });
+        }
+        parent.appendChild(block);
+      }
+
+      function getRandom(min, max) {
+        return Math.random() * (max - min) + min;
+      }
+
+      function handleEndGame() {
+        alert("游戏结束");
+      }
+    </script>
+  </body>
+</html>
