@@ -24,6 +24,9 @@
   <body>
     <a-scene embedded arjs>
       <a-marker type="pattern" url="assets/marker.patt">
+        <a-entity id="fixedRedBlock">
+          <a-box position="0 0.5 0" width="0.2" height="0.2" depth="0.2" color="red"></a-box>
+        </a-entity>
         <a-entity id="randomBlocks"></a-entity>
       </a-marker>
       <a-entity camera></a-entity>
@@ -42,9 +45,9 @@
       function createBlock(parent, color, index, isRed = false) {
         const block = document.createElement("a-box");
         block.setAttribute("position", `${getRandom(-100, 100)} ${getRandom(0, 60)} ${getRandom(-100, 100)}`);
-        block.setAttribute("width", "100");
-        block.setAttribute("height", "100");
-        block.setAttribute("depth", "100");
+        block.setAttribute("width", "0.2");
+        block.setAttribute("height", "0.2");
+        block.setAttribute("depth", "0.2");
         block.setAttribute("color", color);
         if (isRed) {
           block.setAttribute("class", "clickable");
