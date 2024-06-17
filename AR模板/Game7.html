@@ -1,95 +1,106 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
     <title>AR.js Game</title>
     <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
     <style>
-      #foundButton {
-        display: none;
-        position: fixed;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        padding: 10px 20px;
-        font-size: 20px;
-        background-color: #4CAF50;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-      }
+        #foundButton {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            font-size: 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #centerImage {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50%;
+            height: auto;
+        }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <a-scene embedded arjs>
-      <a-marker id="marker" type="pattern" url="assets/marker.patt">
-        <a-entity id="randomBlocks">
-          <a-box id="redBlock" position="0 0.5 0" width="0.2" height="0.2" depth="0.2" color="red" visible="false"></a-box>
-        </a-entity>
-      </a-marker>
-      <a-entity camera></a-entity>
+        <a-marker id="marker" type="pattern" url="assets/marker.patt">
+            <a-entity id="randomBlocks">
+                <a-box id="redBlock" position="0 0.5 0" width="0.2" height="0.2" depth="0.2" color="red" visible="false"></a-box>
+            </a-entity>
+        </a-marker>
+        <a-entity camera></a-entity>
     </a-scene>
+    <img id="centerImage" src="./assets.frog.jpg" alt="中心圖片">
     <button id="foundButton" onclick="handleEndGame()">找到了</button>
     <script>
-      let blocksVisible = false;
+        let blocksVisible = false;
 
-      // Generate random blocks
-      document.addEventListener("DOMContentLoaded", () => {
-        const randomBlocks = document.getElementById("randomBlocks");
-        for (let i = 0; i < 9; i++) {
-          createBlock(randomBlocks, "blue", i);
-        }
-        // Add red block
-        const redBlock = document.getElementById("redBlock");
-        redBlock.setAttribute("position", `${getRandom(-10, 10)} ${getRandom(0, 6)} ${getRandom(-10, 10)}`);
-        redBlock.setAttribute("visible", "true");
-        redBlock.addEventListener("click", () => {
-          document.getElementById("foundButton").style.display = "block";
+        document.addEventListener("DOMContentLoaded", () => {
+            const randomBlocks = document.getElementById("randomBlocks");
+            for (let i = 0; i < 9; i++) {
+                createBlock(randomBlocks, "blue", i);
+            }
+
+            const redBlock = document.getElementById("redBlock");
+            redBlock.setAttribute("position", `${getRandom(-10, 10)} ${getRandom(0, 6)} ${getRandom(-10, 10)}`);
+            redBlock.setAttribute("visible", "true");
+            redBlock.addEventListener("click", () => {
+                document.getElementById("foundButton").style.display = "block";
+            });
         });
-      });
 
-      function createBlock(parent, color, index) {
-        const block = document.createElement("a-box");
-        block.setAttribute("position", `${getRandom(-10, 10)} ${getRandom(0, 6)} ${getRandom(-10, 10)}`);
-        block.setAttribute("width", "0.2");
-        block.setAttribute("height", "0.2");
-        block.setAttribute("depth", "0.2");
-        block.setAttribute("color", color);
-        block.setAttribute("visible", "false");
-        parent.appendChild(block);
-      }
-
-      function getRandom(min, max) {
-        return Math.random() * (max - min) + min;
-      }
-
-      function handleEndGame() {
-        alert("遊戲結束");
-      }
-
-      // Listen for marker detection events
-      document.querySelector('a-marker').addEventListener('markerFound', (event) => {
-        if (!blocksVisible) {
-          blocksVisible = true;
-          const randomBlocks = document.getElementById("randomBlocks");
-          const blocks = randomBlocks.children;
-          for (let block of blocks) {
-            block.setAttribute("visible", "true");
-          }
+        function createBlock(parent, color, index) {
+            const block = document.createElement("a-box");
+            block.setAttribute("position", `${getRandom(-10, 10)} ${getRandom(0, 6)} ${getRandom(-10, 10)}`);
+            block.setAttribute("width", "0.2");
+            block.setAttribute("height", "0.2");
+            block.setAttribute("depth", "0.2");
+            block.setAttribute("color", color);
+            block.setAttribute("visible", "false");
+            parent.appendChild(block);
         }
-      });
 
-      document.querySelector('a-marker').addEventListener('markerLost', (event) => {
-        // Keep blocks visible even if marker is lost
-        if (blocksVisible) {
-          const randomBlocks = document.getElementById("randomBlocks");
-          const blocks = randomBlocks.children;
-          for (let block of blocks) {
-            block.setAttribute("visible", "true");
-          }
+        function getRandom(min, max) {
+            return Math.random() * (max - min) + min;
         }
-      });
+
+        function handleEndGame() {
+            alert("遊戲結束");
+        }
+
+        document.querySelector('a-marker').addEventListener('markerFound', (event) => {
+            if (!blocksVisible) {
+                blocksVisible = true;
+                const randomBlocks = document.getElementById("randomBlocks");
+                const blocks = randomBlocks.children;
+                for (let block of blocks) {
+                    block.setAttribute("visible", "true");
+                }
+                document.getElementById("centerImage").style.display = "block";
+            }
+        });
+
+        document.querySelector('a-marker').addEventListener('markerLost', (event) => {
+            if (blocksVisible) {
+                const randomBlocks = document.getElementById("randomBlocks");
+                const blocks = randomBlocks.children;
+                for (let block of blocks) {
+                    block.setAttribute("visible", "true");
+                }
+                document.getElementById("centerImage").style.display = "none";
+            }
+        });
     </script>
-  </body>
+</body>
 </html>
