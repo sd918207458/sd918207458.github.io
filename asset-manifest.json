@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.a805b6e2.css",
-    "main.js": "/static/js/main.4c77e02e.js",
+    "main.css": "/static/css/main.153d0317.css",
+    "main.js": "/static/js/main.cd6af830.js",
     "static/media/DIY相機教學圖-01.png": "/static/media/DIY相機教學圖-01.410ccfd9697174477613.png",
     "static/media/背景-防空洞.png": "/static/media/背景-防空洞.f90faeb0de54b12e303f.png",
     "static/media/背景-活動中心.png": "/static/media/背景-活動中心.1ffac035265ef20fe8ee.png",
@@ -14,6 +14,7 @@
     "static/media/阿民3-認真.png": "/static/media/阿民3-認真.3dbfdce365cfc7548579.png",
     "static/media/志工阿姨1-常駐表情.png": "/static/media/志工阿姨1-常駐表情.592d34d395329b47e9b5.png",
     "static/media/阿民1-一般常駐表情.png": "/static/media/阿民1-一般常駐表情.245cc85f58c34988c7fa.png",
+    "static/media/第二段.mp3": "/static/media/第二段.d35870b130da963b7aa6.mp3",
     "static/media/阿公5-驚慌緊張.png": "/static/media/阿公5-驚慌緊張.152210f0a9edf1320299.png",
     "static/media/阿公4-開心笑.png": "/static/media/阿公4-開心笑.55f28657ffa45dab1359.png",
     "static/media/阿公3-驚訝.png": "/static/media/阿公3-驚訝.0332255d43f5be768cf2.png",
@@ -21,16 +22,18 @@
     "static/media/阿公6-嘆氣.png": "/static/media/阿公6-嘆氣.3ebd5a8be86130c3dfcd.png",
     "static/media/郵差蛙蛙2-疑問.png": "/static/media/郵差蛙蛙2-疑問.36483f25522e320f468d.png",
     "static/media/郵差蛙蛙3-開心笑.png": "/static/media/郵差蛙蛙3-開心笑.974f95de640bdcab9b7f.png",
+    "static/media/第三段.mp3": "/static/media/第三段.33618983e054e08577a4.mp3",
     "static/media/阿公1-一般常駐表情.png": "/static/media/阿公1-一般常駐表情.cbb7b57c97cc3695cf0d.png",
     "static/media/郵差蛙蛙1-常駐表情.png": "/static/media/郵差蛙蛙1-常駐表情.e91f508e400169b40d9a.png",
+    "static/media/第一段.mp3": "/static/media/第一段.4bf0b527360943601e76.mp3",
     "static/media/alert.mp3": "/static/media/alert.ddd3d113fa7232489f8e.mp3",
     "static/media/youfoundit.jpg": "/static/media/youfoundit.82e0a2f5d03c99a90037.jpg",
     "index.html": "/index.html",
-    "main.a805b6e2.css.map": "/static/css/main.a805b6e2.css.map",
-    "main.4c77e02e.js.map": "/static/js/main.4c77e02e.js.map"
+    "main.153d0317.css.map": "/static/css/main.153d0317.css.map",
+    "main.cd6af830.js.map": "/static/js/main.cd6af830.js.map"
   },
   "entrypoints": [
-    "static/css/main.a805b6e2.css",
-    "static/js/main.4c77e02e.js"
+    "static/css/main.153d0317.css",
+    "static/js/main.cd6af830.js"
   ]
 }
