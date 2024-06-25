@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.153d0317.css",
-    "main.js": "/static/js/main.11f9bd37.js",
+    "main.js": "/static/js/main.6b44f5bf.js",
     "static/media/DIY相機教學圖-01.png": "/static/media/DIY相機教學圖-01.410ccfd9697174477613.png",
     "static/media/背景-防空洞.png": "/static/media/背景-防空洞.f90faeb0de54b12e303f.png",
     "static/media/背景-活動中心.png": "/static/media/背景-活動中心.1ffac035265ef20fe8ee.png",
@@ -27,13 +27,14 @@
     "static/media/郵差蛙蛙1-常駐表情.png": "/static/media/郵差蛙蛙1-常駐表情.e91f508e400169b40d9a.png",
     "static/media/第一段.mp3": "/static/media/第一段.4bf0b527360943601e76.mp3",
     "static/media/alert.mp3": "/static/media/alert.ddd3d113fa7232489f8e.mp3",
+    "static/media/地圖正面.jpg": "/static/media/地圖正面.25ec359eeca0b66d2a1c.jpg",
     "static/media/youfoundit.jpg": "/static/media/youfoundit.82e0a2f5d03c99a90037.jpg",
     "index.html": "/index.html",
     "main.153d0317.css.map": "/static/css/main.153d0317.css.map",
-    "main.11f9bd37.js.map": "/static/js/main.11f9bd37.js.map"
+    "main.6b44f5bf.js.map": "/static/js/main.6b44f5bf.js.map"
   },
   "entrypoints": [
     "static/css/main.153d0317.css",
-    "static/js/main.11f9bd37.js"
+    "static/js/main.6b44f5bf.js"
   ]
 }
