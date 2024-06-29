@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.857ba409.css",
-    "main.js": "/static/js/main.da8a1b8c.js",
+    "main.css": "/static/css/main.1778fdca.css",
+    "main.js": "/static/js/main.cc9fe08f.js",
     "static/media/DIY相機教學圖-01.png": "/static/media/DIY相機教學圖-01.410ccfd9697174477613.png",
     "static/media/背景-防空洞.png": "/static/media/背景-防空洞.f90faeb0de54b12e303f.png",
     "static/media/背景-活動中心.png": "/static/media/背景-活動中心.1ffac035265ef20fe8ee.png",
@@ -32,11 +32,11 @@
     "static/media/地圖反面.jpg": "/static/media/地圖反面.ffddf20a9bdd6f16c163.jpg",
     "static/media/按鈕-遊戲開始.png": "/static/media/按鈕-遊戲開始.cab92c0b8a8cc7c60be1.png",
     "index.html": "/index.html",
-    "main.857ba409.css.map": "/static/css/main.857ba409.css.map",
-    "main.da8a1b8c.js.map": "/static/js/main.da8a1b8c.js.map"
+    "main.1778fdca.css.map": "/static/css/main.1778fdca.css.map",
+    "main.cc9fe08f.js.map": "/static/js/main.cc9fe08f.js.map"
   },
   "entrypoints": [
-    "static/css/main.857ba409.css",
-    "static/js/main.da8a1b8c.js"
+    "static/css/main.1778fdca.css",
+    "static/js/main.cc9fe08f.js"
   ]
 }
