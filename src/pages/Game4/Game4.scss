@@ -1,0 +1,212 @@
+.container4 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    background-size: cover;
+    background-position: center;
+    padding: 20px;
+    background-image: url('../../assets/picture/BG/背景-草地.png');
+}
+
+.mapContainer {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.mapImageContainer {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+}
+
+.mapImage {
+    width: 100%;
+    height: auto;
+}
+
+.mapButtonsContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    position: absolute;
+    right: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.mapToggleButton,
+.inputToggleButton {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+}
+
+.mapToggleButton:hover,
+.inputToggleButton:hover {
+    background-color: #45a049;
+}
+
+.mapToggleButton svg,
+.inputToggleButton svg {
+    font-size: 18px;
+}
+
+.inputToggleButton {
+    margin-bottom: 0;
+}
+
+.audioButtonsContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: absolute;
+    left: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.audioButton {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+}
+
+.audioButton:hover {
+    background-color: #45a049;
+}
+
+.audioButton svg {
+    font-size: 24px;
+}
+
+.resultContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    border-radius: 0 0 10px 10px;
+    width: 100%;
+    max-width: 600px;
+}
+
+.input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    flex-grow: 1;
+    margin-right: 10px;
+}
+
+.endButton {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 0.3s ease;
+}
+
+.endButton:hover {
+    background-color: #45a049;
+}
+
+.newPrompt {
+    font-size: 18px;
+    color: black;
+    margin-bottom: 10px;
+    background-color: #ccc;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.navigateButton {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.navigateButton:hover {
+    background-color: #45a049;
+}
+
+.centralContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+}
+
+.centralContainer.visible {
+    display: flex;
+}
+
+@media (max-width: 768px) {
+    .mapImage {
+        width: 100%;
+    }
+
+    .mapToggleButton,
+    .inputToggleButton,
+    .audioButton {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .mapImage {
+        width: 100%;
+    }
+
+    .mapToggleButton,
+    .inputToggleButton,
+    .audioButton {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+
+    .input {
+        margin-right: 5px;
+    }
+}

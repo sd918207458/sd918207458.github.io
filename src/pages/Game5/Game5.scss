@@ -1,0 +1,46 @@
+.container5 {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0;
+    /* 新增背景色以提升對比度 */
+}
+
+.foundButton5,
+.endGameButton5 {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    z-index: 10;
+    /* 確保按鈕在頂層 */
+}
+
+.foundButton5:hover,
+.endGameButton5:hover {
+    background-color: #45a049;
+}
+
+@media (max-width: 768px) {
+
+    .foundButton5,
+    .endGameButton5 {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .foundButton5,
+    .endGameButton5 {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+}

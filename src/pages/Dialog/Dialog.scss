@@ -1,0 +1,171 @@
+/* 背景圖片樣式 */
+
+/* 遮罩層樣式 */
+.custom-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    z-index: 11;
+    /* 高於背景圖片，確保點擊事件不傳遞到相機畫面 */
+}
+
+/* 對話框標題樣式 */
+.custom-modal-title {
+    display: none;
+}
+
+/* 對話框主體樣式 */
+.custom-modal {
+    width: 80vw;
+    max-width: 1000px;
+    height: 30vh;
+    max-height: 80vh;
+    background-color: white;
+    position: fixed;
+    bottom: 5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: flex-start;
+    z-index: 12;
+    /* 高於背景圖片和遮罩層 */
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* 對話框中的圖片樣式 */
+.custom-modal-image {
+    width: 20%;
+    height: auto;
+    position: absolute;
+    left: -10%;
+    top: -15%;
+    transform: scale(1.5);
+    z-index: 13;
+    /* 高於對話框主體 */
+}
+
+/* 對話框內容樣式 */
+.custom-modal-content {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    margin: auto;
+    color: darkgreen;
+    width: 95%;
+    flex-direction: column;
+    padding: 0 5.5rem;
+}
+
+/* 對話框按鈕樣式 */
+.custom-modal-button,
+.custom-modal-button-prev {
+    position: absolute;
+    border: 2px solid #2e3730;
+    color: #2e3730;
+    cursor: pointer;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 6rem;
+    height: 3rem;
+    font-weight: bold;
+    font-size: 1.3rem;
+    bottom: 1rem;
+}
+
+.custom-modal-button {
+    right: 1rem;
+}
+
+.custom-modal-button-prev {
+    right: 4rem;
+}
+
+/* 倒計時樣式 */
+.custom-modal-countdown {
+    text-align: center;
+    font-size: 2rem;
+    color: darkgreen;
+    position: absolute;
+    bottom: 15px;
+    left: 40%;
+}
+
+/* 主按鈕樣式 */
+.assemble-button {
+    width: 12.5rem;
+    height: 6rem;
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 12;
+    /* 高於背景圖片和遮罩層 */
+    padding: 10px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    background-color: #1890ff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+}
+
+/* 主按鈕懸停狀態樣式 */
+.assemble-button:hover {
+    background-color: #1573cb;
+}
+
+.my-custom-icon {}
+
+/* 媒體查詢：適應手機設備 */
+@media screen and (max-width: 768px) {
+    .custom-modal {
+        width: 90vw;
+        max-width: 100%;
+        height: 40vh;
+        max-height: 90vh;
+        bottom: 1rem;
+    }
+
+    .custom-modal-image {
+        width: 25%;
+        height: auto;
+        left: -5%;
+        top: -50%;
+        transform: none;
+    }
+
+    .custom-modal-content {
+        font-size: 1.5rem;
+        padding: 0 5rem;
+    }
+
+    .custom-modal-button,
+    .custom-modal-button-prev {
+        width: 5rem;
+        height: 2.5rem;
+        font-size: 1rem;
+        bottom: 0.5rem;
+    }
+
+    .custom-modal-button {
+        right: 0.5rem;
+    }
+
+    .custom-modal-button-prev {
+        right: 4rem;
+    }
+
+    .assemble-button {
+        width: 10rem;
+        height: 5rem;
+        font-size: 1.2rem;
+    }
+}

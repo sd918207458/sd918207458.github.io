@@ -1,0 +1,100 @@
+.container2 {
+    background-image: url('../../assets/picture/BG/背景-活動中心.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+}
+
+.content2 {
+    text-align: center;
+    position: relative;
+}
+
+.assemblyImage2 {
+    height: auto;
+    width: 40%;
+    max-width: 600px;
+    margin-bottom: 20px;
+}
+
+.messageContainer2 {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.guideMessage2 {
+    font-size: 16px;
+    color: #333;
+}
+
+.finishButton2 {
+    bottom: 15px;
+}
+
+.finishButton2,
+.endButton2,
+.assembleButton2 {
+    bottom: 25px;
+    width: 12.5rem;
+    height: 6rem;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 12;
+    /* 高於背景圖片和遮罩層 */
+    padding: 10px 20px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.endButton2 {
+    bottom: 35px;
+}
+
+.finishButton2:hover,
+.assembleButton2:hover,
+.endButton2:hover {
+    background-color: #45a049;
+}
+
+@media (max-width: 768px) {
+    .assemblyImage2 {
+        width: 70%;
+    }
+
+    .finishButton2,
+    .assembleButton2,
+    .endButton2 {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .assemblyImage2 {
+        width: 90%;
+    }
+
+    .finishButton2,
+    .assembleButton2,
+    .endButton2 {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+}
