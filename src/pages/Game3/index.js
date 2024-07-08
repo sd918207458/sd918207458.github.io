@@ -5,23 +5,23 @@ import './Game3.scss'; // 導入 SCSS 文件
 
 const Game3 = () => {
   const [step, setStep] = useState(1); // 1: 初始提示, 2: 找到碎片, 3: 拼好了, 4: 輸入關鍵字
-  const [inputValue, setInputValue] = useState('');
-  const [isCorrect, setIsCorrect] = useState(false);
+  const [inputValue, setInputValue] = useState(''); // 輸入框的值
+  const [isCorrect, setIsCorrect] = useState(false); // 輸入答案是否正確
   const [audioPlayed, setAudioPlayed] = useState(false); // 音效是否已播放
   const [showFindFragmentButton, setShowFindFragmentButton] = useState(false); // 是否顯示“找到碎片了”按鈕
   const [showPuzzleButton, setShowPuzzleButton] = useState(false); // 是否顯示“拼好了”按鈕
   const [showGuideMessage, setShowGuideMessage] = useState(false); // 是否顯示“找導覽人員拿相片”提示
   const [showFinalButton, setShowFinalButton] = useState(false); // 是否顯示“抵達糖廠宿舍區”按鈕
 
-  const navigate = useNavigate();
-  const audioRef = useRef(null);
+  const navigate = useNavigate(); // 導航 Hook
+  const audioRef = useRef(null); // 音效參考
 
   const handleInputChange = (e) => {
-    setInputValue(e.target.value);
+    setInputValue(e.target.value); // 設置輸入框的值
     if (e.target.value === '二次世界大戰') {
-      setIsCorrect(true);
+      setIsCorrect(true); // 答案正確
     } else {
-      setIsCorrect(false);
+      setIsCorrect(false); // 答案錯誤
     }
   };
 
@@ -38,13 +38,13 @@ const Game3 = () => {
   };
 
   const handleFinalButtonClick = () => {
-    navigate('/', { state: { dialogIndex: 23 } });
+    navigate('/', { state: { dialogIndex: 22 } }); // 導航到指定頁面
   };
 
   const handleButtonClick = () => {
-    setStep(step + 1);
-    setShowFindFragmentButton(false);
-    setShowPuzzleButton(false);
+    setStep(step + 1); // 切換到下一步
+    setShowFindFragmentButton(false); // 隱藏“找到碎片了”按鈕
+    setShowPuzzleButton(false); // 隱藏“拼好了”按鈕
   };
 
   useEffect(() => {
@@ -65,14 +65,14 @@ const Game3 = () => {
       audioRef.current.play().catch((error) => {
         console.error('Audio playback was prevented:', error);
       });
-      setAudioPlayed(true);
+      setAudioPlayed(true); // 音效已播放
       setTimeout(() => {
-        setShowFindFragmentButton(true);
-      }, 9000); // 9秒後顯示“找到碎片了”按鈕
+        setShowFindFragmentButton(true); // 9秒後顯示“找到碎片了”按鈕
+      }, 9000); // 9000 毫秒 = 9 秒
     } else if (step === 2) {
       setTimeout(() => {
-        setShowPuzzleButton(true);
-      }, 3000); // 3秒後顯示“拼好了”按鈕
+        setShowPuzzleButton(true); // 3秒後顯示“拼好了”按鈕
+      }, 3000); // 3000 毫秒 = 3 秒
     }
   }, [step, audioPlayed]);
 
@@ -113,7 +113,7 @@ const Game3 = () => {
       )}
       {step === 4 && showGuideMessage && (
         <div className="content3">
-          <p className="text3">找導覽人員拿相片</p>
+          <p className="text3">記得找導覽人員拿相片喔!</p>
           {showFinalButton && (
             <button className="button3 finalButton3" onClick={handleFinalButtonClick}>抵達糖廠宿舍區</button>
           )}

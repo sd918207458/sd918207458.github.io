@@ -10,67 +10,67 @@
     align-items: center;
     flex-direction: column;
     position: relative;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
 }
 
 .content2 {
     text-align: center;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .assemblyImage2 {
-    height: auto;
-    width: 40%;
+    width: 30%;
     max-width: 600px;
+    height: auto;
     margin-bottom: 20px;
-}
-
-.messageContainer2 {
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 10px;
-    border-radius: 5px;
-    margin-top: 20px;
-}
-
-.guideMessage2 {
-    font-size: 16px;
-    color: #333;
-}
-
-.finishButton2 {
-    bottom: 15px;
+    border: 5px solid #8b5a2b;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .finishButton2,
-.endButton2,
-.assembleButton2 {
-    bottom: 25px;
-    width: 12.5rem;
-    height: 6rem;
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 12;
-    /* 高於背景圖片和遮罩層 */
-    padding: 10px 20px;
+.assembleButton2,
+.endButton2 {
+    width: 10rem;
+    height: 5rem;
     font-size: 1.5rem;
     font-weight: bold;
-    background-color: #4CAF50;
+    background-color: #8b5a2b;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 15px;
     cursor: pointer;
     text-align: center;
-}
-
-.endButton2 {
-    bottom: 35px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .finishButton2:hover,
 .assembleButton2:hover,
 .endButton2:hover {
-    background-color: #45a049;
+    background-color: #a07246;
+    transform: scale(1.05);
+}
+
+.assembleButton2::before,
+.finishButton2::before,
+.endButton2::before {
+    content: '🔧';
+    margin-right: 10px;
+}
+
+.finishButton2::before {
+    content: '✔️';
+}
+
+.endButton2::before {
+    content: '📸';
 }
 
 @media (max-width: 768px) {
@@ -83,6 +83,10 @@
     .endButton2 {
         font-size: 14px;
         padding: 8px 16px;
+        width: 8rem;
+        /* 調整按鈕寬度 */
+        height: 4rem;
+        /* 調整按鈕高度 */
     }
 }
 
@@ -96,5 +100,9 @@
     .endButton2 {
         font-size: 12px;
         padding: 6px 12px;
+        width: 6rem;
+        /* 調整按鈕寬度 */
+        height: 3rem;
+        /* 調整按鈕高度 */
     }
 }

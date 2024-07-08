@@ -78,7 +78,7 @@ const Login = () => {
   // 對話框數據
   const dialogs = [
     { title: '旁白', content: '有一天，阿民接到了活動中心志工的電話' },
-    { title: '志工', content: '「喂？阿民阿，你阿公之前放在活動中心的東西，要記得過來拿喔！」', imageUrl: Npc },
+    { title: '志工', content: '「唯？阿民阿，你阿公之前放在活動中心的東西，要記得過來拿喔！」', imageUrl: Npc },
     { title: '阿民', content: '「好的。我等等和阿公一起過去收拾。」', imageUrl: kids1 },
     { title: '阿民', content: '「阿公，我們去活動中心吧？」', imageUrl: kids1 },
     { title: '阿民', content: '「阿民，你們來了阿。爺爺的東西應該在那櫃子附近，你可以找找看。 」', imageUrl: Npc },
@@ -269,11 +269,6 @@ const Login = () => {
             讓我們準備好，我們準備走進三崁店的神秘旅程囉！
           </p>
           <button onClick={showDialog}>走吧</button>
-        </div>
-      )}
-      {imageVisible && (
-        <div className="people-container">
-          {/* 顯示相應的圖片 */}
         </div>
       )}
       {specialMessageVisible && (

@@ -6,7 +6,22 @@ const Game5 = () => {
   const [isLoaded, setIsLoaded] = useState(false); // 檢查 AR 是否已加載
   const [markerFound, setMarkerFound] = useState(false); // 標記是否被找到
   const [buttonClicked, setButtonClicked] = useState(false); // 找到了按鈕是否被點擊
+  const [hideBackground, setHideBackground] = useState(true); // 控制是否隱藏背景樣式
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // 在元件 mount 時添加隱藏背景圖片的樣式
+    setHideBackground(true);
+    document.documentElement.classList.add('hide-background');
+    document.body.classList.add('hide-background');
+
+    // 在元件 unmount 時移除隱藏背景圖片的樣式
+    return () => {
+      setHideBackground(false);
+      document.documentElement.classList.remove('hide-background');
+      document.body.classList.remove('hide-background');
+    };
+  }, []);
 
   useEffect(() => {
     let interval;
@@ -24,14 +39,6 @@ const Game5 = () => {
     checkLoadStatus();
 
     return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    // 隱藏背景樣式
-    document.body.classList.add('hide-background');
-    return () => {
-      document.body.classList.remove('hide-background');
-    };
   }, []);
 
   useEffect(() => {
@@ -79,7 +86,7 @@ const Game5 = () => {
   };
 
   return (
-    <div className="container5">
+    <div className={`container5 ${hideBackground ? 'hide-background' : ''}`}>
       {isLoaded ? (
         <a-scene embedded arjs="sourceType: webcam;">
           <a-marker preset="hiro" emitevents="true">

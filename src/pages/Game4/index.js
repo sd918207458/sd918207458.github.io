@@ -100,7 +100,7 @@ const Game4 = () => {
                 type="text"
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
-                onBlur={checkInputValue} // 當輸入框失去焦點時檢查值
+                onBlur={checkInputValue}
                 placeholder="請輸入關鍵字"
                 className="input"
               />
@@ -110,6 +110,7 @@ const Game4 = () => {
                 </button>
               )}
             </div>
+
           )}
         </div>
       </div>

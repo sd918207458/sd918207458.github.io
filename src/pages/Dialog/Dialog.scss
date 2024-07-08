@@ -1,6 +1,52 @@
-/* 背景圖片樣式 */
+/* 基本樣式設定 dialog.scss */
 
-/* 遮罩層樣式 */
+
+.dialog {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+
+
+/* 主按鈕樣式 */
+.assemble-button {
+    width: 12.5rem;
+    height: 6rem;
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 12;
+    /* 高於背景圖片和遮罩層 */
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 0px 0px 0px 2px #9fb4f2;
+    /* 按鈕邊框 */
+    background: linear-gradient(to bottom, #7892c2 5%, #476e9e 100%);
+    background-color: #7892c2;
+    border-radius: 10px;
+    border: 1px solid #4e6096;
+    cursor: pointer;
+    color: #ffffff;
+    padding: 12px 37px;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #283966;
+}
+
+/* 主按鈕懸停狀態樣式 */
+.assemble-button:hover {
+    background: linear-gradient(to bottom, #476e9e 5%, #7892c2 100%);
+    background-color: #476e9e;
+
+}
+
+/* 背景圖片樣式 */
 .custom-modal-overlay {
     position: fixed;
     top: 0;
@@ -10,11 +56,6 @@
     display: none;
     z-index: 11;
     /* 高於背景圖片，確保點擊事件不傳遞到相機畫面 */
-}
-
-/* 對話框標題樣式 */
-.custom-modal-title {
-    display: none;
 }
 
 /* 對話框主體樣式 */
@@ -34,7 +75,11 @@
     /* 高於背景圖片和遮罩層 */
     border-radius: 10px;
     padding: 20px;
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+}
+
+.custom-modal-title {
+    display: none;
 }
 
 /* 對話框中的圖片樣式 */
@@ -47,6 +92,7 @@
     transform: scale(1.5);
     z-index: 13;
     /* 高於對話框主體 */
+
 }
 
 /* 對話框內容樣式 */
@@ -96,40 +142,6 @@
     bottom: 15px;
     left: 40%;
 }
-
-/* 主按鈕樣式 */
-.assemble-button {
-    width: 12.5rem;
-    height: 6rem;
-    position: fixed;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 12;
-    /* 高於背景圖片和遮罩層 */
-    font-size: 1.5rem;
-    font-weight: bold;
-    text-align: center;
-    box-shadow: 0px 0px 0px 2px #9fb4f2;
-    background: linear-gradient(to bottom, #7892c2 5%, #476e9e 100%);
-    background-color: #7892c2;
-    border-radius: 10px;
-    border: 1px solid #4e6096;
-    display: inline-block;
-    cursor: pointer;
-    color: #ffffff;
-    padding: 12px 37px;
-    text-decoration: none;
-    text-shadow: 0px 1px 0px #283966;
-}
-
-/* 主按鈕懸停狀態樣式 */
-.assemble-button:hover {
-    background: linear-gradient(to bottom, #476e9e 5%, #7892c2 100%);
-    background-color: #476e9e;
-}
-
-.my-custom-icon {}
 
 /* 媒體查詢：適應手機設備 */
 @media screen and (max-width: 768px) {

@@ -10,79 +10,92 @@
     background-position: center;
     height: 100vh;
     width: 100vw;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
 
-    .content3 {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        max-width: 90%;
-        margin: 0 auto;
+}
+
+.content3 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 90%;
+    margin: 0 auto;
+    color: #fff;
+    font-weight: bold;
+
+    .text3 {
+        margin-bottom: 1rem;
+        font-size: 2.5rem;
+        /* 使用相對單位 */
+        color: whitesmoke;
+        /* 番茄紅 */
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        /* 文字陰影 */
+    }
+
+    .button3 {
+        padding: 1.5em 3em;
+        font-size: 2rem;
+        /* 使用相對單位 */
+        background-color: #8b5a2b;
         color: white;
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: bold;
+        border: none;
+        border-radius: 15px;
+        /* 圓角 */
+        cursor: pointer;
+        margin-top: 2.5rem;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        /* 按鈕陰影 */
 
+        &:hover {
+            background-color: #a07246;
+            /* 懸停變色 */
+            transform: scale(1.05);
+            /* 懸停放大效果 */
+        }
+    }
+
+    .endButton3 {
+        margin-top: 3rem;
+        /* 使用相對單位 */
+    }
+
+    .finalButton3 {
+        margin-top: 3rem;
+        /* 使用相對單位 */
+    }
+
+    .input3 {
+        padding: 1em;
+        font-size: 1.5rem;
+        /* 使用相對單位 */
+        width: 100%;
+        max-width: 400px;
+        margin-bottom: 1.25rem;
+        /* 使用相對單位 */
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        /* 輸入框陰影 */
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .content3 {
         .text3 {
-            margin-bottom: 1rem;
-            font-size: 2.5rem;
-            /* 使用相對單位 */
-        }
-
-        .button3 {
-            padding: 1.5em 3em;
-            font-size: 2rem;
-            /* 使用相對單位 */
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 2.5rem;
-            transition: background-color 0.3s ease;
-
-            &:hover {
-                background-color: #45a049;
-            }
-        }
-
-        .endButton3 {
-            margin-top: 3rem;
-            /* 使用相對單位 */
-        }
-
-        .finalButton3 {
-            margin-top: 3rem;
+            font-size: 1.5rem;
             /* 使用相對單位 */
         }
 
         .input3 {
-            padding: 1em;
-            font-size: 1.5rem;
+            font-size: 2rem;
             /* 使用相對單位 */
-            width: 100%;
-            max-width: 400px;
-            margin-bottom: 1.25rem;
-            /* 使用相對單位 */
-            border: 1px solid #ccc;
-            border-radius: 5px;
         }
-    }
 
-    @media screen and (max-width: 768px) {
-        .content3 {
-            .text3 {
-                font-size: 1.5rem;
-                /* 使用相對單位 */
-            }
-
-            .input3 {
-                font-size: 2rem;
-                /* 使用相對單位 */
-            }
-
-            .button3 {
-                font-size: 1rem;
-                /* 使用相對單位 */
-            }
+        .button3 {
+            font-size: 1rem;
+            /* 使用相對單位 */
         }
     }
 }

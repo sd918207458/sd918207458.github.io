@@ -47,11 +47,11 @@ const Dialog = ({
     let newBackgroundImage = '';
     if (index >= 19 && index <= 27) {
       newBackgroundImage = `url(${bg2})`;
-    } else if (index >= 28 && index <= 36) {
+    } else if (index >= 27 && index <= 35) {
       newBackgroundImage = `url(${bg3})`;
-    } else if (index >= 37 && index <= 41) {
+    } else if (index >= 37 && index <= 40) {
       newBackgroundImage = `url(${bg4})`;
-    } else if (index > 41) {
+    } else if (index > 40) {
       newBackgroundImage = `url(${bg5})`;
     } else {
       newBackgroundImage = `url(${bg1})`;
@@ -109,7 +109,7 @@ const Dialog = ({
   }, [currentIndex]);
 
   useEffect(() => {
-    if (currentIndex === 18) {
+    if (currentIndex === 18 || currentIndex === 40) {
       const timer = setInterval(() => {
         setCountdown((prev) => {
           if (prev === 1) {
@@ -134,9 +134,10 @@ const Dialog = ({
     5: { text: "尋找阿公の箱子", onClick: () => navigate('/Game1') },
     10: { text: "開始修相機", onClick: () => navigate('/Game2') },
     18: { text: isButtonEnabled ? "抵達防空洞" : `前往防空洞 (${formatTime(countdown)})`, onClick: () => navigate('/', { state: { dialogIndex: 19 } }) },
-    22: { text: "開始遊戲", onClick: () => navigate('/Game3') },
+    21: { text: "開始遊戲", onClick: () => navigate('/Game3') },
     36: { text: "開始遊戲", onClick: () => navigate('/Game4') },
     37: { text: "開始遊戲", onClick: () => navigate('/Game5') },
+    40: { text: isButtonEnabled ? "抵達神社" : `前往神社 (${formatTime(countdown)})`, onClick: () => navigate('/', { state: { dialogIndex: 41 } }) },
     46: { text: "開始遊戲", onClick: () => navigate('/Game6') },
     66: { text: "開始遊戲", onClick: () => navigate('/Game7') },
     80: { text: "開始遊戲", onClick: () => navigate('/Game8') },
@@ -166,7 +167,7 @@ const Dialog = ({
           disabled={currentIndex === 0}
           icon={<CaretLeftOutlined className="my-custom-icon" />}
         />
-        {!Object.keys(buttonConfigs).includes(String(currentIndex)) && currentIndex !== 18 && (
+        {!Object.keys(buttonConfigs).includes(String(currentIndex)) && (
           <Button
             className="custom-modal-button"
             onClick={handleNextDialog}
@@ -178,7 +179,7 @@ const Dialog = ({
         <Button
           className="assemble-button"
           onClick={buttonConfigs[currentIndex].onClick}
-          disabled={currentIndex === 18 && !isButtonEnabled}
+          disabled={currentIndex === 18 || currentIndex === 40 ? !isButtonEnabled : false}
         >
           {buttonConfigs[currentIndex].text}
         </Button>

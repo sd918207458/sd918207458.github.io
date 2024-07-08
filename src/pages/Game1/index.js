@@ -38,7 +38,7 @@ const Game1 = () => {
       const scene = sceneRef.current;
 
       // 控制背景樣式的顯示和隱藏
-      document.body.classList.add(styles.hideBackground);
+      document.body.style.backgroundImage = 'none';
 
       // 設置和清除標記的事件監聽器
       const markers = scene.querySelectorAll('a-marker');
@@ -53,8 +53,8 @@ const Game1 = () => {
           marker.removeEventListener('markerLost', handleMarkerLost);
         });
 
-        // 移除背景樣式
-        document.body.classList.remove(styles.hideBackground);
+        // 還原背景樣式
+        document.body.style.backgroundImage = '';
       };
     }
   }, [isLoaded]);
@@ -102,7 +102,7 @@ const Game1 = () => {
   };
 
   return (
-    <div className={styles.container1}>
+    <div className="container1">
       {isLoaded ? (
         <a-scene ref={sceneRef} embedded arjs="sourceType: webcam;">
           {/* 預設的標記 */}
@@ -124,7 +124,7 @@ const Game1 = () => {
         <p>Loading AR...</p>
       )}
       {markerFound && (
-        <div className={styles.buttonContainer}>
+        <div className="buttonContainer">
           <button className="endButton" onClick={handleEndGame}>
             結束遊戲
           </button>

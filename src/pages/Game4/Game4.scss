@@ -1,3 +1,4 @@
+/* 主容器樣式 */
 .container4 {
     display: flex;
     flex-direction: column;
@@ -9,8 +10,11 @@
     background-position: center;
     padding: 20px;
     background-image: url('../../assets/picture/BG/背景-草地.png');
+    /* 背景圖片 */
+    font-family: 'Comic Sans MS', cursive, sans-serif;
 }
 
+/* 地圖容器 */
 .mapContainer {
     display: flex;
     align-items: center;
@@ -18,32 +22,37 @@
     margin-bottom: 20px;
 }
 
+/* 地圖圖片容器 */
 .mapImageContainer {
     position: relative;
     width: 100%;
-    max-width: 600px;
+    max-width: 500px;
 }
 
+/* 地圖圖片 */
 .mapImage {
     width: 100%;
     height: auto;
+    max-width: 100%;
 }
 
+/* 地圖按鈕容器 */
 .mapButtonsContainer {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
     position: absolute;
-    right: -40px;
+    right: -60px;
     top: 50%;
     transform: translateY(-50%);
 }
 
+/* 地圖切換按鈕 */
 .mapToggleButton,
 .inputToggleButton {
     padding: 10px;
     font-size: 16px;
-    background-color: #4caf50;
+    background-color: #8b5a2b;
     color: white;
     border: none;
     border-radius: 5px;
@@ -53,36 +62,40 @@
     align-items: center;
     justify-content: center;
     transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: #7a4728;
+        /* 懸停變色 */
+    }
 }
 
-.mapToggleButton:hover,
-.inputToggleButton:hover {
-    background-color: #45a049;
-}
-
+/* 地圖切換按鈕圖標 */
 .mapToggleButton svg,
 .inputToggleButton svg {
     font-size: 18px;
 }
 
+/* 輸入框切換按鈕 */
 .inputToggleButton {
     margin-bottom: 0;
 }
 
+/* 音頻按鈕容器 */
 .audioButtonsContainer {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     position: absolute;
-    left: -40px;
+    left: -60px;
     top: 50%;
     transform: translateY(-50%);
 }
 
+/* 音頻按鈕 */
 .audioButton {
     padding: 10px;
     font-size: 16px;
-    background-color: #4caf50;
+    background-color: #8b5a2b;
     color: white;
     border: none;
     border-radius: 5px;
@@ -92,12 +105,14 @@
     align-items: center;
     justify-content: center;
     transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: #7a4728;
+        /* 懸停變色 */
+    }
 }
 
-.audioButton:hover {
-    background-color: #45a049;
-}
-
+/* 音頻按鈕圖標 */
 .audioButton svg {
     font-size: 24px;
 }
@@ -111,10 +126,19 @@
     left: 50%;
     transform: translateX(-50%);
     background: rgba(255, 255, 255, 0.8);
+    /* 半透明白色背景 */
     padding: 10px;
     border-radius: 0 0 10px 10px;
     width: 100%;
     max-width: 600px;
+
+    @media (max-width: 480px) {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 8px;
+        text-align: center;
+    }
 }
 
 .input {
@@ -123,50 +147,70 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     flex-grow: 1;
+    /* 佔據剩餘空間 */
     margin-right: 10px;
+    /* 可以根據需要調整間距 */
 }
 
 .endButton {
     padding: 10px 20px;
     font-size: 16px;
-    background-color: #4caf50;
+    background-color: #8b5a2b;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     white-space: nowrap;
     transition: background-color 0.3s ease;
+    order: 1;
+    /* 調整順序，使其出現在右邊 */
+    margin-top: 10px;
+
+    &:hover {
+        background-color: #7a4728;
+        /* 懸停變色 */
+    }
+
+    @media (max-width: 480px) {
+        padding: 8px 16px;
+        /* 較小的填充 */
+        font-size: 14px;
+        /* 較小的字體 */
+        margin-top: 5px;
+        /* 調整上邊距 */
+    }
 }
 
-.endButton:hover {
-    background-color: #45a049;
-}
-
+/* 新提示文本 */
 .newPrompt {
     font-size: 18px;
     color: black;
     margin-bottom: 10px;
     background-color: #ccc;
+    /* 灰色背景 */
     padding: 10px;
     border-radius: 5px;
 }
 
+/* 導航按鈕 */
 .navigateButton {
     padding: 10px 20px;
     font-size: 16px;
-    background-color: #4caf50;
+    background-color: #8b5a2b;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     margin-top: 10px;
     transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: #7a4728;
+        /* 懸停變色 */
+    }
 }
 
-.navigateButton:hover {
-    background-color: #45a049;
-}
-
+/* 中央容器 */
 .centralContainer {
     position: absolute;
     top: 50%;
@@ -177,36 +221,45 @@
     align-items: center;
 }
 
+/* 可見的中央容器 */
 .centralContainer.visible {
     display: flex;
 }
 
+/* 媒體查詢 */
 @media (max-width: 768px) {
     .mapImage {
         width: 100%;
+        /* 圖片滿寬度 */
     }
 
     .mapToggleButton,
     .inputToggleButton,
     .audioButton {
         padding: 8px 16px;
+        /* 較小的按鈕填充 */
         font-size: 14px;
+        /* 較小的字體 */
     }
 }
 
 @media (max-width: 480px) {
     .mapImage {
         width: 100%;
+        /* 圖片滿寬度 */
     }
 
     .mapToggleButton,
     .inputToggleButton,
     .audioButton {
         padding: 6px 12px;
+        /* 更小的按鈕填充 */
         font-size: 12px;
+        /* 更小的字體 */
     }
 
     .input {
         margin-right: 5px;
+        /* 調整輸入框間距 */
     }
 }

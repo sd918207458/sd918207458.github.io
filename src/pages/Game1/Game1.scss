@@ -1,3 +1,4 @@
+/* 背景和容器樣式 */
 .container1 {
     display: flex;
     justify-content: center;
@@ -6,11 +7,12 @@
     height: 100vh;
     position: relative;
     overflow: hidden;
-    background: #000;
+    background: none;
     color: #fff;
     text-align: center;
 }
 
+/* 按鈕容器樣式 */
 .buttonContainer {
     position: fixed;
     top: 50%;
@@ -19,19 +21,26 @@
     z-index: 1000;
 }
 
+/* 按鈕樣式 */
 .endButton {
     padding: 10px 20px;
     font-size: 16px;
-    background-color: #4caf50;
+    background-color: #8b5a2b;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
+    /* 圓角 */
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* 陰影 */
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .endButton:hover {
-    background-color: #45a049;
+    background-color: #a07246;
+    /* 懸停變色 */
+    transform: scale(1.05);
+    /* 懸停放大效果 */
 }
 
 @media (max-width: 768px) {
@@ -48,6 +57,7 @@
     }
 }
 
+/* 隱藏背景圖片 */
 .hideBackground {
     background-image: none !important;
 }
