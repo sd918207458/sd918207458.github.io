@@ -20,7 +20,7 @@ const Dialog = ({
   savePageState,
 }) => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [countdown, setCountdown] = useState(3); // 6 minutes countdown
+  const [countdown, setCountdown] = useState(3); // 3 seconds countdown
   const [isButtonEnabled, setIsButtonEnabled] = useState(false);
   const audioRef = useRef(new Audio(soundEffect));
   const navigate = useNavigate();
@@ -108,19 +108,25 @@ const Dialog = ({
     };
   }, [currentIndex]);
 
+  const startCountdown = () => {
+    setIsButtonEnabled(false);
+    setCountdown(3); // Reset countdown
+    const timer = setInterval(() => {
+      setCountdown((prev) => {
+        if (prev === 1) {
+          clearInterval(timer);
+          setIsButtonEnabled(true);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+    return () => clearInterval(timer);
+  };
+
   useEffect(() => {
-    if (currentIndex === 18 || currentIndex === 40) {
-      const timer = setInterval(() => {
-        setCountdown((prev) => {
-          if (prev === 1) {
-            clearInterval(timer);
-            setIsButtonEnabled(true);
-            return 0;
-          }
-          return prev - 1;
-        });
-      }, 1000);
-      return () => clearInterval(timer);
+    if (currentIndex === 18 || currentIndex === 41) {
+      startCountdown();
     }
   }, [currentIndex]);
 
@@ -137,7 +143,7 @@ const Dialog = ({
     21: { text: "開始遊戲", onClick: () => navigate('/Game3') },
     36: { text: "開始遊戲", onClick: () => navigate('/Game4') },
     37: { text: "開始遊戲", onClick: () => navigate('/Game5') },
-    40: { text: isButtonEnabled ? "抵達神社" : `前往神社 (${formatTime(countdown)})`, onClick: () => navigate('/', { state: { dialogIndex: 41 } }) },
+    41: { text: isButtonEnabled ? "抵達神社" : `前往神社 (${formatTime(countdown)})`, onClick: () => navigate('/', { state: { dialogIndex: 42 } }) },
     46: { text: "開始遊戲", onClick: () => navigate('/Game6') },
     66: { text: "開始遊戲", onClick: () => navigate('/Game7') },
     80: { text: "開始遊戲", onClick: () => navigate('/Game8') },
@@ -179,7 +185,7 @@ const Dialog = ({
         <Button
           className="assemble-button"
           onClick={buttonConfigs[currentIndex].onClick}
-          disabled={currentIndex === 18 || currentIndex === 40 ? !isButtonEnabled : false}
+          disabled={(currentIndex === 18 || currentIndex === 41) && !isButtonEnabled}
         >
           {buttonConfigs[currentIndex].text}
         </Button>

@@ -15,13 +15,22 @@ const Game4 = () => {
   const [inputVisible, setInputVisible] = useState(true); // 控制輸入框顯示狀態
   const [showNewPrompt, setShowNewPrompt] = useState(false); // 顯示新的提示
   const [showNewButton, setShowNewButton] = useState(false); // 顯示新的按鈕
+  const [audioPlaying, setAudioPlaying] = useState(false); // 控制音頻播放狀態
   const navigate = useNavigate();
 
   // 播放錄音
   const handlePlayAudio = (index) => {
+    if (audioPlaying) return; // 如果已有音頻在播放，則返回
+
+    setAudioPlaying(true);
     const audioFiles = [audio1, audio2, audio3]; // 音頻文件數組
     const audio = new Audio(audioFiles[index]);
     audio.play();
+
+    // 當音頻播放結束時，重新啟用按鈕
+    audio.onended = () => {
+      setAudioPlaying(false);
+    };
 
     // 如果點擊的是第二個音頻，檢查輸入框值並顯示遊戲結束按鈕
     if (index === 1) {
@@ -72,13 +81,13 @@ const Game4 = () => {
       <div className="mapContainer">
         {/* 播放錄音按鈕，垂直排列在地圖圖片左邊 */}
         <div className="audioButtonsContainer">
-          <button className="audioButton" onClick={() => handlePlayAudio(0)}>
+          <button className="audioButton" onClick={() => handlePlayAudio(0)} disabled={audioPlaying}>
             <AudioOutlined />
           </button>
-          <button className="audioButton" onClick={() => handlePlayAudio(1)}>
+          <button className="audioButton" onClick={() => handlePlayAudio(1)} disabled={audioPlaying}>
             <AudioOutlined />
           </button>
-          <button className="audioButton" onClick={() => handlePlayAudio(2)}>
+          <button className="audioButton" onClick={() => handlePlayAudio(2)} disabled={audioPlaying}>
             <AudioOutlined />
           </button>
         </div>
@@ -110,7 +119,6 @@ const Game4 = () => {
                 </button>
               )}
             </div>
-
           )}
         </div>
       </div>

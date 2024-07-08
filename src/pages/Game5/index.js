@@ -82,7 +82,6 @@ const Game5 = () => {
   // 結束遊戲的處理函數
   const handleEndGame = () => {
     navigate('/', { state: { dialogIndex: 38 } });
-    window.location.reload(); // 在路由跳轉後刷新網頁
   };
 
   return (
@@ -108,14 +107,18 @@ const Game5 = () => {
         <p>Loading AR...</p>
       )}
       {markerFound && !buttonClicked && (
-        <button className="foundButton5" onClick={handleFoundButtonClick}>
-          找到了
-        </button>
+        <div className="buttons-container">
+          <button className="foundButton5" onClick={handleFoundButtonClick}>
+            找到了
+          </button>
+        </div>
       )}
       {buttonClicked && (
-        <button className="endGameButton5" onClick={handleEndGame}>
-          結束遊戲
-        </button>
+        <div className="buttons-container">
+          <button className="endGameButton5" onClick={handleEndGame}>
+            結束遊戲
+          </button>
+        </div>
       )}
     </div>
   );

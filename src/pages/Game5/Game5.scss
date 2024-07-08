@@ -2,17 +2,18 @@
     position: relative;
     height: 100vh;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: none;
     font-family: 'Comic Sans MS', cursive, sans-serif;
-    background: none;
 
     &.hide-background {
         background-image: none;
-        /* 隱藏背景圖片 */
     }
+}
+
+.buttons-container {
+    display: flex;
+    gap: 20px;
 }
 
 .foundButton5,
@@ -21,32 +22,18 @@
     font-size: 18px;
     background-color: #8b5a2b;
     color: #fff;
-    /* 白色文字 */
     border: none;
     border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease;
     outline: none;
-    /* 移除默認的輪廓 */
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
 
     &:hover {
         background-color: #a07246;
-        /* 按鈕懸停顏色 */
     }
-}
-
-.foundButton5 {
-    margin-bottom: 20px;
-    /* 按鈕間距 */
-}
-
-.endGameButton5 {
-    margin-top: 20px;
-    /* 按鈕間距 */
 }
 
 body.hide-background {
     background: none !important;
-    /* 其他背景相關屬性設置為適當的值 */
 }
