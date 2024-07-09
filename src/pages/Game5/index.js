@@ -96,9 +96,6 @@ const Game5 = () => {
                 align="center"
                 color="#FFFFFF"
                 background-color="#000000"
-                width="3"
-                height="1.5"
-                font="dejavu"
               ></a-text>
             )}
           </a-marker>
@@ -106,18 +103,20 @@ const Game5 = () => {
       ) : (
         <p>Loading AR...</p>
       )}
-      {markerFound && !buttonClicked && (
+      {markerFound && (
         <div className="buttons-container">
-          <button className="foundButton5" onClick={handleFoundButtonClick}>
-            找到了
-          </button>
-        </div>
-      )}
-      {buttonClicked && (
-        <div className="buttons-container">
-          <button className="endGameButton5" onClick={handleEndGame}>
-            結束遊戲
-          </button>
+          {!buttonClicked ? (
+            <button className="foundButton5" onClick={handleFoundButtonClick}>
+              找到了
+            </button>
+          ) : (
+            <>
+              <div className="info-text">記得找導覽人員拿相片喔</div>
+              <button className="endGameButton5" onClick={handleEndGame}>
+                結束遊戲
+              </button>
+            </>
+          )}
         </div>
       )}
     </div>

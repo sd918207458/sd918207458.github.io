@@ -13,7 +13,9 @@
 
 .buttons-container {
     display: flex;
+    flex-direction: column;
     gap: 20px;
+    align-items: center;
 }
 
 .foundButton5,
@@ -36,4 +38,15 @@
 
 body.hide-background {
     background: none !important;
+}
+
+.info-text {
+    font-size: 18px;
+    color: black;
+    margin-bottom: 10px;
+    background-color: #ccc;
+    /* 灰色背景 */
+    padding: 5px;
+    border-radius: 5px;
+    text-align: center;
 }
