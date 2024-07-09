@@ -50,7 +50,7 @@ const Game4 = () => {
     setShowNewPrompt(true); // 顯示新的提示
     setTimeout(() => {
       setShowNewButton(true); // 3秒後顯示新的按鈕
-    }, 3000);
+    }, 30000);
   };
 
   // 跳轉到新的頁面

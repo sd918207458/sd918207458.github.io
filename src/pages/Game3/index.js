@@ -34,7 +34,7 @@ const Game3 = () => {
     setStep(4); // 切換到第4步顯示“找導覽人員拿相片”提示
     setTimeout(() => {
       setShowFinalButton(true); // 6秒後顯示“抵達糖廠宿舍區”按鈕
-    }, 6000); // 6000 毫秒 = 6 秒
+    }, 360000); // 6000 毫秒 = 6 秒
   };
 
   const handleFinalButtonClick = () => {
@@ -68,11 +68,11 @@ const Game3 = () => {
       setAudioPlayed(true); // 音效已播放
       setTimeout(() => {
         setShowFindFragmentButton(true); // 9秒後顯示“找到碎片了”按鈕
-      }, 9000); // 9000 毫秒 = 9 秒
+      }, 90000); // 9000 毫秒 = 9 秒
     } else if (step === 2) {
       setTimeout(() => {
         setShowPuzzleButton(true); // 3秒後顯示“拼好了”按鈕
-      }, 3000); // 3000 毫秒 = 3 秒
+      }, 30000); // 3000 毫秒 = 3 秒
     }
   }, [step, audioPlayed]);
 

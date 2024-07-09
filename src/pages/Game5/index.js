@@ -91,7 +91,7 @@ const Game5 = () => {
           <a-marker preset="hiro" emitevents="true">
             {buttonClicked && (
               <a-text
-                value="找導覽人員拿相片"
+                value="記得找導覽人員拿相片喔"
                 position="0 0.5 0"
                 align="center"
                 color="#FFFFFF"
