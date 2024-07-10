@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AudioOutlined, AudioMutedOutlined } from '@ant-design/icons';
 import alertSound from '../../assets/alert.mp3'; // 引入音效文件
 import './Game3.scss'; // 導入 SCSS 文件
 
@@ -7,22 +8,18 @@ const Game3 = () => {
   const [step, setStep] = useState(1); // 1: 初始提示, 2: 找到碎片, 3: 拼好了, 4: 輸入關鍵字
   const [inputValue, setInputValue] = useState(''); // 輸入框的值
   const [isCorrect, setIsCorrect] = useState(false); // 輸入答案是否正確
-  const [audioPlayed, setAudioPlayed] = useState(false); // 音效是否已播放
   const [showFindFragmentButton, setShowFindFragmentButton] = useState(false); // 是否顯示“找到碎片了”按鈕
   const [showPuzzleButton, setShowPuzzleButton] = useState(false); // 是否顯示“拼好了”按鈕
   const [showGuideMessage, setShowGuideMessage] = useState(false); // 是否顯示“找導覽人員拿相片”提示
   const [showFinalButton, setShowFinalButton] = useState(false); // 是否顯示“抵達糖廠宿舍區”按鈕
+  const [isAlertPlaying, setIsAlertPlaying] = useState(false); // 音效開關狀態
 
   const navigate = useNavigate(); // 導航 Hook
   const audioRef = useRef(null); // 音效參考
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value); // 設置輸入框的值
-    if (e.target.value === '二次世界大戰') {
-      setIsCorrect(true); // 答案正確
-    } else {
-      setIsCorrect(false); // 答案錯誤
-    }
+    setIsCorrect(e.target.value === '二次世界大戰'); // 設置答案正確性
   };
 
   const handleEndGame = () => {
@@ -33,8 +30,8 @@ const Game3 = () => {
     setShowGuideMessage(true); // 顯示“找導覽人員拿相片”提示
     setStep(4); // 切換到第4步顯示“找導覽人員拿相片”提示
     setTimeout(() => {
-      setShowFinalButton(true); // 6秒後顯示“抵達糖廠宿舍區”按鈕
-    }, 360000); // 6000 毫秒 = 6 秒
+      setShowFinalButton(true); // 3.6秒後顯示“抵達糖廠宿舍區”按鈕
+    }, 3600); // 3600 毫秒 = 3.6 秒
   };
 
   const handleFinalButtonClick = () => {
@@ -61,25 +58,32 @@ const Game3 = () => {
   }, []);
 
   useEffect(() => {
-    if (step === 1 && !audioPlayed) {
-      audioRef.current.play().catch((error) => {
-        console.error('Audio playback was prevented:', error);
-      });
-      setAudioPlayed(true); // 音效已播放
+    if (step === 1) {
       setTimeout(() => {
         setShowFindFragmentButton(true); // 9秒後顯示“找到碎片了”按鈕
-      }, 90000); // 9000 毫秒 = 9 秒
+      }, 9000); // 9000 毫秒 = 9 秒
     } else if (step === 2) {
       setTimeout(() => {
         setShowPuzzleButton(true); // 3秒後顯示“拼好了”按鈕
-      }, 30000); // 3000 毫秒 = 3 秒
+      }, 3000); // 3000 毫秒 = 3 秒
     }
-  }, [step, audioPlayed]);
+  }, [step]);
+
+  const toggleAlert = () => {
+    if (isAlertPlaying) {
+      audioRef.current.pause();
+    } else {
+      audioRef.current.play().catch((error) => {
+        console.error('Audio playback was prevented:', error);
+      });
+    }
+    setIsAlertPlaying(!isAlertPlaying);
+  };
 
   return (
     <div className="container3">
-      <div style={{ display: 'none' }}>
-        <audio ref={audioRef} src={alertSound} loop />
+      <div className="alert-toggle" onClick={toggleAlert}>
+        {isAlertPlaying ? <AudioOutlined /> : <AudioMutedOutlined />}
       </div>
       {step === 1 && (
         <div className="content3">

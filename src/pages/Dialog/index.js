@@ -3,7 +3,6 @@ import { Button } from 'antd';
 import { CaretLeftOutlined, CaretRightOutlined } from '@ant-design/icons';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './Dialog.scss';
-import soundEffect from '../../assets/alert.mp3'; // Import sound effect
 import bg1 from '../../assets/picture/BG/背景-活動中心.png';
 import bg2 from '../../assets/picture/BG/背景-防空洞.png';
 import bg3 from '../../assets/picture/BG/背景-草地.png';
@@ -19,10 +18,8 @@ const Dialog = ({
   dialogs = [],
   savePageState,
 }) => {
-  const [isPlaying, setIsPlaying] = useState(false);
   const [countdown, setCountdown] = useState(3); // 3 seconds countdown
   const [isButtonEnabled, setIsButtonEnabled] = useState(false);
-  const audioRef = useRef(new Audio(soundEffect));
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -85,29 +82,6 @@ const Dialog = ({
     }
   }, [location.search, setCurrentDialogIndex]);
 
-  useEffect(() => {
-    const audio = audioRef.current;
-    const isBetween18And20 = currentIndex >= 19 && currentIndex <= 20;
-
-    if (isBetween18And20) {
-      audio.loop = true;
-      if (!isPlaying) {
-        audio.play();
-        setIsPlaying(true);
-      }
-    } else {
-      audio.pause();
-      audio.currentTime = 0;
-      setIsPlaying(false);
-    }
-
-    return () => {
-      audio.pause();
-      audio.currentTime = 0;
-      setIsPlaying(false);
-    };
-  }, [currentIndex]);
-
   const startCountdown = () => {
     setIsButtonEnabled(false);
     setCountdown(3); // Reset countdown
@@ -137,8 +111,8 @@ const Dialog = ({
   };
 
   const buttonConfigs = {
-    5: { text: "尋找阿公の箱子", onClick: () => navigate('/Game1') },
-    10: { text: "開始修相機", onClick: () => navigate('/Game2') },
+    4: { text: "尋找阿公の箱子", onClick: () => navigate('/Game1') },
+    9: { text: "開始修相機", onClick: () => navigate('/Game2') },
     18: { text: isButtonEnabled ? "抵達防空洞" : `前往防空洞 (${formatTime(countdown)})`, onClick: () => navigate('/', { state: { dialogIndex: 19 } }) },
     21: { text: "開始遊戲", onClick: () => navigate('/Game3') },
     36: { text: "開始遊戲", onClick: () => navigate('/Game4') },
