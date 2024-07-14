@@ -33,7 +33,7 @@ const Login = () => {
   const [currentDialogIndex, setCurrentDialogIndex] = useState(0); // 當前對話框索引
   const [imageVisible, setImageVisible] = useState(false); // 圖片是否可見
   const [introVisible, setIntroVisible] = useState(false); // 前言是否可見
-  const [specialMessageVisible, setSpecialMessageVisible] = useState(false); // 特殊消息是否可見
+
 
   const location = useLocation();
 
@@ -65,13 +65,6 @@ const Login = () => {
     }
   }, [location.state]);
 
-  useEffect(() => {
-    if (currentDialogIndex === 43) {
-      setSpecialMessageVisible(true);
-    } else {
-      setSpecialMessageVisible(false);
-    }
-  }, [currentDialogIndex]);
 
 
 
@@ -274,12 +267,7 @@ const Login = () => {
           <button onClick={showDialog}>走吧</button>
         </div>
       )}
-      {specialMessageVisible && (
-        <div className="special-message">
-          想知道樹蛙為什麼總是出現在照片裡面嗎？
-          7月31日我們將迎來三民憶旅的最後完整版~這將是一個更加完整、更具深度的體驗，讓我們一同體驗更多早期日本糖廠的生活吧!...待續
-        </div>
-      )}
+
     </div>
   );
 };
