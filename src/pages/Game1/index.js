@@ -1,22 +1,33 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styles from './Game1.scss'; // 使用 CSS 模組
+import './Game1.scss'; // 使用 CSS 模組
 
 const Game1 = () => {
-  const [isLoaded, setIsLoaded] = useState(false); // AR.js 是否加載完成的狀態
-  const [markerFound, setMarkerFound] = useState(false); // 標記是否被找到的狀態
-  const navigate = useNavigate(); // React Router 的導航函數
-
+  const [isLoaded, setIsLoaded] = useState(false); // 檢查 AR 是否已加載
+  const [markerFound, setMarkerFound] = useState(false); // 標記是否被找到
+  const [buttonClicked, setButtonClicked] = useState(false); // 找到了按鈕是否被點擊
+  const [hideBackground, setHideBackground] = useState(true); // 控制是否隱藏背景樣式
   const sceneRef = useRef(null); // 使用 useRef 創建 sceneRef
+  const navigate = useNavigate();
 
-  // 定義 handleMarkerFound 和 handleMarkerLost 函數
-  const handleMarkerFound = () => setMarkerFound(true);
-  const handleMarkerLost = () => setMarkerFound(false);
+  useEffect(() => {
+    // 在元件 mount 時添加隱藏背景圖片的樣式
+    setHideBackground(true);
+    document.documentElement.classList.add('hide-background');
+    document.body.classList.add('hide-background');
+
+    // 在元件 unmount 時移除隱藏背景圖片的樣式
+    return () => {
+      setHideBackground(false);
+      document.documentElement.classList.remove('hide-background');
+      document.body.classList.remove('hide-background');
+    };
+  }, []);
 
   useEffect(() => {
     let interval;
 
-    // 檢查 AFRAME 是否加載完成
+    // 檢查 AFRAME 是否已加載
     const checkLoadStatus = () => {
       interval = setInterval(() => {
         if (window.AFRAME?.registerComponent) {
@@ -28,77 +39,50 @@ const Game1 = () => {
 
     checkLoadStatus();
 
-    return () => {
-      clearInterval(interval);
-    };
+    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
+    // 設置和清除標記的事件監聽器
     if (isLoaded) {
       const scene = sceneRef.current;
 
-      // 控制背景樣式的顯示和隱藏
-      document.body.style.backgroundImage = 'none';
+      const handleMarkerFound = () => {
+        setMarkerFound(true);
+      };
 
-      // 設置和清除標記的事件監聽器
-      const markers = scene.querySelectorAll('a-marker');
-      markers.forEach(marker => {
-        marker.addEventListener('markerFound', handleMarkerFound);
-        marker.addEventListener('markerLost', handleMarkerLost);
-      });
+      const handleMarkerLost = () => {
+        // 保持 markerFound 狀態，不再重置 markerFound 為 false
+      };
+
+      if (scene) {
+        const markers = scene.querySelectorAll('a-marker');
+        markers.forEach(marker => {
+          marker.addEventListener('markerFound', handleMarkerFound);
+          marker.addEventListener('markerLost', handleMarkerLost);
+        });
+      }
 
       return () => {
-        markers.forEach(marker => {
-          marker.removeEventListener('markerFound', handleMarkerFound);
-          marker.removeEventListener('markerLost', handleMarkerLost);
-        });
-
-        // 還原背景樣式
-        document.body.style.backgroundImage = '';
+        if (scene) {
+          const markers = scene.querySelectorAll('a-marker');
+          markers.forEach(marker => {
+            marker.removeEventListener('markerFound', handleMarkerFound);
+            marker.removeEventListener('markerLost', handleMarkerLost);
+          });
+        }
       };
     }
   }, [isLoaded]);
 
-  const handleEndGame = () => {
-    // 結束遊戲處理函數
-    stopARCamera(() => {
-      navigate('/', { state: { dialogIndex: 6 } });
-      window.location.reload(); // 在路由跳轉後刷新網頁
-    });
+  // 處理找到了按鈕點擊事件
+  const handleFoundButtonClick = () => {
+    setButtonClicked(true);
   };
 
-  const stopARCamera = (callback) => {
-    const scene = sceneRef.current;
-
-    // 停止 AR 相機及相關資源的清理
-    if (scene) {
-      const arjsSystem = scene.systems['arjs'];
-      if (arjsSystem && arjsSystem.source) {
-        arjsSystem.source.stop();
-        const cameraEntity = scene.querySelector('[camera]');
-        if (cameraEntity) cameraEntity.parentNode.removeChild(cameraEntity);
-        arjsSystem.dispose();
-
-        const markers = scene.querySelectorAll('a-marker');
-        markers.forEach(marker => {
-          marker.removeEventListener('markerFound', handleMarkerFound);
-          marker.removeEventListener('markerLost', handleMarkerLost);
-        });
-
-        while (scene.firstChild) scene.removeChild(scene.firstChild);
-        scene.parentNode.removeChild(scene);
-
-        const arVideo = document.getElementById('arjs-video');
-        if (arVideo) {
-          arVideo.srcObject = null;
-          arVideo.parentNode.removeChild(arVideo);
-        }
-
-        setTimeout(callback, 100);
-      } else {
-        callback();
-      }
-    }
+  // 結束遊戲的處理函數
+  const handleEndGame = () => {
+    navigate('/', { state: { dialogIndex: 5 } });
   };
 
   return (
@@ -125,9 +109,18 @@ const Game1 = () => {
       )}
       {markerFound && (
         <div className="buttonContainer">
-          <button className="endButton" onClick={handleEndGame}>
-            結束遊戲
-          </button>
+          {!buttonClicked ? (
+            <button className="foundButton" onClick={handleFoundButtonClick}>
+              找到了
+            </button>
+          ) : (
+            <>
+              <div className="info-text">記得找導覽人員拿相片喔</div>
+              <button className="endButton" onClick={handleEndGame}>
+                結束遊戲
+              </button>
+            </>
+          )}
         </div>
       )}
     </div>

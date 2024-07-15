@@ -26,7 +26,6 @@ body {
   overflow: hidden;
 }
 
-
 /* 通用容器樣式 */
 .container,
 .centered-container {
@@ -38,7 +37,6 @@ body {
   width: 100%;
   height: 100%;
 }
-
 
 /* 圖片樣式 */
 .centered-image {
@@ -54,7 +52,7 @@ body {
 }
 
 /* 按鈕樣式 */
-.foundButton {
+.startButton {
   width: 20vw;
   height: 15vh;
   display: flex;
@@ -71,16 +69,15 @@ body {
   border-radius: 10px;
   cursor: pointer;
   transition: transform 0.2s;
-
 }
 
-.foundButton img {
+.startButton img {
   width: 100%;
   height: 100%;
   border-radius: 10px;
 }
 
-.foundButton:active {
+.startButton:active {
   transform: translate(-50%, -50%) scale(0.95);
 }
 
@@ -97,7 +94,6 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   font-size: 1.2rem;
   color: #333;
-  /* 調整字體顏色 */
 }
 
 .intro-container p {
@@ -109,9 +105,7 @@ body {
 .intro-container button {
   padding: 10px 20px;
   background-color: #ffcc00;
-  /* 明亮的黃色背景 */
   color: #333;
-  /* 深色文字 */
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -120,14 +114,12 @@ body {
 
 .intro-container button:hover {
   background-color: #ffdd33;
-  /* 淺黃色 */
   transform: scale(1.05);
-  /* 放大效果 */
 }
 
 /* 媒體查詢 */
 @media screen and (max-width: 768px) {
-  .foundButton {
+  .startButton {
     width: 40vw;
     height: 20vh;
   }

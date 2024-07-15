@@ -51,7 +51,7 @@ const Game5 = () => {
       };
 
       const handleMarkerLost = () => {
-        setMarkerFound(false);
+        // 不再重置 markerFound 狀態
       };
 
       if (scene) {

@@ -66,8 +66,6 @@ const Login = () => {
   }, [location.state]);
 
 
-
-
   // 對話框數據
   const dialogs = [
     { title: '旁白', content: '有一天，阿民接到了活動中心志工的電話' },
@@ -246,7 +244,7 @@ const Login = () => {
             alt="Placeholder Image"
             className="centered-image"
           />
-          <button type="button" onClick={openDialog} className="foundButton">
+          <button type="button" onClick={openDialog} className="startButton">
             <img
               src={button}
               alt="Start Button"
