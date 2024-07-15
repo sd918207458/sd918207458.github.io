@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Game1.scss'; // 使用 CSS 模組
+import patternPatt from './pattern.patt'; // 引用 pattern.patt 文件
 
 const Game1 = () => {
   const [isLoaded, setIsLoaded] = useState(false); // 檢查 AR 是否已加載
@@ -97,7 +98,7 @@ const Game1 = () => {
           <a-marker
             id="animated-marker-custom"
             type="pattern"
-            url="/assets/nft/trex/pattern-阿公的箱子-辨識圖_阿公本人.patt" // 確認此路徑是否正確
+            url={patternPatt} // 使用引用的 pattern.patt 文件
             emitevents="true"
           >
             {/* 在此處添加 3D 模型或其他實體 */}
