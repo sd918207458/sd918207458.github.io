@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.a2c9b15a.css",
-    "main.js": "/static/js/main.16c6ed69.js",
+    "main.js": "/static/js/main.642ba552.js",
     "static/media/DIY相機教學圖-01.png": "/static/media/DIY相機教學圖-01.410ccfd9697174477613.png",
     "static/media/背景-神社外.png": "/static/media/背景-神社外.00e1c15117665b21ba54.png",
     "static/media/背景-防空洞.png": "/static/media/背景-防空洞.f90faeb0de54b12e303f.png",
@@ -34,13 +34,13 @@
     "static/media/地圖正面.jpg": "/static/media/地圖正面.25ec359eeca0b66d2a1c.jpg",
     "static/media/地圖反面.jpg": "/static/media/地圖反面.ffddf20a9bdd6f16c163.jpg",
     "static/media/按鈕-遊戲開始.png": "/static/media/按鈕-遊戲開始.cab92c0b8a8cc7c60be1.png",
-    "static/media/pattern.patt": "/static/media/pattern.4c400594af1ddc06942b.patt",
+    "static/media/pattern.patt": "/static/media/pattern.146f1e403bd5cb16e227.patt",
     "index.html": "/index.html",
     "main.a2c9b15a.css.map": "/static/css/main.a2c9b15a.css.map",
-    "main.16c6ed69.js.map": "/static/js/main.16c6ed69.js.map"
+    "main.642ba552.js.map": "/static/js/main.642ba552.js.map"
   },
   "entrypoints": [
     "static/css/main.a2c9b15a.css",
-    "static/js/main.16c6ed69.js"
+    "static/js/main.642ba552.js"
   ]
 }
