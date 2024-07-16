@@ -34,7 +34,6 @@ const Login = () => {
   const [imageVisible, setImageVisible] = useState(false); // 圖片是否可見
   const [introVisible, setIntroVisible] = useState(false); // 前言是否可見
 
-
   const location = useLocation();
 
   // 保存頁面狀態到 sessionStorage

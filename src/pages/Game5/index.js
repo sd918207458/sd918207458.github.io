@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Game5.scss';
+import patternPatt from './pattern.patt';
 
 const Game5 = () => {
   const [isLoaded, setIsLoaded] = useState(false); // 檢查 AR 是否已加載
@@ -88,7 +89,13 @@ const Game5 = () => {
     <div className={`container5 ${hideBackground ? 'hide-background' : ''}`}>
       {isLoaded ? (
         <a-scene embedded arjs="sourceType: webcam;">
-          <a-marker preset="hiro" emitevents="true">
+          {/* 自定義的標記 */}
+          <a-marker
+            id="animated-marker-custom"
+            type="pattern"
+            url={patternPatt} // 使用引用的 pattern.patt 文件
+            emitevents="true"
+          >
             {buttonClicked && (
               <a-text
                 value="記得找導覽人員拿相片喔"
