@@ -40,7 +40,6 @@
 .assemble-button:hover {
     background: linear-gradient(to bottom, #476e9e 5%, #7892c2 100%);
     background-color: #476e9e;
-
 }
 
 /* 背景圖片樣式 */
@@ -57,10 +56,10 @@
 
 /* 對話框主體樣式 */
 .custom-modal {
-    width: 80vw;
+    width: 80%;
     max-width: 1000px;
-    height: 30vh;
-    max-height: 80vh;
+    height: 30%;
+    max-height: 80%;
     background-color: white;
     position: fixed;
     bottom: 5rem;
@@ -89,7 +88,6 @@
     transform: scale(1.5);
     z-index: 13;
     /* 高於對話框主體 */
-
 }
 
 /* 對話框內容樣式 */
@@ -143,10 +141,10 @@
 /* 媒體查詢：適應手機設備 */
 @media screen and (max-width: 768px) {
     .custom-modal {
-        width: 90vw;
+        width: 90%;
         max-width: 100%;
-        height: 40vh;
-        max-height: 90vh;
+        height: 40%;
+        max-height: 90%;
         bottom: 1rem;
     }
 
@@ -184,4 +182,44 @@
         height: 5rem;
         font-size: 1.2rem;
     }
+}
+
+/* 按比例分配 */
+.assemble-button {
+    width: 12.5%;
+    height: 12%;
+    font-size: 1.5rem;
+    top: 40%;
+}
+
+.custom-modal {
+    width: 80%;
+    height: 30%;
+    bottom: 5%;
+}
+
+.custom-modal-content {
+    font-size: 1.5rem;
+    padding: 0 5%;
+}
+
+.custom-modal-button,
+.custom-modal-button-prev {
+    width: 20%;
+    height: 20%;
+    font-size: 1.3rem;
+    bottom: 5%;
+}
+
+.custom-modal-button {
+    right: 5%;
+}
+
+.custom-modal-button-prev {
+    right: 10%;
+}
+
+.custom-modal-image {
+    width: 20%;
+    top: -15%;
 }
