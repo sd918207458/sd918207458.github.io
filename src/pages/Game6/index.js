@@ -1,10 +1,9 @@
-// 介面會有一小小樹蛙神一隻在神社中心位置。
-
+//相機轉動可以看到各種小小樹蛙神（跟寶可夢一樣）。
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Game6.scss';
 
-const Game6 = () => {
+const Game7 = () => {
     const [isLoaded, setIsLoaded] = useState(false); // AR.js 是否加載完成的狀態
     const [showEndGameButton, setShowEndGameButton] = useState(false); // 是否顯示遊戲結束按鈕
     const navigate = useNavigate(); // React Router 的導航函數
@@ -57,7 +56,7 @@ const Game6 = () => {
     const handleEndGame = () => {
         stopARCamera(() => {
             document.body.classList.remove('hide-background');
-            navigate('/', { state: { dialogIndex: 38 } }); // 導航到指定路由，可以傳遞狀態或參數
+            navigate('/', { state: { dialogIndex: 67 } }); // 導航到指定路由，可以傳遞狀態或參數
         });
     };
 
@@ -100,7 +99,7 @@ const Game6 = () => {
     }, []);
 
     return (
-        <div className="container6">
+        <div className="container7">
             {isLoaded ? ( // 如果 AR.js 加載完成，渲染 AR 場景
                 <a-scene embedded arjs="sourceType: webcam;">
                     <a-marker preset="hiro" emitevents="true"></a-marker>
@@ -109,7 +108,7 @@ const Game6 = () => {
                 <p>Loading AR...</p> // 否則顯示加載中的文本
             )}
             {showEndGameButton && ( // 如果顯示結束遊戲按鈕狀態為 true，渲染結束遊戲按鈕
-                <button className="endGameButton6" onClick={handleEndGame}>
+                <button className="endGameButton7" onClick={handleEndGame}>
                     結束遊戲
                 </button>
             )}
@@ -117,4 +116,4 @@ const Game6 = () => {
     );
 };
 
-export default Game6;
+export default Game7;

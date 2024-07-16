@@ -36,24 +36,24 @@ const Login = () => {
 
   const location = useLocation();
 
-  // 保存頁面狀態到 sessionStorage
+  // 保存頁面狀態到 localStorage
   const savePageState = () => {
     const pageState = {
       currentDialogIndex,
       imageVisible,
     };
-    sessionStorage.setItem('loginPageState', JSON.stringify(pageState));
+    localStorage.setItem('loginPageState', JSON.stringify(pageState));
   };
 
   // 使用 useEffect 來管理組件掛載和卸載時的操作
   useEffect(() => {
-    const savedState = JSON.parse(sessionStorage.getItem('loginPageState'));
+    const savedState = JSON.parse(localStorage.getItem('loginPageState'));
     if (savedState) {
       setCurrentDialogIndex(savedState.currentDialogIndex);
       setImageVisible(savedState.imageVisible);
     }
     return () => {
-      sessionStorage.removeItem('loginPageState');
+      localStorage.removeItem('loginPageState');
     };
   }, []);
 
