@@ -119,7 +119,13 @@ const Dialog = ({
     37: { text: "開始遊戲", onClick: () => navigate('/Game5') },
     41: { text: isButtonEnabled ? "抵達神社" : `前往神社 (${formatTime(countdown)})`, onClick: () => navigate('/', { state: { dialogIndex: 42 } }) },
     66: { text: "開始遊戲", onClick: () => navigate('/Game6') },
-    94: { text: "完結撒花", onClick: () => navigate('#') },
+    94: {
+      text: "完結撒花",
+      onClick: () => {
+        localStorage.clear(); // 清除所有 localStorage 数据
+        navigate('#'); // 重定向到主页或其他适当的页面
+      }
+    },
   };
 
   useEffect(() => {
@@ -153,15 +159,17 @@ const Dialog = ({
           />
         )}
       </div>
-      {buttonConfigs[currentIndex] && (
-        <Button
-          className="assemble-button"
-          onClick={buttonConfigs[currentIndex].onClick}
-          disabled={(currentIndex === 18 || currentIndex === 41) && !isButtonEnabled}
-        >
-          {buttonConfigs[currentIndex].text}
-        </Button>
-      )}
+      {
+        buttonConfigs[currentIndex] && (
+          <Button
+            className="assemble-button"
+            onClick={buttonConfigs[currentIndex].onClick}
+            disabled={(currentIndex === 18 || currentIndex === 41) && !isButtonEnabled}
+          >
+            {buttonConfigs[currentIndex].text}
+          </Button>
+        )
+      }
     </>
   );
 };

@@ -3,15 +3,13 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 2rem;
-    /* 使用相對單位 */
+    padding: 3vw;
     background-image: url('../../assets/picture/BG/背景-防空洞.png');
     background-size: cover;
     background-position: center;
     height: 100vh;
     width: 100vw;
     font-family: 'Comic Sans MS', cursive, sans-serif;
-
 }
 
 .content3 {
@@ -24,78 +22,96 @@
     font-weight: bold;
 
     .text3 {
-        margin-bottom: 1rem;
-        font-size: 2.5rem;
-        /* 使用相對單位 */
+        margin-bottom: 1.5vw;
+        font-size: 3vw;
         color: whitesmoke;
-        /* 番茄紅 */
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        /* 文字陰影 */
+        text-shadow: 0.2vw 0.2vw 0.4vw rgba(0, 0, 0, 0.5);
+
     }
 
     .button3 {
-        padding: 1.5em 3em;
-        font-size: 2rem;
-        /* 使用相對單位 */
+        padding: 2vh 4vh;
+        font-size: 2.5vh;
         background-color: #8b5a2b;
         color: white;
         border: none;
-        border-radius: 15px;
-        /* 圓角 */
+        border-radius: 1.5vh;
         cursor: pointer;
-        margin-top: 2.5rem;
+        margin-top: 3vh;
         transition: background-color 0.3s ease, transform 0.3s ease;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        /* 按鈕陰影 */
+        box-shadow: 0 0.4vh 0.8vh rgba(0, 0, 0, 0.2);
 
         &:hover {
             background-color: #a07246;
-            /* 懸停變色 */
-            transform: scale(1.05);
-            /* 懸停放大效果 */
+            transform: scale(1.1);
         }
     }
 
-    .endButton3 {
-        margin-top: 3rem;
-        /* 使用相對單位 */
-    }
-
+    .endButton3,
     .finalButton3 {
-        margin-top: 3rem;
-        /* 使用相對單位 */
+        margin-top: 4vh;
     }
 
     .input3 {
-        padding: 1em;
-        font-size: 1.5rem;
-        /* 使用相對單位 */
+        padding: 2vh;
+        font-size: 2vh;
         width: 100%;
-        max-width: 400px;
-        margin-bottom: 1.25rem;
-        /* 使用相對單位 */
+        max-width: 60vw;
+        margin-bottom: 2vh;
         border: 1px solid #ccc;
-        border-radius: 5px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        /* 輸入框陰影 */
+        border-radius: 0.5vh;
+        box-shadow: 0 0.2vh 0.4vh rgba(0, 0, 0, 0.2);
+
+    }
+}
+
+.alert-toggle {
+    color: #fff;
+    background-color: #a07246;
+    /* 背景色 */
+    padding: 0.5em 1em;
+    /* 使用内边距控制大小 */
+    min-width: 50px;
+    /* 最小宽度，保证小屏幕可用性 */
+    min-height: 30px;
+    /* 最小高度 */
+    border-radius: 10px;
+    /* 圆角 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+    /* 添加阴影提高立体感 */
+    cursor: pointer;
+    /* 显示为可点击 */
+    transition: background-color 0.3s, transform 0.3s;
+    /* 过渡效果 */
+
+    /* 增加悬停效果 */
+    &:hover {
+        background-color: #b5835a;
+        /* 悬停时颜色变深 */
+        transform: scale(1.1);
+        /* 稍微放大 */
+    }
+
+    /* 响应式调整，适应极小屏幕 */
+    @media (max-width: 480px) {
+        padding: 0.75em 1.5em;
+        /* 在小屏幕上增大内边距 */
+        font-size: 90%;
+        /* 调整字体大小 */
     }
 }
 
 @media screen and (max-width: 768px) {
-    .content3 {
-        .text3 {
-            font-size: 1.5rem;
-            /* 使用相對單位 */
-        }
+    .content3 .text3 {
+        font-size: 5vw;
+    }
 
-        .input3 {
-            font-size: 2rem;
-            /* 使用相對單位 */
-        }
+    .content3 .input3 {
+        font-size: 3vw;
+    }
 
-        .button3 {
-            font-size: 1rem;
-            /* 使用相對單位 */
-        }
+    .content3 .button3 {
+        font-size: 3vw;
+        padding: 3vw 6vw;
     }
 }

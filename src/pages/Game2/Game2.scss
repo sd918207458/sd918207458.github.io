@@ -22,29 +22,34 @@
 }
 
 .assemblyImage2 {
-    width: 30%;
-    max-width: 600px;
+    width: 50vw;
+    max-width: 1000px;
     height: auto;
+    /* 保持原有比例 */
     margin-bottom: 20px;
-    border: 5px solid #8b5a2b;
-    border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 0.5vw solid #8b5a2b;
+    /* 边框使用视窗单位 */
+    border-radius: 1.5vw;
+    /* 圆角使用视窗单位 */
+    box-shadow: 0 0.4vw 0.8vw rgba(0, 0, 0, 0.2);
+    /* 阴影大小也调整 */
 }
 
 .finishButton2,
 .assembleButton2,
 .endButton2 {
-    width: 10rem;
-    height: 5rem;
-    font-size: 1.5rem;
+    width: 22vw;
+    height: 17vh;
+    font-size: 2vw;
+
     font-weight: bold;
     background-color: #8b5a2b;
     color: white;
     border: none;
-    border-radius: 15px;
+    border-radius: 1.5vh;
     cursor: pointer;
     text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0.4vh 0.8vh rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s ease, transform 0.3s ease;
     display: flex;
     align-items: center;
@@ -62,7 +67,7 @@
 .finishButton2::before,
 .endButton2::before {
     content: '🔧';
-    margin-right: 10px;
+    margin-right: 1vw;
 }
 
 .finishButton2::before {
@@ -75,34 +80,31 @@
 
 @media (max-width: 768px) {
     .assemblyImage2 {
-        width: 70%;
+        width: 70vw;
     }
 
     .finishButton2,
     .assembleButton2,
     .endButton2 {
-        font-size: 14px;
-        padding: 8px 16px;
-        width: 8rem;
-        /* 調整按鈕寬度 */
-        height: 4rem;
-        /* 調整按鈕高度 */
+        font-size: 2vw;
+        padding: 2vw 4vw;
+        width: 20vw;
+        height: 15vh;
     }
 }
 
 @media (max-width: 480px) {
     .assemblyImage2 {
-        width: 90%;
+        width: 90vw;
     }
 
     .finishButton2,
     .assembleButton2,
     .endButton2 {
-        font-size: 12px;
-        padding: 6px 12px;
-        width: 6rem;
-        /* 調整按鈕寬度 */
-        height: 3rem;
-        /* 調整按鈕高度 */
+        font-size: 2vw;
+        padding: 2.5vw 5vw;
+        width: 20vw;
+        height: 10vh;
+
     }
 }

@@ -24,41 +24,37 @@
 /* 按鈕樣式 */
 .foundButton,
 .endButton {
-    padding: 10px 20px;
-    font-size: 16px;
+    padding: 1.3vh 2.6vh;
+    font-size: 1.3vw;
     background-color: #8b5a2b;
     color: white;
     border: none;
-    border-radius: 10px;
-    /* 圓角 */
+    border-radius: 0.5vw;
     cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    /* 陰影 */
+    box-shadow: 0 0.4vw 0.8vw rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .endButton:hover {
     background-color: #a07246;
-    /* 懸停變色 */
     transform: scale(1.05);
-    /* 懸停放大效果 */
 }
 
 @media (max-width: 768px) {
     .endButton {
-        font-size: 14px;
-        padding: 8px 16px;
+        font-size: 2.6vw;
+        padding: 2vw 4vw;
     }
 }
 
 @media (max-width: 480px) {
     .endButton {
-        font-size: 12px;
-        padding: 6px 12px;
+        font-size: 3vw;
+        padding: 2.5vw 5vw;
     }
 }
 
-/* 隱藏背景圖片 */
+
 .hideBackground {
     background-image: none !important;
 }
