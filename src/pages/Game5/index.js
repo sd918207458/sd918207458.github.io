@@ -89,6 +89,9 @@ const Game5 = () => {
     <div className={`container5 ${hideBackground ? 'hide-background' : ''}`}>
       {isLoaded ? (
         <a-scene embedded arjs="sourceType: webcam;">
+          <a-marker id="animated-marker" preset="hiro" emitevents="true">
+            {/* 在此處添加 3D 模型或其他實體 */}
+          </a-marker>
           {/* 自定義的標記 */}
           <a-marker
             id="animated-marker-custom"
