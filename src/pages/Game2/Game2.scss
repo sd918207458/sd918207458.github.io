@@ -1,3 +1,23 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+html,
+body {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
 .container2 {
     background-image: url('../../assets/picture/BG/背景-活動中心.png');
     background-size: cover;
@@ -10,12 +30,10 @@
     align-items: center;
     flex-direction: column;
     position: relative;
-    font-family: 'Comic Sans MS', cursive, sans-serif;
 }
 
 .content2 {
     text-align: center;
-    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -25,14 +43,10 @@
     width: 50vw;
     max-width: 1000px;
     height: auto;
-    /* 保持原有比例 */
     margin-bottom: 20px;
     border: 0.5vw solid #8b5a2b;
-    /* 边框使用视窗单位 */
     border-radius: 1.5vw;
-    /* 圆角使用视窗单位 */
     box-shadow: 0 0.4vw 0.8vw rgba(0, 0, 0, 0.2);
-    /* 阴影大小也调整 */
 }
 
 .finishButton2,
@@ -41,7 +55,6 @@
     width: 22vw;
     height: 17vh;
     font-size: 2vw;
-
     font-weight: bold;
     background-color: #8b5a2b;
     color: white;
@@ -54,6 +67,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-bottom: 2vh;
+    line-height: 1.5;
 }
 
 .finishButton2:hover,
@@ -78,6 +93,20 @@
     content: '📸';
 }
 
+@media (max-width: 1024px) {
+    .assemblyImage2 {
+        width: 60vw;
+    }
+
+    .finishButton2,
+    .assembleButton2,
+    .endButton2 {
+        width: 30vw;
+        height: 15vh;
+        font-size: 2.5vw;
+    }
+}
+
 @media (max-width: 768px) {
     .assemblyImage2 {
         width: 70vw;
@@ -86,25 +115,23 @@
     .finishButton2,
     .assembleButton2,
     .endButton2 {
-        font-size: 2vw;
-        padding: 2vw 4vw;
-        width: 20vw;
+        width: 35vw;
         height: 15vh;
+        font-size: 3vw;
     }
 }
 
 @media (max-width: 480px) {
     .assemblyImage2 {
         width: 90vw;
+        margin-bottom: 10px;
     }
 
     .finishButton2,
     .assembleButton2,
     .endButton2 {
-        font-size: 2vw;
-        padding: 2.5vw 5vw;
-        width: 20vw;
-        height: 10vh;
-
+        width: 40vw;
+        height: 20vh;
+        font-size: 4vw;
     }
 }
