@@ -1,119 +1,74 @@
-//相機轉動可以看到各種小小樹蛙神（跟寶可夢一樣）。
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Game6.scss';
+import ARDetector from '../../components/ARDetector'; // 引用 ARDetector 組件
+import './Game1.scss'; // 使用 CSS 模組
+import patternPatt from './pattern.patt'; // 引用 pattern.patt 文件
 
-const Game7 = () => {
-    const [isLoaded, setIsLoaded] = useState(false); // AR.js 是否加載完成的狀態
-    const [showEndGameButton, setShowEndGameButton] = useState(false); // 是否顯示遊戲結束按鈕
-    const navigate = useNavigate(); // React Router 的導航函數
+const Game1 = () => {
+    const [isLoaded, setIsLoaded] = useState(false); // 檢查 AR 是否已加載
+    const [markerFound, setMarkerFound] = useState(false); // 標記是否被找到
+    const [buttonClicked, setButtonClicked] = useState(false); // 找到了按鈕是否被點擊
+    const navigate = useNavigate();
+    const sceneRef = useRef(null); // 使用 useRef 創建 sceneRef
 
-    // 檢查 AR.js 是否已經加載完成，如果完成則設置 isLoaded 為 true
     useEffect(() => {
-        const interval = setInterval(() => {
-            if (window.AFRAME?.registerComponent) {
-                setIsLoaded(true);
-                clearInterval(interval);
-            }
-        }, 100);
-
-        return () => clearInterval(interval);
-    }, []);
-
-    // 初始化時隱藏背景
-    useEffect(() => {
+        document.documentElement.classList.add('hide-background');
         document.body.classList.add('hide-background');
+
         return () => {
+            document.documentElement.classList.remove('hide-background');
             document.body.classList.remove('hide-background');
         };
     }, []);
 
-    // 監聽 AR 標記的顯示與隱藏事件
-    useEffect(() => {
-        if (!isLoaded) return;
+    const handleFoundButtonClick = () => {
+        setButtonClicked(true);
+    };
 
-        const marker = document.querySelector('a-marker');
-        if (!marker) return;
-
-        const handleMarkerFound = () => {
-            setShowEndGameButton(true); // 當標記被找到時顯示結束按鈕
-        };
-
-        const handleMarkerLost = () => {
-            setShowEndGameButton(false); // 當標記丟失時隱藏結束按鈕
-        };
-
-        marker.addEventListener('markerFound', handleMarkerFound);
-        marker.addEventListener('markerLost', handleMarkerLost);
-
-        return () => {
-            marker.removeEventListener('markerFound', handleMarkerFound);
-            marker.removeEventListener('markerLost', handleMarkerLost);
-        };
-    }, [isLoaded]);
-
-    // 處理遊戲結束按鈕的點擊事件
     const handleEndGame = () => {
-        stopARCamera(() => {
-            document.body.classList.remove('hide-background');
-            navigate('/', { state: { dialogIndex: 67 } }); // 導航到指定路由，可以傳遞狀態或參數
-        });
+        navigate('/', { state: { dialogIndex: 67 } });
     };
 
-    // 停止 AR 相機並清理 AR 環境的函數
-    const stopARCamera = (callback) => {
-        const scene = document.querySelector('a-scene');
-        if (!scene) {
-            callback();
-            return;
-        }
-
-        const arjsSystem = scene.systems['arjs'];
-        if (arjsSystem && arjsSystem.source) {
-            arjsSystem.source.stop(); // 停止 AR.js 的視頻流
-
-            const cameraEntity = scene.querySelector('[camera]');
-            if (cameraEntity) {
-                cameraEntity.parentNode.removeChild(cameraEntity);
-            }
-
-            arjsSystem.dispose(); // 清理 AR.js 系統
-
-            while (scene.firstChild) {
-                scene.removeChild(scene.firstChild);
-            }
-
-            scene.parentNode.removeChild(scene); // 從 DOM 中移除場景元素
-
-            setTimeout(callback, 100); // 等待一段時間後執行回調函數
-        } else {
-            callback();
-        }
+    const handleMarkerFound = () => {
+        setMarkerFound(true);
     };
 
-    // 在組件卸載時確保清理 AR 環境
-    useEffect(() => {
-        return () => {
-            stopARCamera(() => { });
-        };
-    }, []);
+    const handleNextPage = () => {
+        // 定義跳轉到下一頁的邏輯
+        console.log("Jumping to next page...");
+    };
 
     return (
-        <div className="container7">
-            {isLoaded ? ( // 如果 AR.js 加載完成，渲染 AR 場景
-                <a-scene embedded arjs="sourceType: webcam;">
-                    <a-marker preset="hiro" emitevents="true"></a-marker>
-                </a-scene>
-            ) : (
-                <p>Loading AR...</p> // 否則顯示加載中的文本
-            )}
-            {showEndGameButton && ( // 如果顯示結束遊戲按鈕狀態為 true，渲染結束遊戲按鈕
-                <button className="endGameButton7" onClick={handleEndGame}>
-                    結束遊戲
-                </button>
+        <div className="container1">
+            <ARDetector
+                markerUrl={patternPatt}
+                onMarkerFound={handleMarkerFound}
+                onEndGame={handleEndGame}
+                onNextPage={handleNextPage}
+                models={[
+                    { url: 'path/to/model1.gltf', type: 'gltf' },
+                    { url: 'path/to/model2.obj', type: 'obj' },
+                    { url: 'path/to/model3.fbx', type: 'fbx' }
+                ]}
+            />
+            {markerFound && (
+                <div className="buttonContainer">
+                    {!buttonClicked ? (
+                        <button className="foundButton" onClick={handleFoundButtonClick}>
+                            找到了
+                        </button>
+                    ) : (
+                        <>
+                            <div className="info-text">記得找導覽人員拿相片喔</div>
+                            <button className="endButton" onClick={handleEndGame}>
+                                結束遊戲
+                            </button>
+                        </>
+                    )}
+                </div>
             )}
         </div>
     );
 };
 
-export default Game7;
+export default Game1;
