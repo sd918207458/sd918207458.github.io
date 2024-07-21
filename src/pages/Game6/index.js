@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ARDetector from '../../components/ARDetector'; // 引用 ARDetector 組件
-import './Game1.scss'; // 使用 CSS 模組
+import './Game6.scss'; // 使用 CSS 模組
 import patternPatt from './pattern.patt'; // 引用 pattern.patt 文件
 
 const Game1 = () => {
@@ -26,7 +26,7 @@ const Game1 = () => {
     };
 
     const handleEndGame = () => {
-        navigate('/', { state: { dialogIndex: 67 } });
+        navigate('/', { state: { dialogIndex: 68 } });
     };
 
     const handleMarkerFound = () => {

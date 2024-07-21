@@ -56,20 +56,20 @@ const Game5 = () => {
       };
 
       if (scene) {
-        const marker = scene.querySelector('a-marker');
-        if (marker) {
+        const markers = scene.querySelectorAll('a-marker');
+        markers.forEach(marker => {
           marker.addEventListener('markerFound', handleMarkerFound);
           marker.addEventListener('markerLost', handleMarkerLost);
-        }
+        });
       }
 
       return () => {
         if (scene) {
-          const marker = scene.querySelector('a-marker');
-          if (marker) {
+          const markers = scene.querySelectorAll('a-marker');
+          markers.forEach(marker => {
             marker.removeEventListener('markerFound', handleMarkerFound);
             marker.removeEventListener('markerLost', handleMarkerLost);
-          }
+          });
         }
       };
     }
@@ -109,6 +109,7 @@ const Game5 = () => {
               ></a-text>
             )}
           </a-marker>
+          <a-entity camera></a-entity>
         </a-scene>
       ) : (
         <p>Loading AR...</p>
