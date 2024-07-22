@@ -8,11 +8,16 @@ const ModalButton = ({ isVisible, showModal, handleModalCancel }) => {
 
     const navigateToGame = (gameNumber, dialogIndex = null) => {
         if (dialogIndex !== null) {
-            navigate(`/Game${gameNumber}`, { state: { dialogIndex } });
+            navigate(`/game${gameNumber}`, { state: { dialogIndex } });
         } else {
-            navigate(`/Game${gameNumber}`);
+            navigate(`/game${gameNumber}`);
         }
         handleModalCancel();
+    };
+
+    const clearLocalStorage = () => {
+        localStorage.clear();
+        alert('已清除當前紀錄');
     };
 
     return (
@@ -33,18 +38,19 @@ const ModalButton = ({ isVisible, showModal, handleModalCancel }) => {
                 footer={null}
             >
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                    <Button onClick={() => navigateToGame(1)}>Game 1</Button>
-                    <Button onClick={() => navigate('/', { state: { dialogIndex: 5 } })}>Game 1 後</Button>
-                    <Button onClick={() => navigateToGame(2)}>Game 2</Button>
-                    <Button onClick={() => navigate('/', { state: { dialogIndex: 10 } })}>Game 2 後</Button>
-                    <Button onClick={() => navigateToGame(3)}>Game 3</Button>
-                    <Button onClick={() => navigate('/', { state: { dialogIndex: 22 } })}>Game 3 後</Button>
-                    <Button onClick={() => navigateToGame(4)}>Game 4</Button>
-                    <Button onClick={() => navigate('/', { state: { dialogIndex: 37 } })}>Game 4 後</Button>
-                    <Button onClick={() => navigateToGame(5)}>Game 5</Button>
-                    <Button onClick={() => navigate('/', { state: { dialogIndex: 38 } })}>Game 5 後</Button>
-                    <Button onClick={() => navigateToGame(6)}>Game 6</Button>
-                    <Button onClick={() => navigate('/', { state: { dialogIndex: 68 } })}>Game 6 後</Button>
+                    <Button onClick={() => navigateToGame(1)}>第一章：爺爺的舊相機</Button>
+                    <Button onClick={() => navigate('/', { state: { dialogIndex: 5 } })}>第一章故事-1 </Button>
+                    <Button onClick={() => navigateToGame(2)}>第一章：爺爺的舊相機-2</Button>
+                    <Button onClick={() => navigate('/', { state: { dialogIndex: 10 } })}>第一章故事-2</Button>
+                    <Button onClick={() => navigateToGame(3)}>第二章：消除空襲警報</Button>
+                    <Button onClick={() => navigate('/', { state: { dialogIndex: 22 } })}>第二章故事</Button>
+                    <Button onClick={() => navigateToGame(4)}>第三章：聽聲辨位</Button>
+                    <Button onClick={() => navigate('/', { state: { dialogIndex: 37 } })}>第三章故事</Button>
+                    <Button onClick={() => navigateToGame(5)}>第四章：AR辨識</Button>
+                    <Button onClick={() => navigate('/', { state: { dialogIndex: 38 } })}>第四章故事</Button>
+                    <Button onClick={() => navigateToGame(6)}>第五章：尋找小小樹蛙</Button>
+                    <Button onClick={() => navigate('/', { state: { dialogIndex: 68 } })}>第五章故事</Button>
+                    <Button onClick={clearLocalStorage} style={{ backgroundColor: 'red', color: 'white' }}>清除紀錄</Button>
                 </div>
             </Modal>
         </>

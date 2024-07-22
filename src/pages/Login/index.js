@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Dialog from '../Dialog';
 import Gamemodal from '../../components/Gamemodal';
@@ -39,6 +39,7 @@ const Login = () => {
 
   const { dialogVisible, currentDialogIndex, imageVisible, introVisible, isModalVisible } = pageState;
   const location = useLocation();
+
 
   const dialogs = [
     { title: '旁白', content: '有一天，阿民接到了活動中心志工的電話' },
@@ -149,6 +150,17 @@ const Login = () => {
     //此時介面會出現一句話「如果你是阿民你會怎麼守護三民社區?」然後會給幾的選項「#」「#」「#」。最後引導到社區正在推廣的活動。
   ];
 
+  useEffect(() => {
+    if (location.state?.dialogIndex !== undefined) {
+      setPageState((prevState) => ({
+        ...prevState,
+        dialogVisible: true,
+        currentDialogIndex: location.state.dialogIndex,
+      }));
+      savePageState();
+    }
+  }, [location.state, setPageState, savePageState]);
+
   const openDialog = () => setPageState((prevState) => ({
     ...prevState,
     introVisible: true,
@@ -202,13 +214,11 @@ const Login = () => {
 
   return (
     <div className='dialog'>
-      {dialogVisible && (
-        <Gamemodal
-          isVisible={isModalVisible}
-          showModal={showModal}
-          handleModalCancel={handleModalCancel}
-        />
-      )}
+      <Gamemodal
+        isVisible={isModalVisible}
+        showModal={showModal}
+        handleModalCancel={handleModalCancel}
+      />
       {dialogVisible && (
         <Dialog
           visible={dialogVisible}
