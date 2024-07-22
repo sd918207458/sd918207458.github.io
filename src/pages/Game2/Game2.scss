@@ -1,8 +1,20 @@
+/* 全局變數 */
+$primary-color: #8b5a2b;
+$hover-color: #a07246;
+$font-size-large: 2vw;
+$font-size-medium: 2.5vw;
+$font-size-small: 3vw;
+$font-size-xsmall: 4vw;
+$button-padding: 1.5vh 0;
+$border-radius-large: 1.5vw;
+$border-radius-medium: 1.5vh;
+$border-radius-small: 1vw;
+$border-radius-xsmall: 1.5vw;
+$box-shadow: 0 0.4vw 0.8vw rgba(0, 0, 0, 0.2);
+
+/* 基本容器樣式 */
 .container2 {
-    background-image: url('../../assets/picture/BG/背景-活動中心.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    background: url('../../assets/picture/BG/背景-活動中心.png') center/cover no-repeat;
     width: 105vw;
     height: 105vh;
     display: flex;
@@ -12,6 +24,7 @@
     position: relative;
 }
 
+/* 內容區域樣式 */
 .content2 {
     text-align: center;
     display: flex;
@@ -19,99 +32,108 @@
     align-items: center;
 }
 
+/* 圖片樣式 */
 .assemblyImage2 {
     width: 50vw;
     max-width: 1000px;
     height: auto;
     margin-bottom: 20px;
-    border: 0.5vw solid #8b5a2b;
-    border-radius: 1.5vw;
-    box-shadow: 0 0.4vw 0.8vw rgba(0, 0, 0, 0.2);
+    border: 0.5vw solid $primary-color;
+    border-radius: $border-radius-large;
+    box-shadow: $box-shadow;
 }
 
-.finishButton2,
-.assembleButton2,
-.endButton2 {
+/* 按鈕基本樣式 */
+.button {
     width: 22vw;
     height: 17vh;
-    font-size: 2vw;
+    font-size: $font-size-large;
     font-weight: bold;
-    background-color: #8b5a2b;
+    background-color: $primary-color;
     color: white;
     border: none;
-    border-radius: 1.5vh;
+    border-radius: $border-radius-medium;
     cursor: pointer;
     text-align: center;
-    box-shadow: 0 0.4vh 0.8vh rgba(0, 0, 0, 0.2);
+    box-shadow: $box-shadow;
     transition: background-color 0.3s ease, transform 0.3s ease;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 2vh;
     line-height: 1.5;
+
+    &:hover {
+        background-color: $hover-color;
+        transform: scale(1.05);
+    }
+
+    &::before {
+        margin-right: 1vw;
+    }
 }
 
-.finishButton2:hover,
-.assembleButton2:hover,
-.endButton2:hover {
-    background-color: #a07246;
-    transform: scale(1.05);
+/* 具體按鈕樣式 */
+.assembleButton2 {
+    @extend .button;
+
+    &::before {
+        content: '🔧';
+    }
 }
 
-.assembleButton2::before,
-.finishButton2::before,
-.endButton2::before {
-    content: '🔧';
-    margin-right: 1vw;
+.finishButton2 {
+    @extend .button;
+
+    &::before {
+        content: '✔️';
+    }
 }
 
-.finishButton2::before {
-    content: '✔️';
+.endButton2 {
+    @extend .button;
+
+    &::before {
+        content: '📸';
+    }
 }
 
-.endButton2::before {
-    content: '📸';
-}
-
+/* 媒體查詢：適應平板設備 */
 @media (max-width: 1024px) {
     .assemblyImage2 {
         width: 60vw;
     }
 
-    .finishButton2,
-    .assembleButton2,
-    .endButton2 {
+    .button {
         width: 30vw;
         height: 15vh;
-        font-size: 2.5vw;
+        font-size: $font-size-medium;
     }
 }
 
+/* 媒體查詢：適應手機設備 */
 @media (max-width: 768px) {
     .assemblyImage2 {
         width: 70vw;
     }
 
-    .finishButton2,
-    .assembleButton2,
-    .endButton2 {
+    .button {
         width: 35vw;
         height: 15vh;
-        font-size: 3vw;
+        font-size: $font-size-small;
     }
 }
 
+/* 媒體查詢：適應小手機設備 */
 @media (max-width: 480px) {
     .assemblyImage2 {
         width: 90vw;
         margin-bottom: 10px;
     }
 
-    .finishButton2,
-    .assembleButton2,
-    .endButton2 {
+    .button {
         width: 40vw;
         height: 20vh;
-        font-size: 4vw;
+        font-size: $font-size-xsmall;
     }
 }

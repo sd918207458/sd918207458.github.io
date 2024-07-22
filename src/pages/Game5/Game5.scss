@@ -1,3 +1,12 @@
+/* 全局變數 */
+$primary-color: #8b5a2b;
+$hover-color: #a07246;
+$button-padding: 12px 24px;
+$button-radius: 10px;
+$button-transition: background-color 0.3s ease;
+$box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+$text-shadow: 0.2vw 0.2vw 0.4vw rgba(0, 0, 0, 0.7);
+
 /* 主容器樣式 */
 .container5 {
     position: relative;
@@ -6,10 +15,10 @@
     align-items: center;
     justify-content: center;
     font-family: 'Comic Sans MS', cursive, sans-serif;
-}
 
-.container5.hide-background {
-    background-image: none;
+    &.hide-background {
+        background-image: none;
+    }
 }
 
 /* 按鈕容器 */
@@ -27,25 +36,24 @@
 /* 按鈕樣式 */
 .foundButton5,
 .endGameButton5 {
-    padding: 12px 24px;
+    padding: $button-padding;
     font-size: 18px;
-    background-color: #8b5a2b;
+    background-color: $primary-color;
     color: #fff;
     border: none;
-    border-radius: 10px;
+    border-radius: $button-radius;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: $button-transition;
     outline: none;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+    box-shadow: $box-shadow;
     text-align: center;
     line-height: 1.5;
     flex: 1;
     margin: 0 10px;
-}
 
-.foundButton5:hover,
-.endGameButton5:hover {
-    background-color: #a07246;
+    &:hover {
+        background-color: $hover-color;
+    }
 }
 
 /* 隱藏背景樣式 */

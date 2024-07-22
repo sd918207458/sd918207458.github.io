@@ -1,18 +1,25 @@
-/* 容器样式 */
+/* 全局變數 */
+$primary-color: #8b5a2b;
+$hover-color: #a07246;
+$button-shadow: 0 0.4vh 0.8vh rgba(0, 0, 0, 0.2);
+$text-shadow: 0.2vw 0.2vw 0.4vw rgba(0, 0, 0, 0.7);
+$background-color: rgba(0, 0, 0, 0.6);
+$border-radius-large: 1vw;
+$border-radius-small: 1.5vh;
+
+/* 基本容器樣式 */
 .container3 {
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
     padding: 3vw;
-    background-image: url('../../assets/picture/BG/背景-防空洞.png');
-    background-size: cover;
-    background-position: center;
+    background: url('../../assets/picture/BG/背景-防空洞.png') center/cover no-repeat;
     height: 105vh;
     width: 105vw;
 }
 
-/* 内容样式 */
+/* 內容區域樣式 */
 .content3 {
     display: flex;
     flex-direction: column;
@@ -22,49 +29,46 @@
     color: #fff;
     font-weight: bold;
     overflow-y: auto;
-    /* 添加垂直滚动条，以防内容过多 */
     padding: 2vh;
-    /* 增加内边距 */
-    background-color: rgba(0, 0, 0, 0.6);
-    /* 添加背景色，增强对比度 */
-    border-radius: 1vw;
-    /* 增加圆角 */
+    background-color: $background-color;
+    border-radius: $border-radius-large;
 }
 
+/* 文字樣式 */
 .text3 {
     margin-bottom: 2vh;
-    /* 增加段落间距 */
     font-size: 3vw;
     color: #f5f5f5;
-    text-shadow: 0.2vw 0.2vw 0.4vw rgba(0, 0, 0, 0.7);
-    /* 增强文字阴影对比 */
+    text-shadow: $text-shadow;
     line-height: 1.5;
-    /* 增加行高，提高可读性 */
 }
 
+/* 按鈕基本樣式 */
 .button3 {
     padding: 2vh 4vh;
     font-size: 2.5vh;
-    background-color: #8b5a2b;
+    background-color: $primary-color;
     color: white;
     border: none;
-    border-radius: 1.5vh;
+    border-radius: $border-radius-small;
     cursor: pointer;
     margin-top: 3vh;
     transition: background-color 0.3s ease, transform 0.3s ease;
-    box-shadow: 0 0.4vh 0.8vh rgba(0, 0, 0, 0.2);
+    box-shadow: $button-shadow;
+
+    &:hover {
+        background-color: $hover-color;
+        transform: scale(1.1);
+    }
 }
 
-.button3:hover {
-    background-color: #a07246;
-    transform: scale(1.1);
-}
-
+/* 特殊按鈕樣式 */
 .endButton3,
 .finalButton3 {
     margin-top: 4vh;
 }
 
+/* 輸入框樣式 */
 .input3 {
     padding: 2vh;
     font-size: 2vh;
@@ -79,7 +83,7 @@
 /* 警告切換按鈕樣式 */
 .alert-toggle {
     color: #fff;
-    background-color: #a07246;
+    background-color: $hover-color;
     padding: 0.5em 1em;
     min-width: 50px;
     min-height: 30px;
@@ -87,13 +91,14 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
+
+    &:hover {
+        background-color: #b5835a;
+        transform: scale(1.1);
+    }
 }
 
-.alert-toggle:hover {
-    background-color: #b5835a;
-    transform: scale(1.1);
-}
-
+/* 平板設備樣式 */
 @media (max-width: 1024px) {
     .text3 {
         font-size: 4vw;
@@ -109,6 +114,7 @@
     }
 }
 
+/* 手機設備樣式 */
 @media (max-width: 768px) {
     .text3 {
         font-size: 5vw;
@@ -124,6 +130,7 @@
     }
 }
 
+/* 小手機設備樣式 */
 @media (max-width: 480px) {
     .text3 {
         font-size: 6vw;

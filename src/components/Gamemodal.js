@@ -21,7 +21,7 @@ const ModalButton = ({ isVisible, showModal, handleModalCancel }) => {
                 <Button
                     type="primary"
                     onClick={showModal}
-                    style={{ position: 'absolute', top: '0', left: '0', transform: 'translate(-50vw, -25vw)', zIndex: 1000 }}
+                    style={{ position: 'absolute', top: '0', left: '0', transform: 'translate(-45vw, -20vw)', zIndex: 1000 }}
                 >
                     <EllipsisOutlined />
                 </Button>

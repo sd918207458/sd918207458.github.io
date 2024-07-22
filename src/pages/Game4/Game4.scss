@@ -1,4 +1,12 @@
-/* 主容器样式 */
+/* 全局變數 */
+$primary-color: #8b5a2b;
+$hover-color: #7a4728;
+$button-padding: 10px;
+$button-radius: 5px;
+$button-transition: background-color 0.3s ease, transform 0.3s ease;
+$shadow: 0 0.4vh 0.8vh rgba(0, 0, 0, 0.2);
+
+/* 主容器樣式 */
 .container4 {
     display: flex;
     flex-direction: column;
@@ -6,14 +14,12 @@
     justify-content: center;
     height: 105vh;
     width: 105vw;
-    background-size: cover;
-    background-position: center;
+    background: url('../../assets/picture/BG/背景-草地.png') center/cover no-repeat;
     padding: 20px;
-    background-image: url('../../assets/picture/BG/背景-草地.png');
     font-family: 'Comic Sans MS', cursive, sans-serif;
 }
 
-/* 地图容器 */
+/* 地圖容器樣式 */
 .mapContainer {
     display: flex;
     align-items: center;
@@ -22,21 +28,21 @@
     margin-bottom: 20px;
 }
 
-/* 地图图片容器 */
+/* 地圖圖片容器樣式 */
 .mapImageContainer {
     position: relative;
     width: 100%;
     max-width: 500px;
 }
 
-/* 地图图片 */
+/* 地圖圖片樣式 */
 .mapImage {
     width: 100%;
     height: auto;
     max-width: 100%;
 }
 
-/* 地图按钮容器 */
+/* 地圖按鈕容器樣式 */
 .mapButtonsContainer {
     display: flex;
     flex-direction: column;
@@ -47,39 +53,37 @@
     transform: translateY(-50%);
 }
 
-/* 地图切换按钮 */
+/* 地圖切換按鈕樣式 */
 .mapToggleButton,
-.inputToggleButton {
-    padding: 10px;
+.inputToggleButton,
+.audioButton {
+    padding: $button-padding;
     font-size: 16px;
-    background-color: #8b5a2b;
+    background-color: $primary-color;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: $button-radius;
     cursor: pointer;
     margin-bottom: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background-color 0.3s ease;
-}
+    transition: $button-transition;
 
-.mapToggleButton:hover,
-.inputToggleButton:hover {
-    background-color: #7a4728;
-}
+    &:hover {
+        background-color: $hover-color;
+    }
 
-/* 地图切换按钮图标 */
-.mapToggleButton svg,
-.inputToggleButton svg {
-    font-size: 18px;
+    svg {
+        font-size: 18px;
+    }
 }
 
 .inputToggleButton {
     margin-bottom: 0;
 }
 
-/* 音频按钮容器 */
+/* 音頻按鈕容器樣式 */
 .audioButtonsContainer {
     display: flex;
     flex-direction: column;
@@ -88,34 +92,13 @@
     left: -60px;
     top: 50%;
     transform: translateY(-50%);
+
+    .audioButton svg {
+        font-size: 24px;
+    }
 }
 
-/* 音频按钮 */
-.audioButton {
-    padding: 10px;
-    font-size: 16px;
-    background-color: #8b5a2b;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.3s ease;
-}
-
-.audioButton:hover {
-    background-color: #7a4728;
-}
-
-/* 音频按钮图标 */
-.audioButton svg {
-    font-size: 24px;
-}
-
-/* 结果容器 */
+/* 結果容器樣式 */
 .resultContainer {
     display: flex;
     align-items: center;
@@ -129,10 +112,8 @@
     border-radius: 0 0 10px 10px;
     width: 100%;
     max-width: 600px;
-}
 
-@media (max-width: 480px) {
-    .resultContainer {
+    @media (max-width: 480px) {
         flex-direction: column;
         align-items: center;
         justify-content: center;
@@ -141,74 +122,73 @@
     }
 }
 
-/* 输入框 */
+/* 輸入框樣式 */
 .input {
-    padding: 10px;
+    padding: $button-padding;
     font-size: 16px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: $button-radius;
     flex-grow: 1;
     margin-right: 10px;
-}
 
-.endButton {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #8b5a2b;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: background-color 0.3s ease;
-    order: 1;
-    margin-top: 10px;
-}
-
-.endButton:hover {
-    background-color: #7a4728;
-}
-
-@media (max-width: 480px) {
-    .endButton {
-        padding: 8px 16px;
-        font-size: 14px;
-        margin-top: 5px;
-    }
-
-    .input {
+    @media (max-width: 480px) {
         margin-right: 5px;
     }
 }
 
-/* 新提示文本 */
+/* 結束按鈕樣式 */
+.endButton {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: $primary-color;
+    color: white;
+    border: none;
+    border-radius: $button-radius;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: $button-transition;
+    order: 1;
+    margin-top: 10px;
+
+    &:hover {
+        background-color: $hover-color;
+    }
+
+    @media (max-width: 480px) {
+        padding: 8px 16px;
+        font-size: 14px;
+        margin-top: 5px;
+    }
+}
+
+/* 新提示文本樣式 */
 .newPrompt {
     font-size: 18px;
     color: black;
     margin-bottom: 10px;
     background-color: rgba(204, 204, 204, 0.8);
     padding: 10px;
-    border-radius: 5px;
+    border-radius: $button-radius;
 }
 
-/* 导航按钮 */
+/* 導航按鈕樣式 */
 .navigateButton {
     padding: 10px 20px;
     font-size: 16px;
-    background-color: #8b5a2b;
+    background-color: $primary-color;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: $button-radius;
     cursor: pointer;
     margin-top: 10px;
-    transition: background-color 0.3s ease;
+    transition: $button-transition;
+
+    &:hover {
+        background-color: $hover-color;
+    }
 }
 
-.navigateButton:hover {
-    background-color: #7a4728;
-}
-
-/* 中央容器 */
+/* 中央容器樣式 */
 .centralContainer {
     position: absolute;
     top: 50%;
@@ -217,13 +197,13 @@
     display: none;
     flex-direction: column;
     align-items: center;
+
+    &.visible {
+        display: flex;
+    }
 }
 
-.centralContainer.visible {
-    display: flex;
-}
-
-/* 媒体查询 */
+/* 媒體查詢樣式 */
 @media (max-width: 768px) {
     .mapImage {
         width: 100%;
