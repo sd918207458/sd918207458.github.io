@@ -61,6 +61,7 @@ const Dialog = ({
   }, [currentIndex]);
 
   const handlePreviousDialog = () => {
+    console.log('Previous clicked', currentIndex);
     if (currentIndex > 0) {
       onPrevious();
       updateBackgroundClass(currentIndex - 1);
@@ -69,6 +70,7 @@ const Dialog = ({
   };
 
   const handleNextDialog = () => {
+    console.log('Next clicked', currentIndex);
     onNext();
     updateBackgroundClass(currentIndex + 1);
     savePageState();

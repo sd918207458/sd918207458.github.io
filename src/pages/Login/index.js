@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Dialog from '../Dialog';
 import Gamemodal from '../../components/Gamemodal';
 import usePageState from '../../components/usePageState';
@@ -28,6 +28,7 @@ import frog1 from '../../assets/picture/Frog/郵差蛙蛙1-常駐表情.png';
 import frog2 from '../../assets/picture/Frog/郵差蛙蛙2-疑問.png';
 import frog3 from '../../assets/picture/Frog/郵差蛙蛙3-開心笑.png';
 
+
 const Login = () => {
   const [pageState, setPageState, savePageState] = usePageState({
     dialogVisible: false,
@@ -39,7 +40,7 @@ const Login = () => {
 
   const { dialogVisible, currentDialogIndex, imageVisible, introVisible, isModalVisible } = pageState;
   const location = useLocation();
-
+  const navigate = useNavigate();
 
   const dialogs = [
     { title: '旁白', content: '有一天，阿民接到了活動中心志工的電話' },
@@ -152,6 +153,7 @@ const Login = () => {
 
   useEffect(() => {
     if (location.state?.dialogIndex !== undefined) {
+      console.log("Setting dialogIndex from location.state:", location.state.dialogIndex);
       setPageState((prevState) => ({
         ...prevState,
         dialogVisible: true,

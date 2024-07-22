@@ -1,25 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 const usePageState = (initialState) => {
-    const [state, setState] = useState(initialState);
-
-    useEffect(() => {
-        const savedState = JSON.parse(localStorage.getItem('loginPageState'));
-        if (savedState) {
-            setState(savedState);
-        }
-        return () => {
-            localStorage.removeItem('loginPageState');
-        };
-    }, []);
+    const [state, setState] = useState(() => {
+        const savedState = JSON.parse(localStorage.getItem('pageState'));
+        return savedState || initialState;
+    });
 
     const savePageState = () => {
-        localStorage.setItem('loginPageState', JSON.stringify(state));
+        localStorage.setItem('pageState', JSON.stringify(state));
     };
-
-    useEffect(() => {
-        savePageState();
-    }, [state]);
 
     return [state, setState, savePageState];
 };
