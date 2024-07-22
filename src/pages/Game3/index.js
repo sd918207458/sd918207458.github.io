@@ -5,23 +5,26 @@ import alertSound from '../../assets/alert.mp3'; // 引入音效文件
 import './Game3.scss'; // 導入 SCSS 文件
 
 const Game3 = () => {
-  const [step, setStep] = useState(1); // 1: 初始提示, 2: 找到碎片, 3: 拼好了, 4: 輸入關鍵字
-  const [inputValue, setInputValue] = useState(''); // 輸入框的值
-  const [isCorrect, setIsCorrect] = useState(false); // 輸入答案是否正確
-  const [showFindFragmentButton, setShowFindFragmentButton] = useState(false); // 是否顯示“找到碎片了”按鈕
-  const [showPuzzleButton, setShowPuzzleButton] = useState(false); // 是否顯示“拼好了”按鈕
-  const [showGuideMessage, setShowGuideMessage] = useState(false); // 是否顯示“找導覽人員拿相片”提示
-  const [showFinalButton, setShowFinalButton] = useState(false); // 是否顯示“抵達糖廠宿舍區”按鈕
-  const [isAlertPlaying, setIsAlertPlaying] = useState(false); // 音效開關狀態
+  const [step, setStep] = useState(1); // 狀態：當前步驟
+  const [inputValue, setInputValue] = useState(''); // 狀態：輸入框的值
+  const [isCorrect, setIsCorrect] = useState(false); // 狀態：輸入答案是否正確
+  const [showFindFragmentButton, setShowFindFragmentButton] = useState(false); // 狀態：是否顯示“找到碎片了”按鈕
+  const [showPuzzleButton, setShowPuzzleButton] = useState(false); // 狀態：是否顯示“拼好了”按鈕
+  const [showGuideMessage, setShowGuideMessage] = useState(false); // 狀態：是否顯示“找導覽人員拿相片”提示
+  const [showFinalButton, setShowFinalButton] = useState(false); // 狀態：是否顯示“抵達糖廠宿舍區”按鈕
+  const [isAlertPlaying, setIsAlertPlaying] = useState(false); // 狀態：音效開關狀態
 
   const navigate = useNavigate(); // 導航 Hook
   const audioRef = useRef(null); // 音效參考
 
+  // 處理輸入框的變化
   const handleInputChange = (e) => {
-    setInputValue(e.target.value); // 設置輸入框的值
-    setIsCorrect(e.target.value === '二次世界大戰'); // 設置答案正確性
+    const value = e.target.value;
+    setInputValue(value); // 設置輸入框的值
+    setIsCorrect(value === '二次世界大戰'); // 設置答案正確性
   };
 
+  // 處理遊戲結束
   const handleEndGame = () => {
     if (audioRef.current) {
       audioRef.current.pause(); // 停止播放音效
@@ -34,16 +37,19 @@ const Game3 = () => {
     }, 3600); // 3600 毫秒 = 3.6 秒
   };
 
+  // 處理最終按鈕點擊
   const handleFinalButtonClick = () => {
     navigate('/', { state: { dialogIndex: 22 } }); // 導航到指定頁面
   };
 
+  // 處理步驟切換
   const handleButtonClick = () => {
     setStep(step + 1); // 切換到下一步
     setShowFindFragmentButton(false); // 隱藏“找到碎片了”按鈕
     setShowPuzzleButton(false); // 隱藏“拼好了”按鈕
   };
 
+  // 初始化音效
   useEffect(() => {
     audioRef.current = new Audio(alertSound); // 使用引入的音效文件
     audioRef.current.loop = true; // 設定音頻循環播放
@@ -57,6 +63,7 @@ const Game3 = () => {
     };
   }, []);
 
+  // 設置步驟的計時器
   useEffect(() => {
     if (step === 1) {
       setTimeout(() => {
@@ -69,6 +76,7 @@ const Game3 = () => {
     }
   }, [step]);
 
+  // 切換音效播放狀態
   const toggleAlert = () => {
     if (isAlertPlaying) {
       audioRef.current.pause();

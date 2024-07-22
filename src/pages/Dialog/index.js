@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from 'antd';
 import { CaretLeftOutlined, CaretRightOutlined } from '@ant-design/icons';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -14,8 +14,8 @@ const Dialog = ({
   dialogData = [],
   currentIndex = 0,
   onPrevious,
+  onNext,
   setCurrentDialogIndex,
-  dialogs = [],
   savePageState,
 }) => {
   const [countdown, setCountdown] = useState(3); // 3 seconds countdown
@@ -25,21 +25,21 @@ const Dialog = ({
 
   const { title, content, imageUrl } = dialogData[currentIndex] || {};
 
-  // Preload all background images
+  // 預加載所有背景圖片
   const preloadImages = () => {
     const images = [bg1, bg2, bg3, bg4, bg5];
-    images.forEach(image => {
+    images.forEach((image) => {
       const img = new Image();
       img.src = image;
     });
   };
 
-  // Call preloadImages() once when component mounts
+  // 在組件掛載時調用預加載圖片函數
   useEffect(() => {
     preloadImages();
   }, []);
 
-  // Function to update background based on index
+  // 根據索引更新背景
   const updateBackgroundClass = (index) => {
     let newBackgroundImage = '';
     if (index >= 19 && index <= 27) {
@@ -56,22 +56,22 @@ const Dialog = ({
     document.body.style.backgroundImage = newBackgroundImage;
   };
 
+  useEffect(() => {
+    updateBackgroundClass(currentIndex);
+  }, [currentIndex]);
+
   const handlePreviousDialog = () => {
     if (currentIndex > 0) {
       onPrevious();
+      updateBackgroundClass(currentIndex - 1);
+      savePageState();
     }
   };
 
   const handleNextDialog = () => {
-    setCurrentDialogIndex((prevIndex) => {
-      if (prevIndex < dialogs.length - 1) {
-        const newIndex = prevIndex + 1;
-        updateBackgroundClass(newIndex);
-        savePageState();
-        return newIndex;
-      }
-      return prevIndex;
-    });
+    onNext();
+    updateBackgroundClass(currentIndex + 1);
+    savePageState();
   };
 
   useEffect(() => {
@@ -122,8 +122,8 @@ const Dialog = ({
     94: {
       text: "完結撒花",
       onClick: () => {
-        localStorage.clear(); // 清除所有 localStorage 数据
-        navigate('#'); // 重定向到主页或其他适当的页面
+        localStorage.clear(); // 清除所有 localStorage 數據
+        navigate('#'); // 重定向到主頁或其他適當的頁面
       }
     },
   };
@@ -159,17 +159,15 @@ const Dialog = ({
           />
         )}
       </div>
-      {
-        buttonConfigs[currentIndex] && (
-          <Button
-            className="assemble-button"
-            onClick={buttonConfigs[currentIndex].onClick}
-            disabled={(currentIndex === 18 || currentIndex === 41) && !isButtonEnabled}
-          >
-            {buttonConfigs[currentIndex].text}
-          </Button>
-        )
-      }
+      {buttonConfigs[currentIndex] && (
+        <Button
+          className="assemble-button"
+          onClick={buttonConfigs[currentIndex].onClick}
+          disabled={(currentIndex === 18 || currentIndex === 41) && !isButtonEnabled}
+        >
+          {buttonConfigs[currentIndex].text}
+        </Button>
+      )}
     </>
   );
 };

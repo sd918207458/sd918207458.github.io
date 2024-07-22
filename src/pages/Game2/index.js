@@ -19,7 +19,7 @@ const Game2 = () => {
     setIsAssembling(true); // 設置為顯示組裝說明圖
     setTimeout(() => {
       setShowFinishButton(true); // 1.5 分鐘後顯示“修好了”按鈕
-    }, 9000); // 90000 毫秒 = 1.5 分鐘
+    }, 900); // 90000 毫秒 = 1.5 分鐘
   };
 
   // 完成組裝
@@ -32,11 +32,13 @@ const Game2 = () => {
   return (
     <div className="container2">
       <div className="content2">
+        {/* 開始修相機按鈕 */}
         {!isAssembling && !showEndButton && (
           <button className="assembleButton2" onClick={handleStartAssembling}>
             開始修相機
           </button>
         )}
+        {/* 組裝相機說明圖及修好了按鈕 */}
         {isAssembling && (
           <>
             <img src={assemblyImage} alt="組裝相機說明圖" className="assemblyImage2" />
@@ -47,6 +49,7 @@ const Game2 = () => {
             )}
           </>
         )}
+        {/* 找導覽人員拿相片按鈕 */}
         {showEndButton && (
           <button className="endButton2" onClick={handleEndGame}>
             記得找導覽人員拿相片喔!

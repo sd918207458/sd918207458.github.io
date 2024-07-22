@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { RetweetOutlined, AudioOutlined, EyeOutlined } from '@ant-design/icons'; // 引入 Ant Design 的圖標
 import mapImageFront from '../../assets/地圖正面.jpg'; // 引入地圖正面圖片
 import mapImageBack from '../../assets/地圖反面.jpg'; // 引入地圖反面圖片
-import audio1 from '../../assets/第一段.mp3'; // 引入音效文件1
-import audio2 from '../../assets/第二段.mp3'; // 引入音效文件2
-import audio3 from '../../assets/第三段.mp3'; // 引入音效文件3
+import audio1 from '../../assets/3-1.mp3'; // 引入音效文件1
+import audio2 from '../../assets/3-2.mp3'; // 引入音效文件2
+import audio3 from '../../assets/3-3.mp3'; // 引入音效文件3
 import './Game4.scss'; // 導入 SCSS 文件
 
 const Game4 = () => {
@@ -16,7 +16,7 @@ const Game4 = () => {
   const [showNewPrompt, setShowNewPrompt] = useState(false); // 顯示新的提示
   const [showNewButton, setShowNewButton] = useState(false); // 顯示新的按鈕
   const [audioPlaying, setAudioPlaying] = useState(false); // 控制音頻播放狀態
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // 用於頁面導航
 
   // 播放錄音
   const handlePlayAudio = (index) => {
@@ -66,7 +66,7 @@ const Game4 = () => {
     setShowNewButton(false); // 隱藏新的按鈕
   };
 
-  // 切換地圖
+  // 切換地圖正反面
   const toggleMap = () => {
     setIsFront(!isFront); // 切換地圖正反面
   };
@@ -81,19 +81,22 @@ const Game4 = () => {
       <div className="mapContainer">
         {/* 播放錄音按鈕，垂直排列在地圖圖片左邊 */}
         <div className="audioButtonsContainer">
-          <button className="audioButton" onClick={() => handlePlayAudio(0)} disabled={audioPlaying}>
-            <AudioOutlined />
-          </button>
-          <button className="audioButton" onClick={() => handlePlayAudio(1)} disabled={audioPlaying}>
-            <AudioOutlined />
-          </button>
-          <button className="audioButton" onClick={() => handlePlayAudio(2)} disabled={audioPlaying}>
-            <AudioOutlined />
-          </button>
+          {[audio1, audio2, audio3].map((audio, index) => (
+            <button
+              key={index}
+              className="audioButton"
+              onClick={() => handlePlayAudio(index)}
+              disabled={audioPlaying}
+            >
+              <AudioOutlined />
+            </button>
+          ))}
         </div>
+
         {/* 地圖背景圖片 */}
         <div className="mapImageContainer">
           <img src={isFront ? mapImageFront : mapImageBack} alt="地圖圖片" className="mapImage" />
+
           {/* 切換地圖按鈕和顯示/隱藏輸入框按鈕 */}
           <div className="mapButtonsContainer">
             <button className="mapToggleButton" onClick={toggleMap}>
@@ -103,6 +106,8 @@ const Game4 = () => {
               <EyeOutlined />
             </button>
           </div>
+
+          {/* 顯示輸入框和遊戲結束按鈕 */}
           {inputVisible && (
             <div className="resultContainer">
               <input
@@ -122,6 +127,8 @@ const Game4 = () => {
           )}
         </div>
       </div>
+
+      {/* 中央提示和導航按鈕 */}
       <div className={`centralContainer ${showNewPrompt || showNewButton ? 'visible' : ''}`}>
         {showNewPrompt && (
           <div className="newPrompt">

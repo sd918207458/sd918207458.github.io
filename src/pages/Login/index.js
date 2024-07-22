@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { Button, Modal } from 'antd';
-import { EllipsisOutlined } from '@ant-design/icons';
-import Dialog from '../Dialog/index';
+import React from 'react';
+import { useLocation } from 'react-router-dom';
+import Dialog from '../Dialog';
+import Gamemodal from '../../components/Gamemodal';
+import usePageState from '../../components/usePageState';
 
 import found from '../../assets/picture/遊戲開始介面.png';
 import Npc from '../../assets/志工阿姨1-常駐表情.png';
@@ -29,41 +29,16 @@ import frog2 from '../../assets/picture/Frog/郵差蛙蛙2-疑問.png';
 import frog3 from '../../assets/picture/Frog/郵差蛙蛙3-開心笑.png';
 
 const Login = () => {
-  const [dialogVisible, setDialogVisible] = useState(false);
-  const [currentDialogIndex, setCurrentDialogIndex] = useState(0);
-  const [imageVisible, setImageVisible] = useState(false);
-  const [introVisible, setIntroVisible] = useState(false);
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [pageState, setPageState, savePageState] = usePageState({
+    dialogVisible: false,
+    currentDialogIndex: 0,
+    imageVisible: false,
+    introVisible: false,
+    isModalVisible: false
+  });
+
+  const { dialogVisible, currentDialogIndex, imageVisible, introVisible, isModalVisible } = pageState;
   const location = useLocation();
-  const navigate = useNavigate();
-
-  const savePageState = () => {
-    const pageState = {
-      currentDialogIndex,
-      imageVisible,
-    };
-    localStorage.setItem('loginPageState', JSON.stringify(pageState));
-  };
-
-  useEffect(() => {
-    const savedState = JSON.parse(localStorage.getItem('loginPageState'));
-    if (savedState) {
-      setCurrentDialogIndex(savedState.currentDialogIndex);
-      setImageVisible(savedState.imageVisible);
-    }
-    return () => {
-      localStorage.removeItem('loginPageState');
-    };
-  }, []);
-
-  useEffect(() => {
-    if (location.state?.dialogIndex !== undefined) {
-      setCurrentDialogIndex(location.state.dialogIndex);
-      setDialogVisible(true);
-    }
-  }, [location.state]);
-
-
 
   const dialogs = [
     { title: '旁白', content: '有一天，阿民接到了活動中心志工的電話' },
@@ -174,152 +149,101 @@ const Login = () => {
     //此時介面會出現一句話「如果你是阿民你會怎麼守護三民社區?」然後會給幾的選項「#」「#」「#」。最後引導到社區正在推廣的活動。
   ];
 
-
-  const openDialog = () => {
-    setIntroVisible(true);
-  };
+  const openDialog = () => setPageState((prevState) => ({
+    ...prevState,
+    introVisible: true,
+  }));
 
   const showDialog = () => {
-    setIntroVisible(false);
-    setDialogVisible(true);
-    setImageVisible(true);
+    setPageState((prevState) => ({
+      ...prevState,
+      introVisible: false,
+      dialogVisible: true,
+      imageVisible: true,
+    }));
     savePageState();
   };
 
   const closeDialog = () => {
-    setDialogVisible(false);
-    setCurrentDialogIndex(0);
-    setImageVisible(false);
+    setPageState((prevState) => ({
+      ...prevState,
+      dialogVisible: false,
+      currentDialogIndex: 0,
+      imageVisible: false,
+    }));
     savePageState();
   };
 
   const handlePreviousDialog = () => {
-    setCurrentDialogIndex((prevIndex) => {
-      if (prevIndex > 0) {
-        const newIndex = prevIndex - 1;
-        savePageState();
-        return newIndex;
-      }
-      return prevIndex;
-    });
+    setPageState((prevState) => ({
+      ...prevState,
+      currentDialogIndex: prevState.currentDialogIndex > 0 ? prevState.currentDialogIndex - 1 : 0,
+    }));
+    savePageState();
   };
 
   const handleNextDialog = () => {
-    setCurrentDialogIndex((prevIndex) => {
-      if (prevIndex < dialogs.length - 1) {
-        const newIndex = prevIndex + 1;
-        savePageState();
-        return newIndex;
-      }
-      return prevIndex;
-    });
+    setPageState((prevState) => ({
+      ...prevState,
+      currentDialogIndex: prevState.currentDialogIndex < dialogs.length - 1 ? prevState.currentDialogIndex + 1 : prevState.currentDialogIndex,
+    }));
+    savePageState();
   };
 
-  const showModal = () => {
-    setIsModalVisible(true);
-  };
+  const showModal = () => setPageState((prevState) => ({
+    ...prevState,
+    isModalVisible: true,
+  }));
 
-  const handleModalOk = () => {
-    setIsModalVisible(false);
-  };
-
-  const handleModalCancel = () => {
-    setIsModalVisible(false);
-  };
-
-
-  const navigateToGame = (gameNumber, dialogIndex = null) => {
-    if (dialogIndex !== null) {
-      navigate(`/Game${gameNumber}`, { state: { dialogIndex } });
-    } else {
-      navigate(`/Game${gameNumber}`);
-    }
-    setIsModalVisible(false);
-  };
+  const handleModalCancel = () => setPageState((prevState) => ({
+    ...prevState,
+    isModalVisible: false,
+  }));
 
   return (
     <div className='dialog'>
       {dialogVisible && (
-        <>
-          <Button
-            type="primary"
-            onClick={showModal}
-            style={{ position: 'absolute', top: '-45vh', left: '-45vw', zIndex: 1000 }}
-          >
-            <EllipsisOutlined />
-          </Button>
-          <Modal
-            title="選擇關卡"
-            visible={isModalVisible}
-            onOk={handleModalOk}
-            onCancel={handleModalCancel}
-            footer={null}
-          >
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-              <Button onClick={() => navigateToGame(1)}>Game 1</Button>
-              <Button onClick={() => navigate('/', { state: { dialogIndex: 5 } })}>Game 1 後</Button>
-              <Button onClick={() => navigateToGame(2)}>Game 2</Button>
-              <Button onClick={() => navigate('/', { state: { dialogIndex: 10 } })}>Game 2 後</Button>
-              <Button onClick={() => navigateToGame(3)}>Game 3</Button>
-              <Button onClick={() => navigate('/', { state: { dialogIndex: 22 } })}>Game 3 後</Button>
-              <Button onClick={() => navigateToGame(4)}>Game 4</Button>
-              <Button onClick={() => navigate('/', { state: { dialogIndex: 37 } })}>Game 4 後</Button>
-              <Button onClick={() => navigateToGame(5)}>Game 5</Button>
-              <Button onClick={() => navigate('/', { state: { dialogIndex: 38 } })}>Game 5 後</Button>
-              <Button onClick={() => navigateToGame(6)}>Game 6</Button>
-              <Button onClick={() => navigate('/', { state: { dialogIndex: 68 } })}>Game 6 後</Button>
-            </div>
-          </Modal>
-        </>
+        <Gamemodal
+          isVisible={isModalVisible}
+          showModal={showModal}
+          handleModalCancel={handleModalCancel}
+        />
       )}
-      {
-        dialogVisible && (
-          <Dialog
-            visible={dialogVisible}
-            onClose={closeDialog}
-            dialogData={dialogs}
-            currentIndex={currentDialogIndex}
-            onPrevious={handlePreviousDialog}
-            onNext={handleNextDialog}
-            setCurrentDialogIndex={setCurrentDialogIndex}
-            dialogs={dialogs}
-            savePageState={savePageState}
-          />
-        )
-      }
-      {
-        !dialogVisible && !introVisible && (
-          <div className="centered-container">
-            <img
-              src={found}
-              alt="Placeholder Image"
-              className="centered-image"
-            />
-            <button type="button" onClick={openDialog} className="startButton">
-              <img
-                src={button}
-                alt="Start Button"
-              />
-            </button>
-          </div>
-        )
-      }
-      {
-        introVisible && (
-          <div className="intro-container">
-            <p>你也對三崁店神社及社區背後那段不為人知的故事很好奇嗎？若隱若現的神秘樹蛙神默默地守護著什麼呢？
-
-              跟隨著阿民和阿公腳步，透過舊相機每一次快門的聲音，追尋那一段段的片段記憶，而這不僅是一段尋找失落記憶的旅程、一次心靈的對話，更是一次世代間的交流。
-
-              懷著對於過去記憶致敬的敬畏心，一同踏上一段穿越時空的魔幻旅程，一起探索屬於三崁店的甜蜜記憶及每一個角落，並一步步解開樹蛙神、三崁店神社及諸多社區遺跡背後的神秘故事吧！
-
-              讓我們準備好，我們準備走進三崁店的神秘旅程囉！
-            </p>
-            <button onClick={showDialog}>走吧</button>
-          </div>
-        )
-      }
-    </div >
+      {dialogVisible && (
+        <Dialog
+          visible={dialogVisible}
+          onClose={closeDialog}
+          dialogData={dialogs}
+          currentIndex={currentDialogIndex}
+          onPrevious={handlePreviousDialog}
+          onNext={handleNextDialog}
+          setCurrentDialogIndex={(index) => setPageState((prevState) => ({
+            ...prevState,
+            currentDialogIndex: index
+          }))}
+          savePageState={savePageState}
+        />
+      )}
+      {!dialogVisible && !introVisible && (
+        <div className="centered-container">
+          <img src={found} alt="Placeholder Image" className="centered-image" />
+          <button type="button" onClick={openDialog} className="startButton">
+            <img src={button} alt="Start Button" />
+          </button>
+        </div>
+      )}
+      {introVisible && (
+        <div className="intro-container">
+          <p>
+            你也對三崁店神社及社區背後那段不為人知的故事很好奇嗎？若隱若現的神秘樹蛙神默默地守護著什麼呢？
+            跟隨著阿民和阿公腳步，透過舊相機每一次快門的聲音，追尋那一段段的片段記憶，而這不僅是一段尋找失落記憶的旅程、一次心靈的對話，更是一次世代間的交流。
+            懷著對於過去記憶致敬的敬畏心，一同踏上一段穿越時空的魔幻旅程，一起探索屬於三崁店的甜蜜記憶及每一個角落，並一步步解開樹蛙神、三崁店神社及諸多社區遺跡背後的神秘故事吧！
+            讓我們準備好，我們準備走進三崁店的神秘旅程囉！
+          </p>
+          <button onClick={showDialog}>走吧</button>
+        </div>
+      )}
+    </div>
   );
 };
 

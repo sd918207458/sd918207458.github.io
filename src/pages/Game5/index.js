@@ -4,10 +4,10 @@ import './Game5.scss';
 import patternPatt from './pattern.patt';
 
 const Game5 = () => {
-  const [isLoaded, setIsLoaded] = useState(false); // 檢查 AR 是否已加載
-  const [markerFound, setMarkerFound] = useState(false); // 標記是否被找到
-  const [buttonClicked, setButtonClicked] = useState(false); // 找到了按鈕是否被點擊
-  const [hideBackground, setHideBackground] = useState(true); // 控制是否隱藏背景樣式
+  const [isLoaded, setIsLoaded] = useState(false); // AR 是否已加載
+  const [markerFound, setMarkerFound] = useState(false); // 是否找到標記
+  const [buttonClicked, setButtonClicked] = useState(false); // 是否按下按鈕
+  const [hideBackground, setHideBackground] = useState(true); // 隱藏背景樣式
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,11 +25,9 @@ const Game5 = () => {
   }, []);
 
   useEffect(() => {
-    let interval;
-
     // 檢查 AFRAME 是否已加載
     const checkLoadStatus = () => {
-      interval = setInterval(() => {
+      const interval = setInterval(() => {
         if (window.AFRAME?.registerComponent) {
           setIsLoaded(true);
           clearInterval(interval);
@@ -39,7 +37,7 @@ const Game5 = () => {
 
     checkLoadStatus();
 
-    return () => clearInterval(interval);
+    return () => clearInterval(checkLoadStatus);
   }, []);
 
   useEffect(() => {
@@ -47,13 +45,8 @@ const Game5 = () => {
     if (isLoaded) {
       const scene = document.querySelector('a-scene');
 
-      const handleMarkerFound = () => {
-        setMarkerFound(true);
-      };
-
-      const handleMarkerLost = () => {
-        // 不再重置 markerFound 狀態
-      };
+      const handleMarkerFound = () => setMarkerFound(true);
+      const handleMarkerLost = () => { }; // 不再重置 markerFound 狀態
 
       if (scene) {
         const markers = scene.querySelectorAll('a-marker');
@@ -76,14 +69,10 @@ const Game5 = () => {
   }, [isLoaded]);
 
   // 處理找到了按鈕點擊事件
-  const handleFoundButtonClick = () => {
-    setButtonClicked(true);
-  };
+  const handleFoundButtonClick = () => setButtonClicked(true);
 
   // 結束遊戲的處理函數
-  const handleEndGame = () => {
-    navigate('/', { state: { dialogIndex: 38 } });
-  };
+  const handleEndGame = () => navigate('/', { state: { dialogIndex: 38 } });
 
   return (
     <div className={`container5 ${hideBackground ? 'hide-background' : ''}`}>
@@ -92,11 +81,10 @@ const Game5 = () => {
           <a-marker id="animated-marker" preset="hiro" emitevents="true">
             {/* 在此處添加 3D 模型或其他實體 */}
           </a-marker>
-          {/* 自定義的標記 */}
           <a-marker
             id="animated-marker-custom"
             type="pattern"
-            url={patternPatt} // 使用引用的 pattern.patt 文件
+            url={patternPatt}
             emitevents="true"
           >
             {buttonClicked && (

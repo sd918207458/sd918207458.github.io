@@ -1,3 +1,4 @@
+/* 主容器樣式 */
 .container5 {
     position: relative;
     height: 100vh;
@@ -5,20 +6,25 @@
     align-items: center;
     justify-content: center;
     font-family: 'Comic Sans MS', cursive, sans-serif;
-
-    &.hide-background {
-        background-image: none;
-    }
 }
 
+.container5.hide-background {
+    background-image: none;
+}
+
+/* 按鈕容器 */
 .buttons-container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
     gap: 20px;
-    align-items: center;
+    width: 80%;
+    max-width: 600px;
+    margin: 0 auto;
+    transform: translate(-50%, -50%);
 }
 
-
+/* 按鈕樣式 */
 .foundButton5,
 .endGameButton5 {
     padding: 12px 24px;
@@ -33,6 +39,8 @@
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
     text-align: center;
     line-height: 1.5;
+    flex: 1;
+    margin: 0 10px;
 }
 
 .foundButton5:hover,
@@ -40,10 +48,12 @@
     background-color: #a07246;
 }
 
+/* 隱藏背景樣式 */
 body.hide-background {
     background: none !important;
 }
 
+/* 信息文本樣式 */
 .info-text {
     font-size: 18px;
     color: #333;
@@ -53,9 +63,12 @@ body.hide-background {
     border-radius: 5px;
     text-align: center;
     line-height: 1.6;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
 }
 
-
+/* 媒體查詢：適應平板設備 */
 @media (max-width: 1024px) {
 
     .foundButton5,
@@ -70,6 +83,7 @@ body.hide-background {
     }
 }
 
+/* 媒體查詢：適應手機設備 */
 @media (max-width: 768px) {
 
     .foundButton5,
@@ -84,16 +98,28 @@ body.hide-background {
     }
 }
 
+/* 媒體查詢：適應小手機設備 */
 @media (max-width: 480px) {
+    .buttons-container {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+    }
 
     .foundButton5,
     .endGameButton5 {
         padding: 6px 12px;
         font-size: 12px;
+        margin: 0;
+        width: 80%;
+        max-width: 300px;
     }
 
     .info-text {
         font-size: 12px;
         padding: 4px;
+        width: 80%;
+        max-width: 300px;
     }
 }

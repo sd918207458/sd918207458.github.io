@@ -11,13 +11,12 @@ const Game1 = () => {
   const sceneRef = useRef(null); // 使用 useRef 創建 sceneRef
   const navigate = useNavigate();
 
+  // 在組件掛載和卸載時添加和移除隱藏背景圖片的樣式
   useEffect(() => {
-    // 在元件 mount 時添加隱藏背景圖片的樣式
     setHideBackground(true);
     document.documentElement.classList.add('hide-background');
     document.body.classList.add('hide-background');
 
-    // 在元件 unmount 時移除隱藏背景圖片的樣式
     return () => {
       setHideBackground(false);
       document.documentElement.classList.remove('hide-background');
@@ -25,12 +24,10 @@ const Game1 = () => {
     };
   }, []);
 
+  // 檢查 AFRAME 是否已加載
   useEffect(() => {
-    let interval;
-
-    // 檢查 AFRAME 是否已加載
     const checkLoadStatus = () => {
-      interval = setInterval(() => {
+      const interval = setInterval(() => {
         if (window.AFRAME?.registerComponent) {
           setIsLoaded(true);
           clearInterval(interval);
@@ -39,22 +36,15 @@ const Game1 = () => {
     };
 
     checkLoadStatus();
-
-    return () => clearInterval(interval);
   }, []);
 
+  // 設置和清除標記的事件監聽器
   useEffect(() => {
-    // 設置和清除標記的事件監聽器
     if (isLoaded) {
       const scene = sceneRef.current;
 
-      const handleMarkerFound = () => {
-        setMarkerFound(true);
-      };
-
-      const handleMarkerLost = () => {
-        // 保持 markerFound 狀態，不再重置 markerFound 為 false
-      };
+      const handleMarkerFound = () => setMarkerFound(true);
+      const handleMarkerLost = () => { }; // 保持 markerFound 狀態，不再重置 markerFound 為 false
 
       if (scene) {
         const markers = scene.querySelectorAll('a-marker');
@@ -77,14 +67,10 @@ const Game1 = () => {
   }, [isLoaded]);
 
   // 處理找到了按鈕點擊事件
-  const handleFoundButtonClick = () => {
-    setButtonClicked(true);
-  };
+  const handleFoundButtonClick = () => setButtonClicked(true);
 
   // 結束遊戲的處理函數
-  const handleEndGame = () => {
-    navigate('/', { state: { dialogIndex: 5 } });
-  };
+  const handleEndGame = () => navigate('/', { state: { dialogIndex: 5 } });
 
   return (
     <div className="container1">
