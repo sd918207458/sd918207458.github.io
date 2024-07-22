@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 
 const usePageState = (initialState) => {
     const [state, setState] = useState(() => {
@@ -6,9 +6,9 @@ const usePageState = (initialState) => {
         return savedState || initialState;
     });
 
-    const savePageState = () => {
+    const savePageState = useCallback(() => {
         localStorage.setItem('pageState', JSON.stringify(state));
-    };
+    }, [state]);
 
     return [state, setState, savePageState];
 };

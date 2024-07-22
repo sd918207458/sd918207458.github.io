@@ -25,7 +25,6 @@ const Dialog = ({
 
   const { title, content, imageUrl } = dialogData[currentIndex] || {};
 
-  // 預加載所有背景圖片
   const preloadImages = () => {
     const images = [bg1, bg2, bg3, bg4, bg5];
     images.forEach((image) => {
@@ -34,12 +33,10 @@ const Dialog = ({
     });
   };
 
-  // 在組件掛載時調用預加載圖片函數
   useEffect(() => {
     preloadImages();
   }, []);
 
-  // 根據索引更新背景
   const updateBackgroundClass = (index) => {
     let newBackgroundImage = '';
     if (index >= 19 && index <= 27) {
@@ -61,19 +58,17 @@ const Dialog = ({
   }, [currentIndex]);
 
   const handlePreviousDialog = () => {
-    console.log('Previous clicked', currentIndex);
     if (currentIndex > 0) {
       onPrevious();
-      updateBackgroundClass(currentIndex - 1);
       savePageState();
     }
   };
 
   const handleNextDialog = () => {
-    console.log('Next clicked', currentIndex);
-    onNext();
-    updateBackgroundClass(currentIndex + 1);
-    savePageState();
+    if (currentIndex < dialogData.length - 1) {
+      onNext();
+      savePageState();
+    }
   };
 
   useEffect(() => {
