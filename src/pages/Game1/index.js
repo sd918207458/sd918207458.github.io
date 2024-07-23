@@ -2,7 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Game1.scss'; // 使用 CSS 模組
 import patternPatt from './pattern.patt'; // 引用 pattern.patt 文件
-
+import pattern1 from './pattern-辨識圖-手水舍_0.patt'; // 引用 pattern.patt 文件
+import pattern2 from './pattern-辨識圖-神社_0.patt'; // 引用 pattern.patt 文件
+import pattern3 from './pattern-郵差蛙蛙的辨識圖_0.patt';
 const Game1 = () => {
   const [isLoaded, setIsLoaded] = useState(false); // 檢查 AR 是否已加載
   const [markerFound, setMarkerFound] = useState(false); // 標記是否被找到
@@ -85,6 +87,30 @@ const Game1 = () => {
             id="animated-marker-custom"
             type="pattern"
             url={patternPatt} // 使用引用的 pattern.patt 文件
+            emitevents="true"
+          >
+            {/* 在此處添加 3D 模型或其他實體 */}
+          </a-marker>
+          <a-marker
+            id="animated-marker-custom"
+            type="pattern"
+            url={pattern1} // 使用引用的 pattern.patt 文件
+            emitevents="true"
+          >
+            {/* 在此處添加 3D 模型或其他實體 */}
+          </a-marker>
+          <a-marker
+            id="animated-marker-custom"
+            type="pattern"
+            url={pattern2} // 使用引用的 pattern.patt 文件
+            emitevents="true"
+          >
+            {/* 在此處添加 3D 模型或其他實體 */}
+          </a-marker>
+          <a-marker
+            id="animated-marker-custom"
+            type="pattern"
+            url={pattern3} // 使用引用的 pattern.patt 文件
             emitevents="true"
           >
             {/* 在此處添加 3D 模型或其他實體 */}

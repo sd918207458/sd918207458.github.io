@@ -1,5 +1,5 @@
 import React from 'react';
-import ARDetector from '../../components/ARDetector.js';
+import ARDetector from './ARDetector.js';
 
 const ARContentDisplay = () => {
   const renderARContent = () => (

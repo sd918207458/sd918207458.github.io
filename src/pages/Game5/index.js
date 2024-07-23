@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Game5.scss';
-import patternPatt from './pattern.patt';
+import patternPatt from './pattern-辨識圖-手水舍_0.patt';
 
 const Game5 = () => {
   const [isLoaded, setIsLoaded] = useState(false); // AR 是否已加載
