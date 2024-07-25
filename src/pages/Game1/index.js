@@ -65,10 +65,12 @@ const Game1 = () => {
             </button>
           ) : (
             <>
-              <div className="info-text">記得找導覽人員拿相片哦</div>
-              <button className="endButton" onClick={handleEndGame}>
-                結束遊戲
-              </button>
+              <div className="centered-content">
+                <div className="info-text">記得找導覽人員拿相片哦</div>
+                <button className="endButton" onClick={handleEndGame}>
+                  結束遊戲
+                </button>
+              </div>
             </>
           )}
           <form ref={formRef} action="/" method="GET" style={{ display: 'none' }}>

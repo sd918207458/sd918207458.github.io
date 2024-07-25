@@ -56,14 +56,12 @@ const Game6 = () => {
             <Image
               src={frogPng}
               alt="Found Image"
-              style={{ maxHeight: '70vh', width: 'auto', objectFit: 'contain', marginTop: '2rem', background: 'transparent' }}
+              style={{ maxHeight: '70vh', width: 'auto', objectFit: 'contain', background: 'transparent' }}
             />
             <div style={{
               background: 'rgba(0, 0, 0, 0.5)',
-              padding: '16px',
               borderRadius: '8px',
-              marginTop: '16px',
-              marginBottom: '16px'
+              padding: '0.5rem',
             }}>
               <Text style={{ color: 'white' }}>記得找導覽人員拿相片哦</Text>
             </div>
@@ -71,7 +69,8 @@ const Game6 = () => {
               style={{
                 backgroundColor: '#8b5a2b',
                 borderColor: '#8b5a2b',
-                color: 'white'
+                color: 'white',
+                marginTop:'0.5rem'
               }}>
               結束遊戲
             </Button>

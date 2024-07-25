@@ -113,8 +113,7 @@ const Game4 = () => {
               <input
                 type="text"
                 value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                onBlur={checkInputValue}
+                onInput={(e) => {setInputValue(e.target.value);checkInputValue()}}
                 placeholder="請輸入關鍵字"
                 className="input"
               />

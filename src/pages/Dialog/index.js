@@ -106,11 +106,11 @@ const Dialog = ({
   const buttonConfigs = {
     4: { text: "尋找阿公の箱子", onClick: () => navigate('/Game1') },
     9: { text: "開始修相機", onClick: () => navigate('/Game2') },
-    18: { text: isButtonEnabled ? "抵達防空洞" : `前往防空洞 (${formatTime(countdown)})`, onClick: () => navigate('/?dialogIndex=19') },
+    18: { text: isButtonEnabled ? "抵達防空洞" : `前往防空洞 (${formatTime(countdown)})`, onClick: () => onNext() },
     21: { text: "開始遊戲", onClick: () => navigate('/Game3') },
     36: { text: "開始遊戲", onClick: () => navigate('/Game4') },
     37: { text: "開始遊戲", onClick: () => navigate('/Game5') },
-    41: { text: isButtonEnabled ? "抵達神社" : `前往神社 (${formatTime(countdown)})`, onClick: () => navigate('/?dialogIndex=42') },
+    41: { text: isButtonEnabled ? "抵達神社" : `前往神社 (${formatTime(countdown)})`, onClick: () => onNext() },
     67: { text: "開始遊戲", onClick: () => navigate('/Game6') },
     94: {
       text: "完結撒花",
