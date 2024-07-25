@@ -1,7 +1,7 @@
 // index.js
 
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import './index.scss';
 import App from './App';
 import router from './router'; // 假設你的路由配置在 router.js 中
