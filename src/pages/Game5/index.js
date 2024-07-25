@@ -1,123 +1,84 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Game5.scss';
+import ARComponent from '../../components/arcomp/ARComponent';
 import patternPatt from './pattern-辨識圖-手水舍_0.patt';
 
+/**
+ * Game5 - AR 遊戲組件
+ * 
+ * 這個組件實現了一個基於標記的 AR 遊戲，使用 ARComponent 來處理 AR 功能。
+ * 玩家需要找到特定的 AR 標記，然後可以結束遊戲。
+ */
 const Game5 = () => {
-  const [isLoaded, setIsLoaded] = useState(false); // AR 是否已加載
-  const [markerFound, setMarkerFound] = useState(false); // 是否找到標記
-  const [buttonClicked, setButtonClicked] = useState(false); // 是否按下按鈕
-  const [hideBackground, setHideBackground] = useState(true); // 隱藏背景樣式
-  const navigate = useNavigate();
+  // 狀態定義
+  const [markerFound, setMarkerFound] = useState(false);  // 是否找到標記
+  const [buttonClicked, setButtonClicked] = useState(false);  // 是否點擊了"找到了"按鈕
+  const [isAREnabled, setIsAREnabled] = useState(true);  // AR 功能是否啟用
+  const [hideBackground, setHideBackground] = useState(true);  // 是否隱藏背景
+  const formRef = useRef(null);
 
-  useEffect(() => {
-    // 在元件 mount 時添加隱藏背景圖片的樣式
-    setHideBackground(true);
-    document.documentElement.classList.add('hide-background');
-    document.body.classList.add('hide-background');
+  // 處理標記被找到的事件
+  const handleMarkerFound = () => setMarkerFound(true);
 
-    // 在元件 unmount 時移除隱藏背景圖片的樣式
-    return () => {
-      setHideBackground(false);
-      document.documentElement.classList.remove('hide-background');
-      document.body.classList.remove('hide-background');
-    };
-  }, []);
-
-  useEffect(() => {
-    // 檢查 AFRAME 是否已加載
-    const checkLoadStatus = () => {
-      const interval = setInterval(() => {
-        if (window.AFRAME?.registerComponent) {
-          setIsLoaded(true);
-          clearInterval(interval);
-        }
-      }, 100);
-    };
-
-    checkLoadStatus();
-
-    return () => clearInterval(checkLoadStatus);
-  }, []);
-
-  useEffect(() => {
-    // 設置和清除標記的事件監聽器
-    if (isLoaded) {
-      const scene = document.querySelector('a-scene');
-
-      const handleMarkerFound = () => setMarkerFound(true);
-      const handleMarkerLost = () => { }; // 不再重置 markerFound 狀態
-
-      if (scene) {
-        const markers = scene.querySelectorAll('a-marker');
-        markers.forEach(marker => {
-          marker.addEventListener('markerFound', handleMarkerFound);
-          marker.addEventListener('markerLost', handleMarkerLost);
-        });
-      }
-
-      return () => {
-        if (scene) {
-          const markers = scene.querySelectorAll('a-marker');
-          markers.forEach(marker => {
-            marker.removeEventListener('markerFound', handleMarkerFound);
-            marker.removeEventListener('markerLost', handleMarkerLost);
-          });
-        }
-      };
-    }
-  }, [isLoaded]);
-
-  // 處理找到了按鈕點擊事件
+  // 處理"找到了"按鈕點擊事件
   const handleFoundButtonClick = () => setButtonClicked(true);
 
-  // 結束遊戲的處理函數
-  const handleEndGame = () => navigate('/', { state: { dialogIndex: 38 } });
+  // 處理遊戲結束事件
+  const handleEndGame = async () => {
+    // 使用表單提交來實現頁面跳轉
+    if (formRef.current) {
+      formRef.current.submit();
+    }
+  };
+  // 渲染 AR 內容的函數
+  const renderARContent = () => (
+    <>
+      <a-marker id="animated-marker" preset="hiro" emitevents="true">
+        {/* 可以在這裡添加 Hiro 標記的 3D 模型或其他內容 */}
+      </a-marker>
+      <a-marker id="animated-marker-custom" type="pattern" url={patternPatt} emitevents="true">
+        {buttonClicked && (
+          <a-text
+            value="記得找導覽人員拿相片喔"
+            position="0 0.5 0"
+            align="center"
+            color="#FFFFFF"
+            background-color="#000000"
+          ></a-text>
+        )}
+      </a-marker>
+    </>
+  );
 
   return (
     <div className={`container5 ${hideBackground ? 'hide-background' : ''}`}>
-      {isLoaded ? (
-        <a-scene embedded arjs="sourceType: webcam;">
-          <a-marker id="animated-marker" preset="hiro" emitevents="true">
-            {/* 在此處添加 3D 模型或其他實體 */}
-          </a-marker>
-          <a-marker
-            id="animated-marker-custom"
-            type="pattern"
-            url={patternPatt}
-            emitevents="true"
-          >
-            {buttonClicked && (
-              <a-text
-                value="記得找導覽人員拿相片喔"
-                position="0 0.5 0"
-                align="center"
-                color="#FFFFFF"
-                background-color="#000000"
-              ></a-text>
-            )}
-          </a-marker>
-          <a-entity camera></a-entity>
-        </a-scene>
-      ) : (
-        <p>Loading AR...</p>
+      {isAREnabled && (
+        <ARComponent
+          onMarkerFound={handleMarkerFound}
+          renderARContent={renderARContent}
+          arType="markerBased"
+          isEnabled={isAREnabled}
+        />
       )}
-      {markerFound && (
-        <div className="buttons-container">
-          {!buttonClicked ? (
-            <button className="foundButton5" onClick={handleFoundButtonClick}>
-              找到了
+      <div className="buttonContainer">
+        {markerFound && !buttonClicked && (
+          <button className="foundButton5" onClick={handleFoundButtonClick}>
+            找到了
+          </button>
+        )}
+        {buttonClicked && (
+          <>
+            <div className="info-text">記得找導覽人員拿相片喔</div>
+            <button className="endGameButton5" onClick={handleEndGame}>
+              結束遊戲
             </button>
-          ) : (
-            <>
-              <div className="info-text">記得找導覽人員拿相片喔</div>
-              <button className="endGameButton5" onClick={handleEndGame}>
-                結束遊戲
-              </button>
-            </>
-          )}
-        </div>
-      )}
+          </>
+        )}
+      </div>
+      <form ref={formRef} action="/" method="GET" style={{ display: 'none' }}>
+        <input type="hidden" name="dialogIndex" value="38" />
+      </form>
     </div>
   );
 };
