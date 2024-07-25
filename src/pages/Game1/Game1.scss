@@ -1,7 +1,7 @@
 /* 全局變數 */
 $primary-color: #8b5a2b;
 $hover-color: #a07246;
-$font-family: 'Comic Sans MS', cursive, sans-serif;
+$font-family: "Comic Sans MS", cursive, sans-serif;
 $button-padding: 1.3vh 2.6vh;
 $button-font-size: 1.3vw;
 $button-border-radius: 0.5vw;
@@ -9,73 +9,84 @@ $box-shadow: 0 0.4vw 0.8vw rgba(0, 0, 0, 0.2);
 
 /* 基本容器樣式 */
 .container1 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100vh;
-    position: relative;
-    overflow: hidden;
-    background: none;
-    color: #fff;
-    text-align: center;
-    font-family: $font-family;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background: none;
+  color: #fff;
+  text-align: center;
+  font-family: $font-family;
 }
 
 /* 按鈕容器樣式 */
 .buttonContainer {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1000;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
 }
 
 /* 按鈕基本樣式 */
 .button {
-    padding: $button-padding;
-    font-size: $button-font-size;
-    background-color: $primary-color;
-    color: white;
-    border: none;
-    border-radius: $button-border-radius;
-    cursor: pointer;
-    box-shadow: $box-shadow;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    line-height: 1.5;
-    text-align: center;
+  padding: $button-padding;
+  font-size: $button-font-size;
+  background-color: $primary-color;
+  color: white;
+  border: none;
+  border-radius: $button-border-radius;
+  cursor: pointer;
+  box-shadow: $box-shadow;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  line-height: 1.5;
+  text-align: center;
+  margin-top: 0.5rem;
 
-    &:hover {
-        background-color: $hover-color;
-        transform: scale(1.05);
-    }
+  &:hover {
+    background-color: $hover-color;
+    transform: scale(1.05);
+  }
+}
+
+.centered-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 /* 具體按鈕樣式 */
 .foundButton,
 .endButton {
-    @extend .button;
+  @extend .button;
 }
 
 /* 媒體查詢：適應平板設備 */
 @media (max-width: 768px) {
-    .button {
-        font-size: 2.6vw;
-        padding: 2vw 4vw;
-        border-radius: 1vw;
-    }
+  .button {
+    font-size: 2.6vw;
+    padding: 2vw 4vw;
+    border-radius: 1vw;
+  }
 }
 
 /* 媒體查詢：適應手機設備 */
 @media (max-width: 480px) {
-    .button {
-        font-size: 3vw;
-        padding: 2.5vw 5vw;
-        border-radius: 1.5vw;
-    }
+  .button {
+    font-size: 3vw;
+    padding: 2.5vw 5vw;
+    border-radius: 1.5vw;
+  }
 }
 
 /* 隱藏背景樣式 */
 .hideBackground {
-    background-image: none !important;
+  background-image: none !important;
 }
