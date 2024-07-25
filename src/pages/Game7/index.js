@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import './Game6.scss';
+import './Game7.scss';
 import { Button, Image, Typography, Layout } from 'antd';
 import ARComponent from '../../components/arcomp/ARComponent';
 import pattern from './pattern-辨識圖-神社_0.patt';
@@ -18,7 +18,7 @@ const { Text } = Typography;
  *   <Game6 />
  * )
  */
-const Game6 = () => {
+const Game7 = () => {
   const [markerFound, setMarkerFound] = useState(false);
   const [isAREnabled, setIsAREnabled] = useState(true);  // AR 功能是否啟用
   const formRef = useRef(null);
@@ -78,10 +78,10 @@ const Game6 = () => {
           </div>
         )}
         <form ref={formRef} action="/" method="GET" style={{ display: 'none' }}>
-          <input type="hidden" name="dialogIndex" value="48" />
+          <input type="hidden" name="dialogIndex" value="68" />
         </form>
       </Content>
     </Layout>
   )
 }
-export default Game6;
+export default Game7;

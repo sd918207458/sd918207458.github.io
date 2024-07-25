@@ -83,7 +83,9 @@ const ModalButton = ({ isVisible, showModal, handleModalCancel }) => {
                     <Button onClick={() => navigateToGame(5)}>第四章：AR辨識</Button>
                     <Button onClick={() => navigateToStory(38)}>第四章故事</Button>
                     <Button onClick={() => navigateToGame(6)}>第五章：尋找小小樹蛙</Button>
-                    <Button onClick={() => navigateToStory(68)}>第五章故事</Button>
+                    <Button onClick={() => navigateToStory(48)}>第五章故事-1</Button>
+                    <Button onClick={() => navigateToGame(7)}>第五章：尋找郵差小小樹蛙神</Button>
+                    <Button onClick={() => navigateToStory(68)}>第五章故事-2</Button>
                     <Button onClick={clearLocalStorage} style={{ backgroundColor: 'red', color: 'white' }}>清除紀錄</Button>
                 </div>
             </Modal>
