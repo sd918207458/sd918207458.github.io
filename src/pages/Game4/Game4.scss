@@ -26,6 +26,7 @@ $shadow: 0 0.4vh 0.8vh rgba(0, 0, 0, 0.2);
     flex-direction: column;
     position: relative;
     margin-bottom: 20px;
+    padding-top: 1rem;
 }
 
 /* 地圖圖片容器樣式 */
@@ -102,7 +103,7 @@ $shadow: 0 0.4vh 0.8vh rgba(0, 0, 0, 0.2);
 .resultContainer {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     position: absolute;
     bottom: 0;
     left: 50%;
@@ -130,9 +131,12 @@ $shadow: 0 0.4vh 0.8vh rgba(0, 0, 0, 0.2);
     border-radius: $button-radius;
     flex-grow: 1;
     margin-right: 10px;
+    height: 3.5rem;  // 設置固定高度，與按鈕一致
 
     @media (max-width: 480px) {
-        margin-right: 5px;
+        margin-right: 0;
+        margin-bottom: 10px;
+        width: 100%;
     }
 }
 
@@ -146,9 +150,12 @@ $shadow: 0 0.4vh 0.8vh rgba(0, 0, 0, 0.2);
     border-radius: $button-radius;
     cursor: pointer;
     white-space: nowrap;
+    height: 3.5rem;  // 設置固定高度，與輸入框一致
+    display: flex;
+    align-items: center;
+    justify-content: center;
     transition: $button-transition;
     order: 1;
-    margin-top: 10px;
 
     &:hover {
         background-color: $hover-color;
