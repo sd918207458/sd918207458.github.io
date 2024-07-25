@@ -39,7 +39,7 @@ const Game3 = () => {
 
   // 處理最終按鈕點擊
   const handleFinalButtonClick = () => {
-    navigate('/', { state: { dialogIndex: 22 } }); // 導航到指定頁面
+    navigate('/?dialogIndex=22');
   };
 
   // 處理步驟切換

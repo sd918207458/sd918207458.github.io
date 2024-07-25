@@ -11,7 +11,7 @@ const Game2 = () => {
 
   // 處理遊戲結束
   const handleEndGame = () => {
-    navigate('/', { state: { dialogIndex: 11 } });
+    navigate('/?dialogIndex=10');
   };
 
   // 開始組裝

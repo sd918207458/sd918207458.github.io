@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useEffect, useCallback } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Dialog from '../Dialog';
 import Gamemodal from '../../components/Gamemodal';
 import usePageState from '../../components/usePageState';
@@ -29,7 +29,7 @@ import frog2 from '../../assets/picture/Frog/郵差蛙蛙2-疑問.png';
 import frog3 from '../../assets/picture/Frog/郵差蛙蛙3-開心笑.png';
 
 const Login = () => {
-  const [pageState, setPageState, savePageState] = usePageState({
+  const [pageState, setPageState] = usePageState({
     dialogVisible: false,
     currentDialogIndex: 0,
     imageVisible: false,
@@ -39,7 +39,39 @@ const Login = () => {
 
   const { dialogVisible, currentDialogIndex, imageVisible, introVisible, isModalVisible } = pageState;
   const location = useLocation();
+  const navigate = useNavigate();
+  
+  const handleUrlParams = useCallback(() => {
+    const params = new URLSearchParams(window.location.search);
+    const dialogIndex = params.get('dialogIndex');
+    const reset = params.get('reset');
+    console.log(params, dialogIndex, reset);
+    if (reset === 'true') {
+      // 清空所有狀態
+      setPageState({
+        dialogVisible: false,
+        currentDialogIndex: 0,
+        imageVisible: false,
+        introVisible: false,
+        isModalVisible: false
+      });
+      // 清除本地存儲
+      localStorage.clear();
+    } else if (dialogIndex !== null) {
+      const index = parseInt(dialogIndex, 10);
+      setPageState(prevState => ({
+        ...prevState,
+        dialogVisible: true,
+        currentDialogIndex: index,
+      }));
+    }
+    // 清除 URL 參數，以防止重新加載頁面時重複設置
+    window.history.replaceState({}, document.title, window.location.pathname);
+  }, [setPageState, location.search]); // 只在組件掛載時執行一次
 
+  useEffect(() => {
+    handleUrlParams();
+  }, [handleUrlParams]);
 
   const dialogs = [
     { title: '旁白', content: '有一天，阿民接到了活動中心志工的電話' },
@@ -47,7 +79,7 @@ const Login = () => {
     { title: '阿民', content: '「好的。我等等和阿公一起過去收拾。」', imageUrl: kids1 },
     { title: '阿民', content: '「阿公，我們去活動中心吧？」', imageUrl: kids1 },
     { title: '阿民', content: '「阿民，你們來了阿。爺爺的東西應該在那櫃子附近，你可以找找看。 」', imageUrl: Npc },
-    { title: '阿民', content: '在櫃子附近找到一個舊箱子，裡面翻出了一台好破舊的相機和御守!', imageUrl: Npc },
+    { title: '阿民', content: '在櫃子附近找到一個舊箱子，裡面翻出了一台好破舊的相機和御守!' },
     { title: '阿民', content: '「這是誰的相機呀？」', imageUrl: kids2 },
     { title: '阿公', content: '「這是你阿祖送給我的相機，那可是阿公的寶貝呢，可惜它現在壞掉了...」', imageUrl: grandpa2 },
     { title: '阿民', content: '「阿公，或許我們可以試著修好它，再一起拍下更多的照片。」', imageUrl: kids3 },
@@ -150,75 +182,97 @@ const Login = () => {
     //此時介面會出現一句話「如果你是阿民你會怎麼守護三民社區?」然後會給幾的選項「#」「#」「#」。最後引導到社區正在推廣的活動。
   ];
 
+  const setCurrentDialogIndex = useCallback((index) => {
+    setPageState((prevState) => ({
+      ...prevState,
+      currentDialogIndex: index
+    }));
+  }, [setPageState]);
+
   useEffect(() => {
-    if (location.state?.dialogIndex !== undefined) {
+    const params = new URLSearchParams(location.search);
+    const dialogIndex = params.get('dialogIndex');
+    if (dialogIndex !== null) {
       setPageState((prevState) => ({
         ...prevState,
         dialogVisible: true,
-        currentDialogIndex: location.state.dialogIndex,
+        currentDialogIndex: parseInt(dialogIndex, 10),
       }));
-      savePageState();
     }
-  }, [location.state]);
+  }, [location.search]);
 
-  const openDialog = () => setPageState((prevState) => ({
-    ...prevState,
-    introVisible: true,
-  }));
+  useEffect(() => {
+    if (dialogVisible) {
+      window.history.pushState(null, '', `?dialogIndex=${currentDialogIndex}`);
+    }
+  }, [currentDialogIndex, dialogVisible]);
 
-  const showDialog = () => {
+  const openDialog = useCallback(() => {
+    setPageState((prevState) => ({
+      ...prevState,
+      introVisible: true,
+    }));
+  }, [setPageState]);
+
+  const showDialog = useCallback(() => {
     setPageState((prevState) => ({
       ...prevState,
       introVisible: false,
       dialogVisible: true,
       imageVisible: true,
     }));
-    savePageState();
-  };
+  }, [setPageState]);
 
-  const closeDialog = () => {
+  const closeDialog = useCallback(() => {
     setPageState((prevState) => ({
       ...prevState,
       dialogVisible: false,
       currentDialogIndex: 0,
       imageVisible: false,
     }));
-    savePageState();
-  };
+    navigate('/');
+  }, [setPageState, navigate]);
 
-  const handlePreviousDialog = () => {
+  const handlePreviousDialog = useCallback(() => {
+    if (currentDialogIndex > 0) {
+      setPageState((prevState) => ({
+        ...prevState,
+        currentDialogIndex: prevState.currentDialogIndex - 1,
+      }));
+    }
+  }, [currentDialogIndex, setPageState]);
+
+  const handleNextDialog = useCallback(() => {
+    if (currentDialogIndex < dialogs.length - 1) {
+      setPageState((prevState) => ({
+        ...prevState,
+        currentDialogIndex: prevState.currentDialogIndex + 1,
+      }));
+    }
+  }, [currentDialogIndex, dialogs.length, setPageState]);
+
+  const showModal = useCallback(() => {
     setPageState((prevState) => ({
       ...prevState,
-      currentDialogIndex: prevState.currentDialogIndex > 0 ? prevState.currentDialogIndex - 1 : 0,
+      isModalVisible: true,
     }));
-    savePageState();
-  };
+  }, [setPageState]);
 
-  const handleNextDialog = () => {
+  const handleModalCancel = useCallback(() => {
     setPageState((prevState) => ({
       ...prevState,
-      currentDialogIndex: prevState.currentDialogIndex < dialogs.length - 1 ? prevState.currentDialogIndex + 1 : prevState.currentDialogIndex,
+      isModalVisible: false,
     }));
-    savePageState();
-  };
-
-  const showModal = () => setPageState((prevState) => ({
-    ...prevState,
-    isModalVisible: true,
-  }));
-
-  const handleModalCancel = () => setPageState((prevState) => ({
-    ...prevState,
-    isModalVisible: false,
-  }));
+  }, [setPageState]);
 
   return (
     <div className='dialog'>
-      <Gamemodal
-        isVisible={isModalVisible}
-        showModal={showModal}
-        handleModalCancel={handleModalCancel}
-      />
+      {!introVisible &&
+        <Gamemodal
+          isVisible={isModalVisible}
+          showModal={showModal}
+          handleModalCancel={handleModalCancel}
+        />}
       {dialogVisible && (
         <Dialog
           visible={dialogVisible}
@@ -227,11 +281,7 @@ const Login = () => {
           currentIndex={currentDialogIndex}
           onPrevious={handlePreviousDialog}
           onNext={handleNextDialog}
-          setCurrentDialogIndex={(index) => setPageState((prevState) => ({
-            ...prevState,
-            currentDialogIndex: index
-          }))}
-          savePageState={savePageState}
+          setCurrentDialogIndex={setCurrentDialogIndex}
         />
       )}
       {!dialogVisible && !introVisible && (

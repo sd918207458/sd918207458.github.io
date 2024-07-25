@@ -55,7 +55,7 @@ const Game4 = () => {
 
   // 跳轉到新的頁面
   const handleNavigate = () => {
-    navigate('/', { state: { dialogIndex: 37 } });
+    navigate('/?dialogIndex=37');
   };
 
   // 清除結果和已播放的音頻
