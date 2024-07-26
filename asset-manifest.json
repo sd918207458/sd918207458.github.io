@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.f4764306.css",
-    "main.js": "/static/js/main.be65e8c3.js",
+    "main.css": "/static/css/main.0fae8e00.css",
+    "main.js": "/static/js/main.a3efaa16.js",
     "static/media/DIY相機教學圖-01.png": "/static/media/DIY相機教學圖-01.410ccfd9697174477613.png",
     "static/media/背景-神社外.png": "/static/media/背景-神社外.00e1c15117665b21ba54.png",
     "static/media/背景-防空洞.png": "/static/media/背景-防空洞.f90faeb0de54b12e303f.png",
@@ -35,15 +35,16 @@
     "static/media/地圖正面.jpg": "/static/media/地圖正面.25ec359eeca0b66d2a1c.jpg",
     "static/media/地圖反面.jpg": "/static/media/地圖反面.ffddf20a9bdd6f16c163.jpg",
     "static/media/按鈕-遊戲開始.png": "/static/media/按鈕-遊戲開始.cab92c0b8a8cc7c60be1.png",
+    "static/media/pattern-辨識圖_阿公的箱子.patt": "/static/media/pattern-辨識圖_阿公的箱子.d31cc6b0e1dc18611ce1.patt",
     "static/media/pattern-辨識圖-手水舍_0.patt": "/static/media/pattern-辨識圖-手水舍_0.ad7b6dc92505140ed464.patt",
     "static/media/pattern-辨識圖-神社_0.patt": "/static/media/pattern-辨識圖-神社_0.c1f8b923ede053b2229e.patt",
     "static/media/pattern-郵差蛙蛙的辨識圖_0.patt": "/static/media/pattern-郵差蛙蛙的辨識圖_0.3307e57783a4daba2ac9.patt",
     "index.html": "/index.html",
-    "main.f4764306.css.map": "/static/css/main.f4764306.css.map",
-    "main.be65e8c3.js.map": "/static/js/main.be65e8c3.js.map"
+    "main.0fae8e00.css.map": "/static/css/main.0fae8e00.css.map",
+    "main.a3efaa16.js.map": "/static/js/main.a3efaa16.js.map"
   },
   "entrypoints": [
-    "static/css/main.f4764306.css",
-    "static/js/main.be65e8c3.js"
+    "static/css/main.0fae8e00.css",
+    "static/js/main.a3efaa16.js"
   ]
 }
