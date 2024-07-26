@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import './Game1.scss';
 import ARComponent from '../../components/arcomp/ARComponent';
 // import patternPatt from './pattern.patt';
-import pattern3 from './pattern-郵差蛙蛙的辨識圖_0.patt';
+import pattern from './pattern-辨識圖_阿公的箱子.patt';
 
 /**
  * Game1 - AR遊戲組件
@@ -43,7 +43,7 @@ const Game1 = () => {
       <a-marker id="animated-marker" preset="hiro" emitevents="true">
         {/* 在此處添加3D模型或其他實體 */}
       </a-marker>
-      <a-marker id="animated-marker-custom" type="pattern" url={pattern3} emitevents="true">
+      <a-marker id="animated-marker-custom" type="pattern" url={pattern} emitevents="true">
         {/* 在此處添加3D模型或其他實體 */}
       </a-marker>
     </>

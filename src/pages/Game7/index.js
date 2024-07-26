@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import './Game7.scss';
 import { Button, Image, Typography, Layout } from 'antd';
 import ARComponent from '../../components/arcomp/ARComponent';
-import pattern from './pattern-辨識圖-神社_0.patt';
+import pattern from './pattern-郵差蛙蛙的辨識圖_0.patt';
 import frogPng from '../../assets/picture/Frog/蛙蛙0-備用.png'
 
 const { Content } = Layout;
@@ -50,14 +50,13 @@ const Game7 = () => {
           renderARContent={renderARContent}
           arType="markerBased"
           isEnabled={isAREnabled}
+          arConfig={{
+            'aframe-ar': 'detectionMode: mono_and_matrix; matrixCodeType: 3x3; debugUIEnabled: true;',
+            'minConfidence': '0.99'
+          }}
         />
         {markerFound && (
           <div style={{ width: '100%', maxWidth: '500px', textAlign: 'center', background: 'transparent', paddingTop: '2rem' }}>
-            <Image
-              src={frogPng}
-              alt="Found Image"
-              style={{ maxHeight: '70vh', width: 'auto', objectFit: 'contain', marginTop: '2rem', background: 'transparent' }}
-            />
             <div style={{
               background: 'rgba(0, 0, 0, 0.5)',
               padding: '16px',
@@ -65,7 +64,7 @@ const Game7 = () => {
               marginTop: '16px',
               marginBottom: '16px'
             }}>
-              <Text style={{ color: 'white' }}>記得找導覽人員拿相片哦</Text>
+              <Text style={{ color: 'white' }}>找到囉，記得找導覽人員拿相片哦</Text>
             </div>
             <Button type="primary" onClick={handleEndGame} size="large"
               style={{

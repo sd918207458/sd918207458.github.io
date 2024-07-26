@@ -23,7 +23,8 @@ const ARComponent = ({
     renderARContent,
     customEvent,
     arType,
-    isEnabled
+    isEnabled,
+    arConfig = {}  // 新增 arConfig 参数，默认为空对象
 }) => {
     const [isInitialized, setIsInitialized] = useState(false);
     const [markerFound, setMarkerFound] = useState(false);
@@ -93,15 +94,20 @@ const ARComponent = ({
 
     // 條件渲染 AR 場景
     const renderARScene = () => {
+        const defaultArjsProps = {
+            'arjs': 'sourceType: webcam; debugUIEnabled: false;',
+            'aframe-ar': 'debugUIEnabled: false;'
+        };
         // 根據arType設置不同的arjs屬性
-        let arjsProps = {};
+        let arjsProps = { ...defaultArjsProps, ...arConfig };
         if (arType === 'imageTracking') {
-            arjsProps = { 'arjs': 'trackingMethod: best; sourceType: webcam; debugUIEnabled: false;' };
+            arjsProps = {
+                'arjs': 'trackingMethod: best; sourceType: webcam; debugUIEnabled: false;',
+            };
         } else if (arType === 'locationBased') {
             arjsProps = { 'arjs': 'sourceType: webcam; debugUIEnabled: false; sourceWidth: 1280; sourceHeight: 960; displayWidth: 1280; displayHeight: 960; debugUIEnabled: false;' };
-        } else {
-            arjsProps = { 'arjs': 'sourceType: webcam; debugUIEnabled: false;' };
         }
+        arjsProps = { ...arjsProps, ...arConfig };
         return (
             <a-scene ref={sceneRef} embedded vr-mode-ui="enabled: false" {...arjsProps}>
                 {renderARContent()}
@@ -131,6 +137,7 @@ ARComponent.propTypes = {
         handler: PropTypes.func.isRequired
     }),
     arType: PropTypes.oneOf(['imageTracking', 'locationBased', 'markerBased']).isRequired,
-    isEnabled: PropTypes.bool.isRequired
+    isEnabled: PropTypes.bool.isRequired,
+    arConfig: PropTypes.object  // arConfig 的 propType
 };
 export default ARComponent;

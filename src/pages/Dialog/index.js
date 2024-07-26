@@ -111,7 +111,8 @@ const Dialog = ({
     36: { text: "開始遊戲", onClick: () => navigate('/Game4') },
     37: { text: "開始遊戲", onClick: () => navigate('/Game5') },
     41: { text: isButtonEnabled ? "抵達神社" : `前往神社 (${formatTime(countdown)})`, onClick: () => onNext() },
-    67: { text: "開始遊戲", onClick: () => navigate('/Game6') },
+    47: { text: "開始遊戲", onClick: () => navigate('/Game6') },
+    67: { text: "開始遊戲", onClick: () => navigate('/Game7') },
     94: {
       text: "完結撒花",
       onClick: () => {
