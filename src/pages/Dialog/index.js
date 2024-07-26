@@ -117,7 +117,7 @@ const Dialog = ({
       text: "完結撒花",
       onClick: () => {
         localStorage.clear(); // 清除所有 localStorage 數據
-        navigate('#'); // 重定向到主頁或其他適當的頁面
+        navigate('/?reset=true'); // 重定向到主頁或其他適當的頁面
       }
     },
   };
