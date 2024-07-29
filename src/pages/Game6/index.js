@@ -63,14 +63,13 @@ const Game6 = () => {
               borderRadius: '8px',
               padding: '0.5rem',
             }}>
-              <Text style={{ color: 'white' }}>記得找導覽人員拿相片哦</Text>
             </div>
             <Button type="primary" onClick={handleEndGame} size="large"
               style={{
                 backgroundColor: '#8b5a2b',
                 borderColor: '#8b5a2b',
                 color: 'white',
-                marginTop:'0.5rem'
+                marginTop: '0.5rem'
               }}>
               結束遊戲
             </Button>

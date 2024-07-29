@@ -69,7 +69,6 @@ const Game5 = () => {
         )}
         {buttonClicked && (
           <>
-            <div className="info-text">記得找導覽人員拿相片喔</div>
             <div className="centered-button-container">
               <button className="endGameButton5" onClick={handleEndGame}>
                 結束遊戲
