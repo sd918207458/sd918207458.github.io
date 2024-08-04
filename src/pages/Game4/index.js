@@ -113,7 +113,7 @@ const Game4 = () => {
               <input
                 type="text"
                 value={inputValue}
-                onInput={(e) => {setInputValue(e.target.value);checkInputValue()}}
+                onInput={(e) => { setInputValue(e.target.value); checkInputValue() }}
                 placeholder="請輸入關鍵字"
                 className="input"
               />
