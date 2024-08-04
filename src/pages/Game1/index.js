@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import './Game1.scss';
 import ARComponent from '../../components/arcomp/ARComponent';
 // import patternPatt from './pattern.patt';
-import pattern from './pattern-辨識圖_阿公的箱子.patt';
+import pattern from './pattern-阿公的箱子-辨識圖_阿公本人.patt';
 
 /**
  * Game1 - AR遊戲組件
@@ -66,7 +66,6 @@ const Game1 = () => {
           ) : (
             <>
               <div className="centered-content">
-                <div className="info-text">記得找導覽人員拿相片哦</div>
                 <button className="endButton" onClick={handleEndGame}>
                   結束遊戲
                 </button>
