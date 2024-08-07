@@ -19,7 +19,7 @@ const Game2 = () => {
     setIsAssembling(true); // 設置為顯示組裝說明圖
     setTimeout(() => {
       setShowFinishButton(true); // 1.5 分鐘後顯示“修好了”按鈕
-    }, 90000); // 90000 毫秒 = 1.5 分鐘
+    }, 9000); // 90000 毫秒 = 1.5 分鐘
   };
 
   // 完成組裝

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import './Game1.scss';
 import ARComponent from '../../components/arcomp/ARComponent';
 // import patternPatt from './pattern.patt';
-import pattern from './pattern-阿公的箱子-辨識圖_阿公本人.patt';
+import pattern from './pattern-pattern-辨識圖_阿公的箱子1.patt';
 
 /**
  * Game1 - AR遊戲組件
