@@ -56,7 +56,7 @@ const ModalButton = ({ isVisible, showModal, handleModalCancel }) => {
                     type="primary"
                     onClick={showModal}
                     style={{
-                        position: 'absolute', top: '0', left: '0', transform: 'translate(-45vw, -20vw)', zIndex: 1000,
+                        position: 'fixed', top: '2rem', left: '2rem', zIndex: 1000,
                         backgroundColor: '#8b5a2b',
                         borderColor: '#8b5a2b',
                         color: 'white'
@@ -86,6 +86,7 @@ const ModalButton = ({ isVisible, showModal, handleModalCancel }) => {
                     <Button onClick={() => navigateToStory(48)}>第五章故事-1</Button>
                     <Button onClick={() => navigateToGame(7)}>第五章：尋找郵差小小樹蛙神</Button>
                     <Button onClick={() => navigateToStory(68)}>第五章故事-2</Button>
+                    <Button onClick={() => navigateToGame(8)}>test</Button>
                     <Button onClick={clearLocalStorage} style={{ backgroundColor: 'red', color: 'white' }}>清除紀錄</Button>
                 </div>
             </Modal>

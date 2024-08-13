@@ -45,7 +45,6 @@ const Login = () => {
     const params = new URLSearchParams(window.location.search);
     const dialogIndex = params.get('dialogIndex');
     const reset = params.get('reset');
-    console.log(params, dialogIndex, reset);
     if (reset === 'true') {
       // 清空所有狀態
       setPageState({
