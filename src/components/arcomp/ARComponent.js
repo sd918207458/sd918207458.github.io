@@ -1,143 +1,95 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
+import * as THREE from 'three';
+import { MindARThree } from 'mind-ar/dist/mindar-image-three.prod.js';
 
-/**
- * ARComponent - 整合式AR組件
- * 
- * 這個組件使用AR.js和A-Frame來處理AR標記檢測和內容渲染。根據`arType`屬性，
- * 可以處理不同類型的AR體驗（圖像追蹤、基於位置和標記檢測）。
- * 
- * @param {Object} props - 組件屬性
- * @param {string} props.markerUrl - AR標記圖案的URL（可選，僅標記檢測需要）
- * @param {Function} props.onMarkerFound - 找到標記時的回調函數
- * @param {Function} [props.onEndExperience] - 結束AR體驗的回調函數
- * @param {Function} props.renderARContent - 渲染AR內容的函數
- * @param {Object} [props.customEvent] - 自訂事件對象，包含名稱和處理函數
- * @param {string} props.arType - AR體驗類型，可選值為 'imageTracking', 'locationBased', 'markerBased'
- * @param {boolean} props.isEnabled - 是否用AR
- * */
 const ARComponent = ({
-    markerUrl,
-    onMarkerFound,
-    onEndExperience,
-    renderARContent,
-    customEvent,
-    arType,
-    isEnabled,
-    arConfig = {}  // 新增 arConfig 参数，默认为空对象
+  imageTargetSrc,
+  onTargetFound,
+  onTargetLost,
+  renderARContent,
+  isEnabled
 }) => {
-    const [isInitialized, setIsInitialized] = useState(false);
-    const [markerFound, setMarkerFound] = useState(false);
-    const sceneRef = useRef(null);
+  const containerRef = useRef(null);
+  const [mindarThree, setMindARThree] = useState(null);
+  const [error, setError] = useState(null);
 
-    useEffect(() => {
-        // 隱藏背景
-        document.documentElement.classList.add('hide-background');
-        document.body.classList.add('hide-background');
+  useEffect(() => {
+    if (!isEnabled || !containerRef.current) return;
 
-        return () => {
-            // 组件移除時顯示背景
-            document.documentElement.classList.remove('hide-background');
-            document.body.classList.remove('hide-background');
+    const initializeAR = async () => {
+      try {
+        const mindARInstance = new MindARThree({
+          container: containerRef.current,
+          imageTargetSrc: imageTargetSrc,
+          uiLoading: "yes",
+          uiScanning: "no",
+          uiError: "yes",
+        });
+
+
+        const { renderer, scene, camera } = mindARInstance;
+
+        const anchor = mindARInstance.addAnchor(0);
+        anchor.onTargetFound = () => {
+          onTargetFound && onTargetFound();
         };
-    }, []);
-
-
-    const initializeAR = useCallback(() => {
-        // 在這裡初始化 AR 功能
-        // 因為腳本已經在 index.html 中加載，我們只需要設置必要的元素
-        setIsInitialized(true);
-    }, []);
-
-    useEffect(() => {
-        if (isEnabled && !isInitialized) {
-            initializeAR();
-        } else if (!isEnabled && isInitialized) {
-            setIsInitialized(false);
-            setMarkerFound(false);
-        }
-
-    }, [isEnabled, isInitialized, initializeAR]);
-
-    // 處理標記檢測
-    const handleMarkerFound = useCallback(() => {
-        if (!markerFound) {
-            setMarkerFound(true);
-            if (onMarkerFound) onMarkerFound();
-        }
-    }, [markerFound, onMarkerFound]);
-
-    // 設置AR場景和事件監聽器
-    useEffect(() => {
-        if (isInitialized) {
-            const scene = sceneRef.current;
-            if (!scene) return;
-
-            const markers = scene.querySelectorAll('a-marker, a-nft, a-entity[gps-entity-place]');
-            markers.forEach(marker => {
-                marker.addEventListener('markerFound', handleMarkerFound);
-                if (customEvent) {
-                    marker.addEventListener(customEvent.name, customEvent.handler);
-                }
-            });
-
-            return () => {
-                markers.forEach(marker => {
-                    marker.removeEventListener('markerFound', handleMarkerFound);
-                    if (customEvent) {
-                        marker.removeEventListener(customEvent.name, customEvent.handler);
-                    }
-                });
-            };
-        }
-    }, [isInitialized, handleMarkerFound, customEvent]);
-
-    // 條件渲染 AR 場景
-    const renderARScene = () => {
-        const defaultArjsProps = {
-            'arjs': 'sourceType: webcam; debugUIEnabled: false;',
-            'aframe-ar': 'debugUIEnabled: false;'
+        anchor.onTargetLost = () => {
+          onTargetLost && onTargetLost();
         };
-        // 根據arType設置不同的arjs屬性
-        let arjsProps = { ...defaultArjsProps, ...arConfig };
-        if (arType === 'imageTracking') {
-            arjsProps = {
-                'arjs': 'trackingMethod: best; sourceType: webcam; debugUIEnabled: false;',
-            };
-        } else if (arType === 'locationBased') {
-            arjsProps = { 'arjs': 'sourceType: webcam; debugUIEnabled: false; sourceWidth: 1280; sourceHeight: 960; displayWidth: 1280; displayHeight: 960; debugUIEnabled: false;' };
+
+        await mindARInstance.start();
+
+        renderer.setAnimationLoop(() => {
+          renderer.render(scene, camera);
+        });
+
+        setMindARThree(mindARInstance);
+
+        if (renderARContent) {
+          renderARContent(scene, THREE);
         }
-        arjsProps = { ...arjsProps, ...arConfig };
-        return (
-            <a-scene ref={sceneRef} embedded vr-mode-ui="enabled: false" {...arjsProps}>
-                {renderARContent()}
-                {arType !== 'locationBased' && <a-entity camera></a-entity>}
-            </a-scene>
-        );
+      } catch (error) {
+        console.error('Error initializing AR:', error);
+        setError('AR 初始化失敗。請檢查您的設備是否支援 AR 或刷新頁面重試。');
+      }
     };
 
-    return (
-        <div className="ar-component">
-            {isEnabled ? (
-                isInitialized ? renderARScene() : <p>正在加載AR...</p>
-            ) : (
-                <p>AR 停用中</p>
-            )}
-        </div>
-    );
+    initializeAR();
+
+    return () => {
+      if (mindarThree) {
+        mindarThree.renderer.setAnimationLoop(null);
+        mindarThree.stop();
+      }
+    };
+  }, [imageTargetSrc, onTargetFound, onTargetLost, isEnabled, renderARContent]);
+
+  if (error) {
+    return <div className="error-message">{error}</div>;
+  }
+
+  return (
+    <div
+      ref={containerRef}
+      style={{
+        width: '100%',
+        height: '100%',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        zIndex: 1
+      }}
+    />
+  );
 };
 
 ARComponent.propTypes = {
-    markerUrl: PropTypes.string,
-    onMarkerFound: PropTypes.func.isRequired,
-    onEndExperience: PropTypes.func,
-    renderARContent: PropTypes.func.isRequired,
-    customEvent: PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        handler: PropTypes.func.isRequired
-    }),
-    arType: PropTypes.oneOf(['imageTracking', 'locationBased', 'markerBased']).isRequired,
-    isEnabled: PropTypes.bool.isRequired,
-    arConfig: PropTypes.object  // arConfig 的 propType
+  imageTargetSrc: PropTypes.string.isRequired,
+  onTargetFound: PropTypes.func,
+  onTargetLost: PropTypes.func,
+  renderARContent: PropTypes.func,
+  isEnabled: PropTypes.bool.isRequired,
 };
+
 export default ARComponent;

@@ -1,60 +1,37 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import './Game1.scss';
 import ARComponent from '../../components/arcomp/ARComponent';
-// import patternPatt from './pattern.patt';
-import pattern from './pattern-pattern-辨識圖_阿公的箱子1.patt';
+import imageTargetSrc from './辨識圖_阿公的箱子.mind';
 
-/**
- * Game1 - AR遊戲組件
- * 
- * 這個組件實現了一個基於標記的AR遊戲，使用多個標記來顯示不同的3D模型或其他實體。
- * 
- * @component
- * @example
- * return (
- *   <Game1 />
- * )
- */
 const Game1 = () => {
   const [markerFound, setMarkerFound] = useState(false);
   const [buttonClicked, setButtonClicked] = useState(false);
   const [isAREnabled, setIsAREnabled] = useState(true);
   const formRef = useRef(null);
-  // 當找到標記時的處理函數
-  const handleMarkerFound = () => setMarkerFound(true);
 
-  // 當按下“找到了”按鈕時的處理函數
+  const handleTargetFound = () => setMarkerFound(true);
+
   const handleFoundButtonClick = () => setButtonClicked(true);
 
-  // 當按下“結束遊戲”按鈕時的處理函數
-  const handleEndGame = async () => {
+  const handleEndGame = () => {
     if (formRef.current) {
-      console.log(formRef.current);
       formRef.current.submit();
     }
   };
-  const toggleAR = () => {
-    setIsAREnabled(!isAREnabled);
-  };
 
-  // 渲染AR內容函數，使用多個a-marker元素來顯示不同的3D模型或其他實體
-  const renderARContent = () => (
-    <>
-      <a-marker id="animated-marker" preset="hiro" emitevents="true">
-        {/* 在此處添加3D模型或其他實體 */}
-      </a-marker>
-      <a-marker id="animated-marker-custom" type="pattern" url={pattern} emitevents="true">
-        {/* 在此處添加3D模型或其他實體 */}
-      </a-marker>
-    </>
-  );
+  const renderARContent = (scene, THREE) => {
+    const geometry = new THREE.BoxGeometry(1, 1, 1);
+    const material = new THREE.MeshBasicMaterial({color: 0x00ff00, transparent: true, opacity: 0.5});
+    const cube = new THREE.Mesh(geometry, material);
+    scene.add(cube);
+  };
 
   return (
     <div className="container1">
       <ARComponent
-        onMarkerFound={handleMarkerFound}
+        imageTargetSrc={imageTargetSrc}
+        onTargetFound={handleTargetFound}
         renderARContent={renderARContent}
-        arType="markerBased"
         isEnabled={isAREnabled}
       />
       {markerFound && (
@@ -64,19 +41,17 @@ const Game1 = () => {
               找到了
             </button>
           ) : (
-            <>
-              <div className="centered-content">
-                <button className="endButton" onClick={handleEndGame}>
-                  結束遊戲
-                </button>
-              </div>
-            </>
+            <div className="centered-content">
+              <button className="endButton" onClick={handleEndGame}>
+                結束遊戲
+              </button>
+            </div>
           )}
-          <form ref={formRef} action="/" method="GET" style={{ display: 'none' }}>
-            <input type="hidden" name="dialogIndex" value="5" />
-          </form>
         </div>
       )}
+      <form ref={formRef} action="/" method="GET" style={{ display: 'none' }}>
+        <input type="hidden" name="dialogIndex" value="5" />
+      </form>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { RetweetOutlined, AudioOutlined, EyeOutlined } from '@ant-design/icons'; // 引入 Ant Design 的圖標
 import mapImageFront from '../../assets/地圖正面.jpg'; // 引入地圖正面圖片
@@ -7,6 +7,8 @@ import audio1 from '../../assets/3-1.mp3'; // 引入音效文件1
 import audio2 from '../../assets/3-2.mp3'; // 引入音效文件2
 import audio3 from '../../assets/3-3.mp3'; // 引入音效文件3
 import './Game4.scss'; // 導入 SCSS 文件
+import Gamemodal from '../../components/Gamemodal';
+import usePageState from '../../components/usePageState';
 
 const Game4 = () => {
   const [inputValue, setInputValue] = useState(''); // 輸入框的值
@@ -17,6 +19,13 @@ const Game4 = () => {
   const [showNewButton, setShowNewButton] = useState(false); // 顯示新的按鈕
   const [audioPlaying, setAudioPlaying] = useState(false); // 控制音頻播放狀態
   const navigate = useNavigate(); // 用於頁面導航
+
+  // Gamemodal state
+  const [pageState, setPageState] = usePageState({
+    isModalVisible: false
+  });
+
+  const { isModalVisible } = pageState;
 
   // 播放錄音
   const handlePlayAudio = (index) => {
@@ -76,8 +85,28 @@ const Game4 = () => {
     setInputVisible(!inputVisible); // 切換輸入框顯示狀態
   };
 
+  // Gamemodal functions
+  const showModal = useCallback(() => {
+    setPageState(prevState => ({
+      ...prevState,
+      isModalVisible: true
+    }));
+  }, [setPageState]);
+
+  const handleModalCancel = useCallback(() => {
+    setPageState(prevState => ({
+      ...prevState,
+      isModalVisible: false
+    }));
+  }, [setPageState]);
+
   return (
     <div className="container4">
+      <Gamemodal
+        isVisible={isModalVisible}
+        showModal={showModal}
+        handleModalCancel={handleModalCancel}
+      />
       <div className="mapContainer">
         {/* 播放錄音按鈕，垂直排列在地圖圖片左邊 */}
         <div className="audioButtonsContainer">

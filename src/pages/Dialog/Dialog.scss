@@ -192,6 +192,7 @@
 
 @media screen and (max-width: 480px) {
   .custom-modal {
+    padding: 3vw;
     width: 95vw;
     height: 24vh;
     bottom: 5vh;
@@ -199,14 +200,14 @@
 
   .custom-modal-image {
     width: 30vw;
-    left: -5vw;
-    top: -20vh;
+    left: 0vw;
+    top: -24vh;
     transform: none;
   }
 
   .custom-modal-content {
     font-size: 6vw;
-    padding: 0 5vw;
+    padding: 0;
   }
 
   .custom-modal-button,

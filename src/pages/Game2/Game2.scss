@@ -14,126 +14,131 @@ $box-shadow: 0 0.4vw 0.8vw rgba(0, 0, 0, 0.2);
 
 /* 基本容器樣式 */
 .container2 {
-    background: url('../../assets/picture/BG/背景-活動中心.png') center/cover no-repeat;
-    width: 105vw;
-    height: 105vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    position: relative;
+  background: url("../../assets/picture/BG/背景-活動中心.png") center/cover
+    no-repeat;
+  width: 105vw;
+  height: 105vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
 }
 
 /* 內容區域樣式 */
 .content2 {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* 圖片樣式 */
 .assemblyImage2 {
-    width: 50vw;
-    max-width: 1000px;
-    height: auto;
-    margin-bottom: 20px;
-    border: 0.5vw solid $primary-color;
-    border-radius: $border-radius-large;
-    box-shadow: $box-shadow;
+  width: 50vw;
+  max-width: 1000px;
+  height: auto;
+  margin-bottom: 20px;
+  border: 0.5vw solid $primary-color;
+  border-radius: $border-radius-large;
+  box-shadow: $box-shadow;
 }
 
 /* 按鈕基本樣式 */
 .button {
-    width: 22vw;
-    height: 17vh;
-    font-size: $font-size-large;
-    font-weight: bold;
-    background-color: $primary-color;
-    color: white;
-    border: none;
-    border-radius: $border-radius-medium;
-    cursor: pointer;
-    text-align: center;
-    box-shadow: $box-shadow;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 2vh;
-    line-height: 1.5;
+  width: 22vw;
+  height: 17vh;
+  font-size: $font-size-large;
+  font-weight: bold;
+  background-color: $primary-color;
+  color: white;
+  border: none;
+  border-radius: $border-radius-medium;
+  cursor: pointer;
+  text-align: center;
+  box-shadow: $box-shadow;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2vh;
+  line-height: 1.5;
 
-    &:hover {
-        background-color: $hover-color;
-        transform: scale(1.05);
-    }
+  &:hover {
+    background-color: $hover-color;
+    transform: scale(1.05);
+  }
 
-    &::before {
-        margin-right: 1vw;
-    }
+  &::before {
+    margin-right: 1vw;
+  }
 }
 
 /* 具體按鈕樣式 */
 .assembleButton2 {
-    @extend .button;
+  @extend .button;
 
-    &::before {
-        content: '🔧';
-    }
+  &::before {
+    content: "🔧";
+  }
 }
 
 .finishButton2 {
-    @extend .button;
+  @extend .button;
 
-    &::before {
-        content: '✔️';
-    }
+  &::before {
+    content: "✔️";
+  }
 }
 
 .endButton2 {
-    @extend .button;
+  @extend .button;
 
-    &::before {
-        content: '📸';
-    }
+  &::before {
+    content: "📸";
+  }
 }
 
 /* 媒體查詢：適應平板設備 */
 @media (max-width: 1024px) {
-    .assemblyImage2 {
-        width: 60vw;
-    }
+  .assemblyImage2 {
+    width: 60vw;
+  }
 
-    .button {
-        width: 30vw;
-        height: 15vh;
-        font-size: $font-size-medium;
-    }
+  .button {
+    width: 30vw;
+    height: 15vh;
+    font-size: $font-size-medium;
+  }
 }
 
 /* 媒體查詢：適應手機設備 */
 @media (max-width: 768px) {
-    .assemblyImage2 {
-        width: 70vw;
-    }
+  .assemblyImage2 {
+    width: 70vw;
+  }
 
-    .button {
-        width: 35vw;
-        height: 15vh;
-        font-size: $font-size-small;
-    }
+  .button {
+    width: 46vw;
+    height: 16vh;
+    font-size: $font-size-small;
+  }
 }
 
 /* 媒體查詢：適應小手機設備 */
 @media (max-width: 480px) {
-    .assemblyImage2 {
-        width: 90vw;
-        margin-bottom: 10px;
-    }
+  .assemblyImage2 {
+    width: 90vw;
+    margin-bottom: 10px;
+  }
 
-    .button {
-        width: 40vw;
-        height: 20vh;
-        font-size: $font-size-xsmall;
-    }
+  .button {
+    width: 40vw;
+    height: 8vh;
+    font-size: $font-size-xsmall;
+  }
+  .endButton2 {
+    height: 8vh;
+    width: 64vw;
+  }
 }

@@ -1,8 +1,10 @@
-import React, { useCallback, useRef } from 'react';
-import { Button, Modal } from 'antd';
+import React, { useCallback, useRef, useState } from 'react';
+import { Button, Modal, Select, message } from 'antd';
 import { EllipsisOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import usePageState from './usePageState';
+
+const { Option } = Select;
 
 const ModalButton = ({ isVisible, showModal, handleModalCancel }) => {
     const navigate = useNavigate();
@@ -11,6 +13,7 @@ const ModalButton = ({ isVisible, showModal, handleModalCancel }) => {
         currentDialogIndex: 0,
     });
     const formRef = useRef(null);
+    const [selectedOption, setSelectedOption] = useState(null);
 
     const navigateToGame = useCallback((gameNumber, dialogIndex = null) => {
         setPageState(prevState => ({
@@ -31,7 +34,7 @@ const ModalButton = ({ isVisible, showModal, handleModalCancel }) => {
         navigate('/?dialogIndex=' + dialogIndex);
     }, [setPageState, handleModalCancel, navigate]);
 
-    const clearLocalStorage = useCallback(() => {
+    const clearMemory = useCallback(() => {
         localStorage.clear();
         setPageState({
             dialogVisible: false,
@@ -40,14 +43,23 @@ const ModalButton = ({ isVisible, showModal, handleModalCancel }) => {
             imageVisible: false,
             isModalVisible: false
         });
-        alert('已清除當前紀錄');
+        message.success('已清除當前紀錄');
         handleModalCancel();
-        // 使用表單提交的方式重定向到初始登入頁面
         if (formRef.current) {
             formRef.current.submit();
         }
     }, [setPageState, handleModalCancel]);
 
+    const handleConfirm = () => {
+        if (selectedOption) {
+            const [action, ...params] = selectedOption.split(':');
+            if (action === 'game') {
+                navigateToGame(params[0]);
+            } else if (action === 'story') {
+                navigateToStory(params[0]);
+            }
+        }
+    };
 
     return (
         <>
@@ -71,23 +83,49 @@ const ModalButton = ({ isVisible, showModal, handleModalCancel }) => {
                 onCancel={handleModalCancel}
                 footer={null}
             >
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                    <Button onClick={() => navigateToGame(1)}>第一章：爺爺的舊相機</Button>
-                    <Button onClick={() => navigateToStory(5)}>第一章故事-1 </Button>
-                    <Button onClick={() => navigateToGame(2)}>第一章：爺爺的舊相機-2</Button>
-                    <Button onClick={() => navigateToStory(10)}>第一章故事-2</Button>
-                    <Button onClick={() => navigateToGame(3)}>第二章：消除空襲警報</Button>
-                    <Button onClick={() => navigateToStory(22)}>第二章故事</Button>
-                    <Button onClick={() => navigateToGame(4)}>第三章：聽聲辨位</Button>
-                    <Button onClick={() => navigateToStory(37)}>第三章故事</Button>
-                    <Button onClick={() => navigateToGame(5)}>第四章：AR辨識</Button>
-                    <Button onClick={() => navigateToStory(38)}>第四章故事</Button>
-                    <Button onClick={() => navigateToGame(6)}>第五章：尋找小小樹蛙</Button>
-                    <Button onClick={() => navigateToStory(48)}>第五章故事-1</Button>
-                    <Button onClick={() => navigateToGame(7)}>第五章：尋找郵差小小樹蛙神</Button>
-                    <Button onClick={() => navigateToStory(68)}>第五章故事-2</Button>
-                    <Button onClick={() => navigateToGame(8)}>test</Button>
-                    <Button onClick={clearLocalStorage} style={{ backgroundColor: 'red', color: 'white' }}>清除紀錄</Button>
+                <Select
+                    style={{ width: '100%', marginBottom: '1rem' }}
+                    placeholder="請選擇關卡或操作"
+                    onChange={(value) => setSelectedOption(value)}
+                >
+                    <Option value="game:1">第一章：爺爺的舊相機</Option>
+                    <Option value="story:5">第一章故事-1</Option>
+                    <Option value="game:2">第一章：爺爺的舊相機-2</Option>
+                    <Option value="story:10">第一章故事-2</Option>
+                    <Option value="game:3">第二章：消除空襲警報</Option>
+                    <Option value="story:22">第二章故事</Option>
+                    <Option value="game:4">第三章：聽聲辨位</Option>
+                    <Option value="story:37">第三章故事</Option>
+                    <Option value="game:5">第四章：AR辨識</Option>
+                    <Option value="story:38">第四章故事</Option>
+                    <Option value="game:6">第五章：尋找小小樹蛙</Option>
+                    <Option value="story:48">第五章故事-1</Option>
+                    <Option value="game:7">第五章：尋找郵差小小樹蛙神</Option>
+                    <Option value="story:68">第五章故事-2</Option>
+                </Select>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
+                    <Button 
+                        onClick={clearMemory} 
+                        style={{ width: '100%', backgroundColor: 'red', color: 'white' }}
+                    >
+                        清除紀錄
+                    </Button>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                        <Button 
+                            type="primary" 
+                            onClick={handleConfirm} 
+                            disabled={!selectedOption}
+                            style={{ width: '48%' }}
+                        >
+                            確認
+                        </Button>
+                        <Button 
+                            onClick={handleModalCancel}
+                            style={{ width: '48%' }}
+                        >
+                            取消
+                        </Button>
+                    </div>
                 </div>
             </Modal>
             <form ref={formRef} action="/" method="GET" style={{ display: 'none' }}>

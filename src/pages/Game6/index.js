@@ -1,69 +1,50 @@
 import React, { useState, useRef } from 'react';
 import './Game6.scss';
-import { Button, Image, Typography, Layout } from 'antd';
+import { Button, Image, Layout } from 'antd';
 import ARComponent from '../../components/arcomp/ARComponent';
-import pattern from './pattern-辨識圖-神社_0.patt';
+import imageTargetSrc from './辨識圖-神社.mind';
 import frogPng from '../../assets/picture/Frog/蛙蛙0-備用.png'
 
 const { Content } = Layout;
-const { Text } = Typography;
-/**
- * Game6 - AR遊戲組件
- * 
- * 這個組件實現了一個基於標記的AR遊戲，使用多個標記來顯示不同的3D模型或其他實體。
- * 
- * @component
- * @example
- * return (
- *   <Game6 />
- * )
- */
+
 const Game6 = () => {
   const [markerFound, setMarkerFound] = useState(false);
-  const [isAREnabled, setIsAREnabled] = useState(true);  // AR 功能是否啟用
+  const [isAREnabled, setIsAREnabled] = useState(true);
   const formRef = useRef(null);
-  // 當找到標記時的處理函數
-  const handleMarkerFound = () => setMarkerFound(true);
 
-  // 當按下“結束遊戲”按鈕時的處理函數
-  const handleEndGame = async () => {
-    // 使用表單提交來實現頁面跳轉
+  const handleTargetFound = () => setMarkerFound(true);
+
+  const handleEndGame = () => {
     if (formRef.current) {
       formRef.current.submit();
     }
   };
 
-  // 渲染AR內容函數，使用多個a-marker元素來顯示不同的3D模型或其他實體
-  const renderARContent = () => (
-    <>
-      <a-marker id="animated-marker-custom" type="pattern" url={pattern} emitevents="true">
-        {/* 在此處添加3D模型或其他實體 */}
-      </a-marker>
-    </>
-  );
+  const renderARContent = (scene, THREE) => {
+    // You can add 3D content here if needed
+    // For example:
+    // const geometry = new THREE.BoxGeometry(1, 1, 1);
+    // const material = new THREE.MeshBasicMaterial({color: 0x00ff00});
+    // const cube = new THREE.Mesh(geometry, material);
+    // scene.add(cube);
+  };
 
   return (
     <Layout style={{ minHeight: '100vh', background: 'transparent' }}>
       <Content style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
         <ARComponent
-          onMarkerFound={handleMarkerFound}
+          imageTargetSrc={imageTargetSrc}
+          onTargetFound={handleTargetFound}
           renderARContent={renderARContent}
-          arType="markerBased"
           isEnabled={isAREnabled}
         />
         {markerFound && (
-          <div style={{ width: '100%', maxWidth: '500px', textAlign: 'center', background: 'transparent', paddingTop: '2rem' }}>
+          <div style={{  textAlign: 'center', background: 'transparent', paddingTop: '2rem', zIndex: '1000' }}>
             <Image
               src={frogPng}
               alt="Found Image"
               style={{ maxHeight: '70vh', width: 'auto', objectFit: 'contain', background: 'transparent' }}
             />
-            <div style={{
-              background: 'rgba(0, 0, 0, 0.5)',
-              borderRadius: '8px',
-              padding: '0.5rem',
-            }}>
-            </div>
             <Button type="primary" onClick={handleEndGame} size="large"
               style={{
                 backgroundColor: '#8b5a2b',
@@ -82,4 +63,5 @@ const Game6 = () => {
     </Layout>
   )
 }
+
 export default Game6;
