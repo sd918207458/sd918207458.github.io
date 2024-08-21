@@ -7,7 +7,12 @@
   height: 100%;
   position: relative;
 }
-
+.dialog-body {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: background-image 0.3s ease-in-out;
+}
 .assemble-button {
   width: 12.5%;
   height: 12%;
@@ -122,6 +127,11 @@
   display: none;
 }
 
+@media screen and (orientation: portrait) {
+  .dialog-body {
+    background-size: auto 100%;
+  }
+}
 @media screen and (max-width: 1024px) {
   .custom-modal {
     width: 90vw;
