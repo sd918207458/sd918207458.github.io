@@ -1,69 +1,233 @@
 @charset "UTF-8";
-.container {
+/* Global variables */
+/* Main container styles */
+.container4 {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  padding: 20px;
-  font-family: Arial, sans-serif;
-  height: 100vh;
-  /* 讓容器佔滿整個視窗高度 */
+  min-height: 100vh;
+  width: 100vw;
+  background: url("../../assets/picture/BG/背景-草地.png") center/cover no-repeat;
+  padding: 2vh 2vw;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  overflow: hidden;
+  position: relative;
 }
 
+/* Map container styles */
 .mapContainer {
-  width: 80%;
-  max-width: 400px;
-  margin-bottom: 20px;
-}
-
-.mapImage {
-  width: 100%;
-  height: auto;
-}
-
-.buttonsContainer {
   display: flex;
-  flex-direction: row;
-  /* 水平排列 */
+  align-items: center;
   justify-content: center;
-  /* 水平居中 */
-  margin-bottom: 20px;
+  position: relative;
+  width: 90vw;
+  height: 90vh;
+  max-width: 90vw;
+  max-height: 90vh;
 }
 
-.button {
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #4caf50;
+/* Map image container styles */
+.mapImageContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Map image styles */
+.mapImage {
+  max-width: 100%;
+  max-height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+/* Map buttons container styles */
+.mapButtonsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  right: 2vw;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Button styles */
+.mapToggleButton,
+.inputToggleButton,
+.audioButton {
+  padding: 2.5vh 2.5vw;
+  background-color: #8b5a2b;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 1vh;
   cursor: pointer;
-  margin: 5px;
-  /* 調整按鈕之間的間距 */
+  margin-bottom: 2vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  height: 10vh;
+}
+.mapToggleButton:hover,
+.inputToggleButton:hover,
+.audioButton:hover {
+  background-color: #7a4728;
+}
+.mapToggleButton svg,
+.inputToggleButton svg,
+.audioButton svg {
+  font-size: 3vh;
 }
 
-.button.audioPlayed {
-  background-color: #45a049;
-}
-
-.resultContainer {
+/* Audio buttons container styles */
+.audioButtonsContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: absolute;
+  left: 2vw;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
+/* Result container styles */
+.resultContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: 2vh;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.8);
+  padding: 2vh 2vw;
+  border-radius: 2vh 2vh 2vh 2vh;
+  width: 90%;
+  max-width: 60vh;
+}
+
+/* Input styles */
 .input {
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 5px;
+  padding: 1vh 1vw;
+  font-size: 2.5vh;
   border: 1px solid #ccc;
-  width: 200px;
-  margin-bottom: 10px;
+  border-radius: 1vh;
+  flex-grow: 1;
+  margin-right: 2vw;
+  height: 6vh;
+  width: 30vw;
 }
 
-.image {
-  width: 80%;
-  max-width: 600px;
-  margin: 20px 0;
+/* End button styles */
+.endButton {
+  padding: 1vh 2vw;
+  font-size: 2.5vh;
+  background-color: #8b5a2b;
+  color: white;
+  border: none;
+  border-radius: 1vh;
+  cursor: pointer;
+  white-space: nowrap;
+  height: 6vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  margin-top: 0px;
+}
+.endButton:hover {
+  background-color: #7a4728;
+}
+
+/* New prompt text styles */
+.newPrompt {
+  font-size: 3vh;
+  color: black;
+  margin-bottom: 2vh;
+  background-color: rgba(204, 204, 204, 0.8);
+  padding: 2vh 2vw;
+  border-radius: 1vh;
+}
+
+/* Navigate button styles */
+.navigateButton {
+  padding: 2vh 3vw;
+  font-size: 2.5vh;
+  background-color: #8b5a2b;
+  color: white;
+  border: none;
+  border-radius: 1vh;
+  cursor: pointer;
+  margin-top: 2vh;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  width: 60vw;
+}
+.navigateButton:hover {
+  background-color: #7a4728;
+}
+
+/* Central container styles */
+.centralContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
+  flex-direction: column;
+  align-items: center;
+}
+.centralContainer.visible {
+  display: flex;
+}
+
+/* Media queries */
+@media (max-width: 100vh) and (orientation: portrait) {
+  .mapContainer {
+    width: 95vw;
+    height: 95vw;
+  }
+  .mapButtonsContainer {
+    flex-direction: row;
+    right: 50%;
+    top: auto;
+    bottom: -4vh;
+    transform: translateX(50%);
+  }
+  .audioButtonsContainer {
+    flex-direction: row;
+    left: 50%;
+    top: -8vh;
+    transform: translateX(-50%);
+  }
+  .mapToggleButton,
+  .inputToggleButton,
+  .audioButton {
+    margin: 0 1vw;
+    height: 8vh;
+    width: 16vw;
+  }
+  .resultContainer {
+    bottom: -18vh;
+    border-radius: 2vh 2vh 2vh 2vh;
+  }
+}
+@media (max-height: 100vw) and (orientation: landscape) {
+  .mapContainer {
+    width: 95vw;
+    height: 95vh;
+  }
+  .mapButtonsContainer {
+    right: 0vw;
+  }
+  .audioButtonsContainer {
+    left: 0vw;
+  }
+  .resultContainer {
+    width: 80%;
+  }
 }/*# sourceMappingURL=Game4.css.map */

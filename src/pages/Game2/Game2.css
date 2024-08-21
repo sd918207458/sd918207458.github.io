@@ -1,40 +1,112 @@
 @charset "UTF-8";
-.container {
-  text-align: center;
-  padding: 20px;
-  font-family: Arial, sans-serif;
-  background-image: url("../../assets/picture/BG/背景-活動中心.png");
-  background-size: cover;
-  background-position: center;
-  height: 100vh;
+/* 全局變數 */
+/* 基本容器樣式 */
+.container2 {
+  background: url("../../assets/picture/BG/背景-活動中心.png") center/cover no-repeat;
+  width: 105vw;
+  height: 105vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100vw;
+  flex-direction: column;
+  position: relative;
 }
 
-.content {
+/* 內容區域樣式 */
+.content2 {
+  text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.image {
-  width: 80%;
-  max-width: 500px;
-  margin: 20px 0;
+/* 圖片樣式 */
+.assemblyImage2 {
+  width: 50vw;
+  max-width: 1000px;
+  height: auto;
+  margin-bottom: 20px;
+  border: 0.5vw solid #8b5a2b;
+  border-radius: 1.5vw;
+  box-shadow: 0 0.4vw 0.8vw rgba(0, 0, 0, 0.2);
 }
 
-.button {
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #4caf50;
+/* 按鈕基本樣式 */
+.button, .endButton2, .finishButton2, .assembleButton2 {
+  width: 22vw;
+  height: 17vh;
+  font-size: 2vw;
+  font-weight: bold;
+  background-color: #8b5a2b;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 1.5vh;
   cursor: pointer;
-  margin-top: 20px;
+  text-align: center;
+  box-shadow: 0 0.4vw 0.8vw rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2vh;
+  line-height: 1.5;
 }
-.button:hover {
-  background-color: #45a049;
+.button:hover, .endButton2:hover, .finishButton2:hover, .assembleButton2:hover {
+  background-color: #a07246;
+  transform: scale(1.05);
+}
+.button::before, .endButton2::before, .finishButton2::before, .assembleButton2::before {
+  margin-right: 1vw;
+}
+
+/* 具體按鈕樣式 */
+.assembleButton2::before {
+  content: "🔧";
+}
+
+.finishButton2::before {
+  content: "✔️";
+}
+
+.endButton2::before {
+  content: "📸";
+}
+
+/* 媒體查詢：適應平板設備 */
+@media (max-width: 1024px) {
+  .assemblyImage2 {
+    width: 60vw;
+  }
+  .button, .assembleButton2, .finishButton2, .endButton2 {
+    width: 30vw;
+    height: 15vh;
+    font-size: 2.5vw;
+  }
+}
+/* 媒體查詢：適應手機設備 */
+@media (max-width: 768px) {
+  .assemblyImage2 {
+    width: 70vw;
+  }
+  .button, .assembleButton2, .finishButton2, .endButton2 {
+    width: 46vw;
+    height: 16vh;
+    font-size: 3vw;
+  }
+}
+/* 媒體查詢：適應小手機設備 */
+@media (max-width: 480px) {
+  .assemblyImage2 {
+    width: 90vw;
+    margin-bottom: 10px;
+  }
+  .button, .assembleButton2, .finishButton2, .endButton2 {
+    width: 40vw;
+    height: 8vh;
+    font-size: 4vw;
+  }
+  .endButton2 {
+    height: 8vh;
+    width: 64vw;
+  }
 }/*# sourceMappingURL=Game2.css.map */

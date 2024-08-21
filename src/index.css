@@ -1,0 +1,168 @@
+@charset "UTF-8";
+:root {
+  --font-family: "Comic Sans MS", "Comic Sans", "Chocolate Classical Sans";
+  --bg-gradient-start: #7892c2;
+  --bg-gradient-end: #476e9e;
+  --border-color: #4e6096;
+  --shadow-color: #9fb4f2;
+  --text-color: #ffffff;
+  --highlight-color: darkgreen;
+  --border-radius: 10px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--font-family);
+}
+
+html,
+body {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  background-image: url(./assets/picture/BG/背景-活動中心.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* 通用容器樣式 */
+.container,
+.centered-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+}
+
+/* 圖片樣式 */
+.centered-image {
+  width: 100%;
+  height: auto;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border: 2% solid #fff;
+  border-radius: 2%;
+  box-shadow: var(--box-shadow);
+}
+
+/* 按鈕樣式 */
+.startButton {
+  width: 30vw;
+  height: 15vh;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: none;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.startButton img {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--border-radius);
+}
+
+.startButton:active {
+  transform: translate(-50%, -50%) scale(0.95);
+}
+
+/* 前言容器樣式 */
+.intro-container {
+  background-color: white;
+  padding: 10px;
+  border-radius: var(--border-radius);
+  text-align: center;
+  box-shadow: var(--box-shadow);
+  font-size: 24px;
+  color: black;
+  max-height: 60vh;
+  overflow-y: auto;
+  margin: 2vh;
+}
+
+.intro-container p {
+  margin-bottom: 1.5vh;
+  line-height: 1.6;
+}
+
+.intro-container button {
+  padding: 1vw 2vw;
+  background-color: var(--highlight-color);
+  color: var(--text-color);
+  border: none;
+  border-radius: 0.5vw;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+  margin-top: 1.5vh;
+  font-size: var(--font-size-lg);
+}
+
+.intro-container button:hover {
+  background-color: var(--highlight-hover-color);
+  transform: scale(1.05);
+}
+
+/* 媒體查詢：適應平板設備 */
+@media screen and (max-width: 1024px) {
+  .startButton {
+    width: 40vw;
+    height: 20vh;
+    margin-top: 5%;
+  }
+  .intro-container {
+    font-size: var(--font-size-md);
+  }
+  .intro-container button {
+    font-size: var(--font-size-md);
+  }
+}
+/* 媒體查詢：適應手機設備 */
+@media screen and (max-width: 768px) {
+  .startButton {
+    width: 50vw;
+    height: 20vh;
+    margin-top: 5%;
+  }
+  .intro-container {
+    font-size: var(--font-size-sm);
+  }
+  .intro-container button {
+    font-size: var(--font-size-sm);
+  }
+}
+/* 媒體查詢：適應小手機設備 */
+@media screen and (max-width: 480px) {
+  .startButton {
+    width: 60vw;
+    height: 25vh;
+    margin-top: 5%;
+  }
+  .intro-container {
+    font-size: var(--font-size-xs);
+  }
+  .intro-container button {
+    font-size: var(--font-size-xs);
+  }
+}
+/* 確保豎屏模式下顯示正常 */
+@media screen and (orientation: portrait) {
+  html,
+  body {
+    flex-direction: column;
+  }
+}/*# sourceMappingURL=index.css.map */
