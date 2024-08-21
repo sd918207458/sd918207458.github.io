@@ -8,6 +8,10 @@ import bg2 from '../../assets/picture/BG/背景-防空洞.png';
 import bg3 from '../../assets/picture/BG/背景-草地.png';
 import bg4 from '../../assets/picture/BG/背景-手水舍.png';
 import bg5 from '../../assets/picture/BG/背景-神社外.png';
+import bg1_v from '../../assets/picture/BG/背景-活動中心-直.png';
+import bg2_v from '../../assets/picture/BG/背景-防空洞-直.png';
+import bg4_v from '../../assets/picture/BG/背景-手水舍-直.png';
+import bg5_v from '../../assets/picture/BG/背景-神社外-直.png';
 const Dialog = ({
   visible,
   dialogData = [],
@@ -18,13 +22,14 @@ const Dialog = ({
 }) => {
   const [countdown, setCountdown] = useState(3); // 3 seconds countdown
   const [isButtonEnabled, setIsButtonEnabled] = useState(false);
+  const [orientation, setOrientation] = useState('landscape');
   const navigate = useNavigate();
   const location = useLocation();
 
   const { title, content, imageUrl } = dialogData[currentIndex] || {};
 
   const preloadImages = () => {
-    const images = [bg1, bg2, bg3, bg4, bg5];
+    const images = [bg1, bg2, bg3, bg4, bg5, bg1_v, bg2_v, bg4_v, bg5_v];
     images.forEach((image) => {
       const img = new Image();
       img.src = image;
@@ -38,15 +43,15 @@ const Dialog = ({
   const updateBackgroundClass = (index) => {
     let newBackgroundImage = '';
     if (index >= 19 && index <= 27) {
-      newBackgroundImage = `url(${bg2})`;
+      newBackgroundImage = orientation === 'landscape' ? `url(${bg2})` : `url(${bg2_v})`;
     } else if (index >= 27 && index <= 35) {
-      newBackgroundImage = `url(${bg3})`;
+      newBackgroundImage = `url(${bg3})`; // No vertical version for bg3
     } else if (index >= 37 && index <= 40) {
-      newBackgroundImage = `url(${bg4})`;
+      newBackgroundImage = orientation === 'landscape' ? `url(${bg4})` : `url(${bg4_v})`;
     } else if (index > 40) {
-      newBackgroundImage = `url(${bg5})`;
+      newBackgroundImage = orientation === 'landscape' ? `url(${bg5})` : `url(${bg5_v})`;
     } else {
-      newBackgroundImage = `url(${bg1})`;
+      newBackgroundImage = orientation === 'landscape' ? `url(${bg1})` : `url(${bg1_v})`;
     }
     document.body.style.backgroundImage = newBackgroundImage;
   };
@@ -55,6 +60,20 @@ const Dialog = ({
     updateBackgroundClass(currentIndex);
   }, [currentIndex]);
 
+  useEffect(() => {
+    const handleOrientationChange = () => {
+      const newOrientation = window.innerWidth > window.innerHeight ? 'landscape' : 'portrait';
+      setOrientation(newOrientation);
+    };
+
+    handleOrientationChange(); // Set initial orientation
+    window.addEventListener('resize', handleOrientationChange);
+
+    return () => {
+      window.removeEventListener('resize', handleOrientationChange);
+    };
+  }, []);
+  
   const handlePreviousDialog = () => {
     if (currentIndex > 0) {
       onPrevious();
@@ -130,6 +149,9 @@ const Dialog = ({
     };
   }, []);
 
+  useEffect(() => {
+    updateBackgroundClass(currentIndex);
+  }, [currentIndex, orientation]);
   return (
     <>
       {visible && (
