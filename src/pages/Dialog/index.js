@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import { Button } from 'antd';
 import { CaretLeftOutlined, CaretRightOutlined } from '@ant-design/icons';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -12,6 +12,7 @@ import bg1_v from '../../assets/picture/BG/背景-活動中心-直.png';
 import bg2_v from '../../assets/picture/BG/背景-防空洞-直.png';
 import bg4_v from '../../assets/picture/BG/背景-手水舍-直.png';
 import bg5_v from '../../assets/picture/BG/背景-神社外-直.png';
+
 const Dialog = ({
   visible,
   dialogData = [],
@@ -20,19 +21,16 @@ const Dialog = ({
   onNext,
   setCurrentDialogIndex,
 }) => {
-  const [countdown, setCountdown] = useState(3); // 3 seconds countdown
-  const [isButtonEnabled, setIsButtonEnabled] = useState(false);
-  const [orientation, setOrientation] = useState('landscape');
+  const initialState = { countdown: 3, isButtonEnabled: false };
   const navigate = useNavigate();
   const location = useLocation();
-
-  const { title, content, imageUrl } = dialogData[currentIndex] || {};
+  const [orientation, setOrientation] = useState('landscape');
 
   const preloadImages = () => {
     const images = [bg1, bg2, bg3, bg4, bg5, bg1_v, bg2_v, bg4_v, bg5_v];
-    images.forEach((image) => {
+    images.forEach((src) => {
       const img = new Image();
-      img.src = image;
+      img.src = src;
     });
   };
 
@@ -40,25 +38,27 @@ const Dialog = ({
     preloadImages();
   }, []);
 
-  const updateBackgroundClass = (index) => {
-    let newBackgroundImage = '';
+  const getBackgroundImage = (index, orientation) => {
     if (index >= 19 && index <= 27) {
-      newBackgroundImage = orientation === 'landscape' ? `url(${bg2})` : `url(${bg2_v})`;
+      return orientation === 'landscape' ? bg2 : bg2_v;
     } else if (index >= 27 && index <= 35) {
-      newBackgroundImage = `url(${bg3})`; // No vertical version for bg3
+      return bg3;
     } else if (index >= 37 && index <= 40) {
-      newBackgroundImage = orientation === 'landscape' ? `url(${bg4})` : `url(${bg4_v})`;
+      return orientation === 'landscape' ? bg4 : bg4_v;
     } else if (index > 40) {
-      newBackgroundImage = orientation === 'landscape' ? `url(${bg5})` : `url(${bg5_v})`;
+      return orientation === 'landscape' ? bg5 : bg5_v;
     } else {
-      newBackgroundImage = orientation === 'landscape' ? `url(${bg1})` : `url(${bg1_v})`;
+      return orientation === 'landscape' ? bg1 : bg1_v;
     }
-    document.body.style.backgroundImage = newBackgroundImage;
+  };
+
+  const updateBackgroundClass = (index) => {
+    document.body.style.backgroundImage = `url(${getBackgroundImage(index, orientation)})`;
   };
 
   useEffect(() => {
     updateBackgroundClass(currentIndex);
-  }, [currentIndex]);
+  }, [currentIndex, orientation]);
 
   useEffect(() => {
     const handleOrientationChange = () => {
@@ -73,7 +73,7 @@ const Dialog = ({
       window.removeEventListener('resize', handleOrientationChange);
     };
   }, []);
-  
+
   const handlePreviousDialog = () => {
     if (currentIndex > 0) {
       onPrevious();
@@ -94,25 +94,28 @@ const Dialog = ({
     }
   }, [location.search, setCurrentDialogIndex]);
 
-  const startCountdown = () => {
-    setIsButtonEnabled(false);
-    setCountdown(3); // Reset countdown
-    const timer = setInterval(() => {
-      setCountdown((prev) => {
-        if (prev === 1) {
-          clearInterval(timer);
-          setIsButtonEnabled(true);
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-    return () => clearInterval(timer);
+  const reducer = (state, action) => {
+    switch (action.type) {
+      case 'START_COUNTDOWN':
+        return { ...state, countdown: action.payload, isButtonEnabled: false };
+      case 'TICK':
+        return state.countdown > 1
+          ? { ...state, countdown: state.countdown - 1 }
+          : { countdown: 0, isButtonEnabled: true };
+      default:
+        return state;
+    }
   };
+
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
     if (currentIndex === 18 || currentIndex === 41) {
-      startCountdown();
+      dispatch({ type: 'START_COUNTDOWN', payload: 3 });
+      const timer = setInterval(() => {
+        dispatch({ type: 'TICK' });
+      }, 1000);
+      return () => clearInterval(timer);
     }
   }, [currentIndex]);
 
@@ -125,11 +128,11 @@ const Dialog = ({
   const buttonConfigs = {
     4: { text: "尋找阿公の箱子", onClick: () => navigate('/Game1') },
     9: { text: "開始修相機", onClick: () => navigate('/Game2') },
-    18: { text: isButtonEnabled ? "抵達防空洞" : `前往防空洞 (${formatTime(countdown)})`, onClick: () => onNext() },
+    18: { text: state.isButtonEnabled ? "抵達防空洞" : `前往防空洞 (${formatTime(state.countdown)})`, onClick: () => onNext() },
     21: { text: "開始遊戲", onClick: () => navigate('/Game3') },
     36: { text: "開始遊戲", onClick: () => navigate('/Game4') },
     37: { text: "開始遊戲", onClick: () => navigate('/Game5') },
-    41: { text: isButtonEnabled ? "抵達神社" : `前往神社 (${formatTime(countdown)})`, onClick: () => onNext() },
+    41: { text: state.isButtonEnabled ? "抵達神社" : `前往神社 (${formatTime(state.countdown)})`, onClick: () => onNext() },
     47: { text: "開始遊戲", onClick: () => navigate('/Game6') },
     67: { text: "開始遊戲", onClick: () => navigate('/Game7') },
     94: {
@@ -149,25 +152,22 @@ const Dialog = ({
     };
   }, []);
 
-  useEffect(() => {
-    updateBackgroundClass(currentIndex);
-  }, [currentIndex, orientation]);
   return (
     <>
       {visible && (
         <div className="custom-modal-overlay" onClick={(e) => e.stopPropagation()}></div>
       )}
       <div className="custom-modal">
-        {imageUrl && <img src={imageUrl} className="custom-modal-image" alt="dialog" />}
-        <span className="custom-modal-title">{title}</span>
-        <div className="custom-modal-content">{content}</div>
+        {dialogData[currentIndex]?.imageUrl && <img src={dialogData[currentIndex].imageUrl} className="custom-modal-image" alt="dialog" />}
+        <span className="custom-modal-title">{dialogData[currentIndex]?.title}</span>
+        <div className="custom-modal-content">{dialogData[currentIndex]?.content}</div>
         <Button
           className="custom-modal-button-prev"
           onClick={handlePreviousDialog}
           disabled={currentIndex === 0}
           icon={<CaretLeftOutlined className="my-custom-icon" />}
         />
-        {!Object.keys(buttonConfigs).includes(String(currentIndex)) && (
+        {!buttonConfigs[currentIndex] && (
           <Button
             className="custom-modal-button"
             onClick={handleNextDialog}
@@ -179,7 +179,7 @@ const Dialog = ({
         <Button
           className="assemble-button"
           onClick={buttonConfigs[currentIndex].onClick}
-          disabled={(currentIndex === 18 || currentIndex === 41) && !isButtonEnabled}
+          disabled={(currentIndex === 18 || currentIndex === 41) && !state.isButtonEnabled}
         >
           {buttonConfigs[currentIndex].text}
         </Button>

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import './Game5.scss';
 import ARComponent from '../../components/arcomp/ARComponent';
 import imageTargetSrc from './辨識圖-手水舍.mind';
@@ -10,17 +10,17 @@ const Game5 = () => {
   const [hideBackground, setHideBackground] = useState(true);
   const formRef = useRef(null);
 
-  const handleTargetFound = () => setMarkerFound(true);
+  const handleTargetFound = useCallback(() => setMarkerFound(true), []);
 
-  const handleFoundButtonClick = () => setButtonClicked(true);
+  const handleFoundButtonClick = useCallback(() => setButtonClicked(true), []);
 
-  const handleEndGame = () => {
+  const handleEndGame = useCallback(() => {
     if (formRef.current) {
       formRef.current.submit();
     }
-  };
+  }, []);
 
-  const renderARContent = (scene, THREE) => {
+  const renderARContent = useCallback((scene, THREE) => {
     if (buttonClicked) {
       const texture = new THREE.CanvasTexture(createTextCanvas("記得找導覽人員拿相片喔"));
       const material = new THREE.MeshBasicMaterial({ map: texture, transparent: true });
@@ -29,9 +29,9 @@ const Game5 = () => {
       textMesh.position.set(0, 0.5, 0);
       scene.add(textMesh);
     }
-  };
+  }, [buttonClicked]);
 
-  const createTextCanvas = (text) => {
+  const createTextCanvas = useCallback((text) => {
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
     canvas.width = 256;
@@ -44,7 +44,7 @@ const Game5 = () => {
     ctx.textBaseline = 'middle';
     ctx.fillText(text, canvas.width / 2, canvas.height / 2);
     return canvas;
-  };
+  }, []);
 
   return (
     <div className={`container5 ${hideBackground ? 'hide-background' : ''}`}>

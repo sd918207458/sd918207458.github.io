@@ -1,132 +1,131 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { RetweetOutlined, AudioOutlined, EyeOutlined } from '@ant-design/icons'; // 引入 Ant Design 的圖標
-import mapImageFront from '../../assets/地圖正面.jpg'; // 引入地圖正面圖片
-import mapImageBack from '../../assets/地圖反面.jpg'; // 引入地圖反面圖片
-import audio1 from '../../assets/3-1.mp3'; // 引入音效文件1
-import audio2 from '../../assets/3-2.mp3'; // 引入音效文件2
-import audio3 from '../../assets/3-3.mp3'; // 引入音效文件3
-import './Game4.scss'; // 導入 SCSS 文件
+import { RetweetOutlined, AudioOutlined, EyeOutlined } from '@ant-design/icons';
+import mapImageFront from '../../assets/地圖正面.jpg';
+import mapImageBack from '../../assets/地圖反面.jpg';
+import audio1 from '../../assets/3-1.mp3';
+import audio2 from '../../assets/3-2.mp3';
+import audio3 from '../../assets/3-3.mp3';
+import './Game4.scss';
 import Gamemodal from '../../components/Gamemodal';
 import usePageState from '../../components/usePageState';
 
 const Game4 = () => {
-  const [inputValue, setInputValue] = useState(''); // 輸入框的值
-  const [showEndButton, setShowEndButton] = useState(false); // 控制顯示遊戲結束按鈕
-  const [isFront, setIsFront] = useState(true); // 狀態：顯示正面還是反面地圖
-  const [inputVisible, setInputVisible] = useState(true); // 控制輸入框顯示狀態
-  const [showNewPrompt, setShowNewPrompt] = useState(false); // 顯示新的提示
-  const [showNewButton, setShowNewButton] = useState(false); // 顯示新的按鈕
-  const [audioPlaying, setAudioPlaying] = useState(false); // 控制音頻播放狀態
+  // 狀態管理
+  const [inputValue, setInputValue] = useState(''); // 追蹤輸入框的值
+  const [showEndButton, setShowEndButton] = useState(false); // 控制是否顯示結束按鈕
+  const [isFront, setIsFront] = useState(true); // 追蹤地圖顯示正面還是反面
+  const [inputVisible, setInputVisible] = useState(true); // 控制輸入框的顯示狀態
+  const [showNewPrompt, setShowNewPrompt] = useState(false); // 控制是否顯示新的提示
+  const [showNewButton, setShowNewButton] = useState(false); // 控制是否顯示新的按鈕
+  const [audioPlaying, setAudioPlaying] = useState(false); // 追蹤音頻播放狀態
   const navigate = useNavigate(); // 用於頁面導航
 
-  // Gamemodal state
+  // 頁面狀態管理
   const [pageState, setPageState] = usePageState({
-    isModalVisible: false
+    isModalVisible: false,
   });
 
   const { isModalVisible } = pageState;
 
-  // 播放錄音
-  const handlePlayAudio = (index) => {
-    if (audioPlaying) return; // 如果已有音頻在播放，則返回
+  // 使用 useMemo 儲存音頻檔案數組，避免每次渲染時重新創建數組
+  const audioFiles = useMemo(() => [audio1, audio2, audio3], []);
 
-    setAudioPlaying(true);
-    const audioFiles = [audio1, audio2, audio3]; // 音頻文件數組
-    const audio = new Audio(audioFiles[index]);
-    audio.play();
+  // 播放音頻的處理函數，使用 useCallback 避免不必要的重渲染
+  const handlePlayAudio = useCallback(
+    (index) => {
+      if (audioPlaying) return; // 如果已有音頻在播放，則不執行任何操作
 
-    // 當音頻播放結束時，重新啟用按鈕
-    audio.onended = () => {
-      setAudioPlaying(false);
-    };
+      setAudioPlaying(true); // 設置音頻正在播放狀態
+      const audio = new Audio(audioFiles[index]);
+      audio.play();
 
-    // 如果點擊的是第二個音頻，檢查輸入框值並顯示遊戲結束按鈕
-    if (index === 1) {
-      checkInputValue();
-    }
-  };
+      audio.onended = () => {
+        setAudioPlaying(false); // 當音頻播放結束時，重設播放狀態
+        if (index === 1) checkInputValue(); // 如果播放的是第二個音頻，檢查輸入框值
+      };
+    },
+    [audioPlaying, audioFiles] // 依賴於 audioPlaying 和 audioFiles
+  );
 
-  // 檢查輸入框的值
-  const checkInputValue = () => {
+  // 檢查輸入框的值，若匹配則顯示結束按鈕
+  const checkInputValue = useCallback(() => {
     if (inputValue === '手水舍') {
-      setShowEndButton(true); // 顯示遊戲結束按鈕
+      setShowEndButton(true);
     }
-  };
+  }, [inputValue]);
 
-  // 結束遊戲並顯示新的提示和按鈕
-  const handleEndGame = () => {
-    setShowNewPrompt(true); // 顯示新的提示
+  // 處理結束遊戲邏輯，顯示新的提示並在延遲後顯示按鈕
+  const handleEndGame = useCallback(() => {
+    setShowNewPrompt(true); // 顯示新提示
     setTimeout(() => {
-      setShowNewButton(true); // 3秒後顯示新的按鈕
+      setShowNewButton(true); // 3秒後顯示新按鈕
     }, 3000);
-  };
+  }, []);
 
-  // 跳轉到新的頁面
-  const handleNavigate = () => {
+  // 處理導航邏輯，使用 navigate 進行頁面跳轉
+  const handleNavigate = useCallback(() => {
     navigate('/?dialogIndex=37');
-  };
+  }, [navigate]);
 
-  // 清除結果和已播放的音頻
-  const clearResultAndAudio = () => {
-    setInputValue(''); // 清空輸入框
-    setShowEndButton(false); // 隱藏遊戲結束按鈕
-    setShowNewPrompt(false); // 隱藏新的提示
-    setShowNewButton(false); // 隱藏新的按鈕
-  };
+  // 切換地圖顯示正反面的處理函數
+  const toggleMap = useCallback(() => {
+    setIsFront((prev) => !prev);
+  }, []);
 
-  // 切換地圖正反面
-  const toggleMap = () => {
-    setIsFront(!isFront); // 切換地圖正反面
-  };
+  // 切換輸入框顯示狀態的處理函數
+  const toggleInputVisibility = useCallback(() => {
+    setInputVisible((prev) => !prev);
+  }, []);
 
-  // 切換輸入框顯示狀態
-  const toggleInputVisibility = () => {
-    setInputVisible(!inputVisible); // 切換輸入框顯示狀態
-  };
-
-  // Gamemodal functions
+  // 顯示模態框的處理函數
   const showModal = useCallback(() => {
-    setPageState(prevState => ({
+    setPageState((prevState) => ({
       ...prevState,
-      isModalVisible: true
+      isModalVisible: true,
     }));
   }, [setPageState]);
 
+  // 隱藏模態框的處理函數
   const handleModalCancel = useCallback(() => {
-    setPageState(prevState => ({
+    setPageState((prevState) => ({
       ...prevState,
-      isModalVisible: false
+      isModalVisible: false,
     }));
   }, [setPageState]);
 
   return (
     <div className="container4">
+      {/* 模態框組件 */}
       <Gamemodal
         isVisible={isModalVisible}
         showModal={showModal}
         handleModalCancel={handleModalCancel}
       />
       <div className="mapContainer">
-        {/* 播放錄音按鈕，垂直排列在地圖圖片左邊 */}
+        {/* 音頻按鈕容器 */}
         <div className="audioButtonsContainer">
-          {[audio1, audio2, audio3].map((audio, index) => (
+          {audioFiles.map((_, index) => (
             <button
               key={index}
               className="audioButton"
               onClick={() => handlePlayAudio(index)}
-              disabled={audioPlaying}
+              disabled={audioPlaying} // 音頻播放時禁用按鈕
             >
               <AudioOutlined />
             </button>
           ))}
         </div>
 
-        {/* 地圖背景圖片 */}
+        {/* 地圖圖片容器 */}
         <div className="mapImageContainer">
-          <img src={isFront ? mapImageFront : mapImageBack} alt="地圖圖片" className="mapImage" />
+          <img
+            src={isFront ? mapImageFront : mapImageBack}
+            alt="地圖圖片"
+            className="mapImage"
+          />
 
-          {/* 切換地圖按鈕和顯示/隱藏輸入框按鈕 */}
+          {/* 切換地圖與輸入框顯示狀態的按鈕 */}
           <div className="mapButtonsContainer">
             <button className="mapToggleButton" onClick={toggleMap}>
               <RetweetOutlined />
@@ -136,13 +135,16 @@ const Game4 = () => {
             </button>
           </div>
 
-          {/* 顯示輸入框和遊戲結束按鈕 */}
+          {/* 輸入框與結束遊戲按鈕 */}
           {inputVisible && (
             <div className="resultContainer">
               <input
                 type="text"
                 value={inputValue}
-                onInput={(e) => { setInputValue(e.target.value); checkInputValue() }}
+                onInput={(e) => {
+                  setInputValue(e.target.value); // 更新輸入框值
+                  checkInputValue(); // 檢查輸入框值
+                }}
                 placeholder="請輸入關鍵字"
                 className="input"
               />
@@ -156,13 +158,9 @@ const Game4 = () => {
         </div>
       </div>
 
-      {/* 中央提示和導航按鈕 */}
+      {/* 中央提示與導航按鈕 */}
       <div className={`centralContainer ${showNewPrompt || showNewButton ? 'visible' : ''}`}>
-        {showNewPrompt && (
-          <div className="newPrompt">
-            請前往尋找手水舍
-          </div>
-        )}
+        {showNewPrompt && <div className="newPrompt">請前往尋找手水舍</div>}
         {showNewButton && (
           <button className="navigateButton" onClick={handleNavigate}>
             抵達手水舍，點擊按鈕
