@@ -4,6 +4,7 @@ import { Button, Image, Layout } from 'antd';
 import ARComponent from '../../components/arcomp/ARComponent';
 import imageTargetSrc from './辨識圖-神社.mind'; // 引入AR辨識圖檔
 import frogPng from '../../assets/picture/Frog/蛙蛙0-備用.png'; // 引入圖片資源
+import QRCodeGenerator from '../../components/QRCodeGenerator';
 
 const { Content } = Layout; // 從Ant Design解構出Content組件
 

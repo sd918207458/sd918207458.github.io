@@ -89,3 +89,24 @@ $box-shadow: 0 0.4vw 0.8vw rgba(0, 0, 0, 0.2);
 .hideBackground {
   background-image: none !important;
 }
+
+.qr-button-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;  // 确保按钮位于页面的最上层
+}
+
+.qr-scan-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.qr-scan-button:hover {
+  background-color: #0056b3;
+}

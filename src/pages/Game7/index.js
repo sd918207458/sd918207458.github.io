@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import ARComponent from '../../components/arcomp/ARComponent';
 import imageTargetSrc from './辨識圖-郵差蛙蛙.mind'; 
 import * as THREE from 'three';
+import QRCodeGenerator from '../../components/QRCodeGenerator';
 
 const { Content } = Layout;
 const { Text } = Typography;

@@ -2,6 +2,7 @@ import React, { useState, useRef, useCallback } from 'react';
 import './Game5.scss';
 import ARComponent from '../../components/arcomp/ARComponent';
 import imageTargetSrc from './辨識圖-手水舍.mind';
+import QRCodeGenerator from '../../components/QRCodeGenerator';
 
 const Game5 = () => {
   const [markerFound, setMarkerFound] = useState(false);
