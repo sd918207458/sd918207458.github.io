@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindAR Example</title>
+    <script src="https://cdn.jsdelivr.net/npm/aframe@1.2.0/dist/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/MindAR-js/aframe/dist/aframe-mindar.js"></script>
+</head>
+<body>
+    <!-- AR Scene -->
+    <a-scene mindar="autoStart: true; imageTargetSrc: #target1" embedded renderer="antialias: true; alpha: true">
+        
+        <!-- AR Camera -->
+        <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+
+        <!-- 3D Model to display -->
+        <a-entity gltf-model="#myModel" position="0 0 0" rotation="0 0 0" scale="0.5 0.5 0.5" mindar-target="targetIndex: 0"></a-entity>
+        
+    </a-scene>
+
+    <!-- Image Target -->
+    <img id="target1" src="/targets.mind" style="display: none;">
+
+    <!-- 3D Model (GLTF) -->
+    <a-assets>
+        <a-asset-item id="myModel" src="path/to/your/model.gltf"></a-asset-item>
+    </a-assets>
+</body>
+</html>
