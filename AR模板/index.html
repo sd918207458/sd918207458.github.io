@@ -1,83 +1,30 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <!-- A-Frame和AR.js庫 -->
-    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
-    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
-
-    <!-- 手勢識別和處理腳本 -->
-    <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-detector.js"></script>
-    <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-handler.js"></script>
-
-    <!-- 引用外部CSS文件 -->
-    <link rel="stylesheet" type="text/css" href="./styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindAR Example</title>
+    <script src="https://cdn.jsdelivr.net/npm/aframe@1.2.0/dist/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/MindAR-js/aframe/dist/aframe-mindar.js"></script>
 </head>
+<body>
+    <!-- AR Scene -->
+    <a-scene mindar="autoStart: true; imageTargetSrc: #target1" embedded renderer="antialias: true; alpha: true">
+        
+        <!-- AR Camera -->
+        <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
-<body style="margin: 0; overflow: hidden;">
-
-    <!-- UI容器 -->
-    <div id="uiContainer">
-        <img src="assets/UI.jpg" alt="UI 容器圖片">
-    </div>
-
-    <!-- 關閉按鈕 -->
-    <div id="closeButton">
-        <img src="assets/closeButton.png" alt="關閉按鈕">
-    </div>
-
-    <!-- AR場景 -->
-    <a-scene vr-mode-ui="enabled: false;" loading-screen="enabled: false;"
-        arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;" id="scene" embedded gesture-detector>
-
-        <!-- AR標記 -->
-        <a-marker id="animated-marker" type="pattern" preset="custom" url="assets/marker.patt"
-            raycaster="objects: .clickable" emitevents="true" cursor="fuse: false; rayOrigin: mouse;" id="markerA">
-
-            <!-- 可交互的圖片 -->
-            <a-image id="interactiveImage" src="assets/asset.png" scale="1 1 1" class="clickable" rotation="-90 0 0" gesture-handler
-                animation__fadein="property: material.opacity; dur: 100;
-                easing: linear; from 0; to: 1; startEvents: fadein"
-            ></a-image>
-
-            <!-- 在這裡添加額外的文字實體 -->
-            <a-text id="displayText" value="What's this frog？" color="red" position="-0.5 0.5 -0.5" rotation="-60 0 0"
-                animation__fadein="property: material.opacity; dur: 100;
-                easing: linear; from 0; to: 1; startEvents: fadein"
-            ></a-text>
-            
-        </a-marker>
-
-            <a-entity
-                id="interactivePlant"
-                obj-model="obj: url(assets/plant.obj)"
-                material="color: green"
-                position="0 1 -3"
-                scale="0.5 0.5 0.5"
-            ></a-entity>
-
-        <!-- 攝像機實體 -->
-        <a-entity camera></a-entity>
+        <!-- 3D Model to display -->
+        <a-entity gltf-model="#myModel" position="0 0 0" rotation="0 0 0" scale="0.5 0.5 0.5" mindar-target="targetIndex: 0"></a-entity>
+        
     </a-scene>
 
-    <!-- 添加用於播放true.gif和false.gif的 <img> 元素 -->
-    <img id="trueImage" src="assets/true.gif" width="100" height="100" class="centered" style="display:none;">
-    <img id="falseImage" src="assets/false.gif" width="100" height="100" class="centered" style="display:none;">
+    <!-- Image Target -->
+    <img id="target1" src="path/to/your/targets.mind" style="display: none;">
 
-    <!-- 紅色區域 -->
-    <div id="bottomLeft" class="bottomArea" style="background-color: red; color: white; font-weight: bold; font-size: 40px; text-align: center;">莫氏樹蛙</div>
-
-    <!-- 綠色區域 -->
-    <div id="bottomRight" class="bottomArea" style="background-color: green; color: white; font-weight: bold; font-size: 40px; text-align: center;">諸羅樹蛙</div>
-
-    <!-- 分數盒子 -->
-    <div class="scoreBox">
-        <h3 id="scoreDisplay">分數: 0</h3>
-    </div>
-    
-    <!-- JavaScript代碼 -->
-    <script src="Script/script.js"></script>
-
+    <!-- 3D Model (GLTF) -->
+    <a-assets>
+        <a-asset-item id="myModel" src="path/to/your/model.gltf"></a-asset-item>
+    </a-assets>
 </body>
-
 </html>
