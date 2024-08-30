@@ -89,7 +89,7 @@ ARComponent.propTypes = {
   onTargetFound: PropTypes.func,
   onTargetLost: PropTypes.func,
   renderARContent: PropTypes.func,
-  isEnabled: PropTypes.bool.isRequired,
+  isEnabled: PropTypes.bool,
 };
 
 export default ARComponent;
