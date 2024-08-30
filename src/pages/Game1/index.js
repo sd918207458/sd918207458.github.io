@@ -1,86 +1,90 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, memo } from 'react';
 import './Game1.scss';
+import { message } from 'antd';
 import ARComponent from '../../components/arcomp/ARComponent';
 import imageTargetSrc from './辨識圖_阿公的箱子.mind';
-import QRCodeGenerator from '../../components/QRCodeGenerator';
-import { QrReader } from 'react-qr-scanner';
+import QrScanner from 'react-qr-scanner';
+
+// 包裝 QR 掃描器組件
+const WrappedQrScanner = memo(({ onScan, onError, style, ...props }) => {
+  return (
+    <QrScanner
+      onScan={onScan}
+      onError={onError}
+      style={{ ...style, width: '100%', maxWidth: '100vw', height: 'auto', aspectRatio: '16 / 9' }}
+      constraints={{
+        audio: false,
+        video: { facingMode: "environment" }
+      }}
+      {...props}
+    />
+  );
+});
+
+WrappedQrScanner.displayName = 'WrappedQrScanner';
 
 const Game1 = () => {
-  const [markerFound, setMarkerFound] = useState(false);
-  const [buttonClicked, setButtonClicked] = useState(false);
-  const [scanning, setScanning] = useState(false); // 控制是否正在掃描QR code
-  const [arEnabled, setArEnabled] = useState(true); // 控制是否啟用AR
-  const formRef = useRef(null);
+  const [markerFound, setMarkerFound] = useState(false); // 追蹤是否找到標記或掃描到QR碼
+  const [buttonClicked, setButtonClicked] = useState(false); // 追蹤是否點擊了"找到了"按鈕
+  const [isAREnabled, setIsAREnabled] = useState(true); // 控制AR功能是否啟用
+  const formRef = useRef(null); // 用於提交表單的引用
 
-  const handleTargetFound = useCallback(() => setMarkerFound(true), []);
+  // 處理目標找到的回調函數
+  const handleTargetFound = useCallback(() => {
+    setMarkerFound(true);
+    message.success('AR 目標找到了！', 2);
+  }, []);
+
+  // 處理"找到了"按鈕點擊的回調函數
   const handleFoundButtonClick = useCallback(() => setButtonClicked(true), []);
+
+  // 處理結束遊戲的回調函數
   const handleEndGame = useCallback(() => {
     if (formRef.current) {
-      formRef.current.submit(); // 提交表單，觸發頁面跳轉
+      formRef.current.submit();
     }
   }, []);
 
+  // 渲染AR內容的回調函數
   const renderARContent = useCallback((scene, THREE) => {
     const geometry = new THREE.BoxGeometry(1, 1, 1);
-    const material = new THREE.MeshBasicMaterial({
-      color: 0x00ff00,
-      transparent: true,
-      opacity: 0.5,
-    });
+    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00, transparent: true, opacity: 0.5 });
     const cube = new THREE.Mesh(geometry, material);
-    scene.add(cube); 
+    scene.add(cube);
   }, []);
 
-  const handleScan = useCallback((data) => {
+  // 處理 QR 掃描結果的回調函數
+  const handleQRScan = useCallback((data) => {
     if (data) {
-      setScanning(false);
-      setArEnabled(true); 
-      if (data.includes('dialogIndex=5')) {
-        setMarkerFound(true);
-        setButtonClicked(true);
-      }
+      setMarkerFound(true);
+      message.success('QR 碼掃描成功！', 2);
     }
   }, []);
 
-  const handleError = useCallback((err) => {
+  // 處理 QR 掃描錯誤的回調函數
+  const handleQRError = useCallback((err) => {
     console.error(err);
-  }, []);
-
-  const startScanning = useCallback(() => {
-    setArEnabled(false); 
-    setScanning(true); 
-  }, []);
-
-  const stopScanning = useCallback(() => {
-    setScanning(false);
-    setArEnabled(true); 
   }, []);
 
   return (
     <div className="container1">
-      {arEnabled && (
+      {/* AR 組件 */}
+      <div style={{ width: '100%', aspectRatio: '16/9', marginBottom: '1rem' }}>
         <ARComponent
           imageTargetSrc={imageTargetSrc}
           onTargetFound={handleTargetFound}
           renderARContent={renderARContent}
-          isEnabled={true}
+          isEnabled={isAREnabled}
         />
-      )}
-
-      {scanning && (
-        <div style={{ position: 'relative', zIndex: 1000, width: '100%', height: '100%' }}>
-          <QrReader
-            delay={300}
-            onError={handleError}
-            onScan={handleScan}
-            style={{ width: '100%', height: 'auto' }}
-          />
-          <button onClick={stopScanning} className="qr-stop-button">
-            停止掃描
-          </button>
-        </div>
-      )}
-
+      </div>
+      {/* QR 掃描器 */}
+      <div style={{ width: '100%', aspectRatio: '16/9', marginBottom: '1rem' }}>
+        <WrappedQrScanner
+          onScan={handleQRScan}
+          onError={handleQRError}
+          delay={300}
+        />
+      </div>
       {markerFound && (
         <div className="buttonContainer">
           {!buttonClicked ? (
@@ -96,19 +100,9 @@ const Game1 = () => {
           )}
         </div>
       )}
-
       <form ref={formRef} action="/" method="GET" style={{ display: 'none' }}>
         <input type="hidden" name="dialogIndex" value="5" />
       </form>
-
-      <QRCodeGenerator />
-
-      {/* 掃描QR碼的按鈕 */}
-      <div className="qr-button-container">
-        <button onClick={startScanning} className="qr-scan-button">
-          掃描QR Code
-        </button>
-      </div>
     </div>
   );
 };
