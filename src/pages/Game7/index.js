@@ -33,14 +33,18 @@ const Game7 = () => {
   const [targetFound, setTargetFound] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
   const [qrResult, setQrResult] = useState('');
+  const [messageShown, setMessageShown] = useState(false); // 用來控制提示信息是否已顯示
   const formRef = useRef(null);
 
   // 處理目標找到的回調函數
   const handleTargetFound = useCallback(() => {
     setTargetFound(true);
-    message.success('目標找到了！', 2);
+    if (!messageShown) {
+      message.success('目標找到了！', 2);
+      setMessageShown(true);
+    }
     setTimeout(() => setShowMessage(true), 100);
-  }, []);
+  }, [messageShown]);
 
   // 處理目標丟失的回調函數
   const handleTargetLost = useCallback(() => {
@@ -73,11 +77,13 @@ const Game7 = () => {
 
   // 處理 QR 掃描結果的回調函數
   const handleQRScan = useCallback((data) => {
-    if (data) {
-      setQrResult(data['text']);
-      handleTargetFound();
+    if (data && data.text.includes('sanmingmemoryjourney')) {
+      setQrResult(data.text);
+      if (!messageShown) {
+        handleTargetFound(); // 只在第一次掃描到有效QR碼時觸發
+      }
     }
-  }, [handleTargetFound]);
+  }, [handleTargetFound, messageShown]);
 
   // 用於調試的 useEffect
   useEffect(() => {

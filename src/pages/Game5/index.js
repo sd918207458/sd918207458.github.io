@@ -31,13 +31,17 @@ const Game5 = () => {
   const [isAREnabled, setIsAREnabled] = useState(true);
   const [hideBackground, setHideBackground] = useState(true);
   const [qrResult, setQrResult] = useState('');
+  const [messageShown, setMessageShown] = useState(false); // 控制提示信息只顯示一次
   const formRef = useRef(null);
 
   // 處理目標找到的回調函數
   const handleTargetFound = useCallback(() => {
     setMarkerFound(true);
-    message.success('AR 目標找到了！', 2);
-  }, []);
+    if (!messageShown) {
+      message.success('AR 目標找到了！', 2);
+      setMessageShown(true);
+    }
+  }, [messageShown]);
 
   // 處理"找到了"按鈕點擊的回調函數
   const handleFoundButtonClick = useCallback(() => setButtonClicked(true), []);
@@ -79,12 +83,15 @@ const Game5 = () => {
 
   // 處理 QR 掃描結果的回調函數
   const handleQRScan = useCallback((data) => {
-    if (data) {
+    if (data && data.text.includes('sanmingmemoryjourney')) {
       setQrResult(data.text);
       setMarkerFound(true);
-      message.success('QR 碼掃描成功！', 2);
+      if (!messageShown) {
+        message.success('QR 碼掃描成功！', 2);
+        setMessageShown(true);
+      }
     }
-  }, []);
+  }, [messageShown]);
 
   // 處理 QR 掃描錯誤的回調函數
   const handleQRError = useCallback((err) => {
