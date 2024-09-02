@@ -1,20 +1,20 @@
-import React, { useState, useCallback, useRef, memo } from 'react';
+import React, { useState, useCallback, useRef, memo, useEffect } from 'react';
 import './Game6.scss';
 import { Button, Image, Layout, message } from 'antd';
 import ARComponent from '../../components/arcomp/ARComponent';
-import imageTargetSrc from './辨識圖-神社.mind';
-import frogPng from '../../assets/picture/Frog/蛙蛙0-備用.png';
-import QRCodeGenerator from '../../components/QRCodeGenerator';
+import imageTargetSrc from './辨識圖-神社.mind'; // 引入AR辨識圖檔
+import frogPng from '../../assets/picture/Frog/蛙蛙0-備用.png'; // 引入圖片資源
 import QrScanner from 'react-qr-scanner';
 
 const { Content } = Layout;
 
-const WrappedQrScanner = memo(({ onScan, onError, style, ...props }) => {
+// 包装 QR 扫描器组件
+const WrappedQrScanner = memo(({ onScan, onError, ...props }) => {
   return (
     <QrScanner
       onScan={onScan}
       onError={onError}
-      style={{ ...style, width: '100%', maxWidth: '100vw', height: 'auto', aspectRatio: '16 / 9' }}
+      style={{ width: '100%', maxWidth: '100vw', height: 'auto', aspectRatio: '16 / 9' }}
       constraints={{
         audio: false,
         video: { facingMode: "environment" }
@@ -29,16 +29,31 @@ WrappedQrScanner.displayName = 'WrappedQrScanner';
 const Game6 = () => {
   const [markerFound, setMarkerFound] = useState(false);
   const [qrResult, setQrResult] = useState('');
-  const [messageShown, setMessageShown] = useState(false); // 控制提示信息只顯示一次
+  const [hasScanned, setHasScanned] = useState(false);
   const formRef = useRef(null);
 
   const handleTargetFound = useCallback(() => {
-    setMarkerFound(true);
-    if (!messageShown) {
+    if (!hasScanned) {
+      setMarkerFound(true);
       message.success('AR 目標找到了！', 2);
-      setMessageShown(true);
+      setHasScanned(true);
     }
-  }, [messageShown]);
+  }, [hasScanned]);
+
+  const handleQRScan = useCallback((data) => {
+    console.log('QR 扫描结果:', data);
+    if (data && data.includes('sanmingmemoryjourney')) {
+      setQrResult(data.text);
+      handleTargetFound();
+    } else {
+      console.warn('QR 扫描数据无效或不包含预期的文本');
+    }
+  }, [handleTargetFound]);
+
+  const handleQRError = useCallback((err) => {
+    console.error('QR Scan Error:', err);
+    message.error('QR 掃描失敗，請重試');
+  }, []);
 
   const handleEndGame = useCallback(() => {
     if (formRef.current) {
@@ -47,26 +62,16 @@ const Game6 = () => {
   }, []);
 
   const renderARContent = useCallback((scene, THREE) => {
+    console.log('渲染 AR 内容');
     const geometry = new THREE.BoxGeometry(1, 1, 1);
     const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
     const cube = new THREE.Mesh(geometry, material);
     scene.add(cube);
   }, []);
 
-  const handleQRScan = useCallback((data) => {
-    if (data && data.text.includes('sanmingmemoryjourney')) {
-      setQrResult(data.text);
-      setMarkerFound(true);
-      if (!messageShown) {
-        message.success('QR 碼掃描成功！', 2);
-        setMessageShown(true);
-      }
-    }
-  }, [messageShown]);
-
-  const handleQRError = useCallback((err) => {
-    console.error(err);
-  }, []);
+  useEffect(() => {
+    console.log('当前状态 - markerFound:', markerFound, 'qrResult:', qrResult);
+  }, [markerFound, qrResult]);
 
   return (
     <Layout style={{ minHeight: '100vh', background: 'transparent' }}>
