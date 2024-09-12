@@ -12,6 +12,7 @@ import Game6 from '../pages/Game6';
 import Game7 from '../pages/Game7';
 import ARCourse from '../pages/ARCourse';
 import ARStart from '../pages/ARStart';
+import LessonPlans from '../pages/LessonPlans';
 
 
 const router = (
@@ -27,6 +28,7 @@ const router = (
             <Route path="/game7" element={<Game7 />} />
             <Route path="/ARCourse" element={<ARCourse />} />
             <Route path="/ARStart" element={<ARStart />} />
+            <Route path="/LessonPlans" element={<LessonPlans />} />
         </Routes>
     </Router>
 );
