@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Dialog from '../Dialog';
 import Gamemodal from '../../components/Gamemodal';
@@ -34,10 +34,11 @@ const Login = () => {
     currentDialogIndex: 0,
     imageVisible: false,
     introVisible: false,
-    isModalVisible: false
+    isModalVisible: false,
+    isLoading: false,  // 新增狀態：控制「載入中」動畫
   });
 
-  const { dialogVisible, currentDialogIndex, imageVisible, introVisible, isModalVisible } = pageState;
+  const { dialogVisible, currentDialogIndex, imageVisible, introVisible, isModalVisible, isLoading } = pageState;
   const location = useLocation();
   const navigate = useNavigate();
   
@@ -46,7 +47,6 @@ const Login = () => {
     const dialogIndex = params.get('dialogIndex');
     const reset = params.get('reset');
     if (reset === 'true') {
-      // 清空所有狀態
       setPageState({
         dialogVisible: false,
         currentDialogIndex: 0,
@@ -54,7 +54,6 @@ const Login = () => {
         introVisible: false,
         isModalVisible: false
       });
-      // 清除本地存儲
       localStorage.clear();
     } else if (dialogIndex !== null) {
       const index = parseInt(dialogIndex, 10);
@@ -64,9 +63,8 @@ const Login = () => {
         currentDialogIndex: index,
       }));
     }
-    // 清除 URL 參數，以防止重新加載頁面時重複設置
     window.history.replaceState({}, document.title, window.location.pathname);
-  }, [setPageState, location.search]); // 只在組件掛載時執行一次
+  }, [setPageState, location.search]);
 
   useEffect(() => {
     handleUrlParams();
@@ -181,10 +179,11 @@ const Login = () => {
     //此時介面會出現一句話「如果你是阿民你會怎麼守護三民社區?」然後會給幾的選項「#」「#」「#」。最後引導到社區正在推廣的活動。
   ];
 
+ 
   const setCurrentDialogIndex = useCallback((index) => {
     setPageState((prevState) => ({
       ...prevState,
-      currentDialogIndex: index
+      currentDialogIndex: index,
     }));
   }, [setPageState]);
 
@@ -209,8 +208,16 @@ const Login = () => {
   const openDialog = useCallback(() => {
     setPageState((prevState) => ({
       ...prevState,
-      introVisible: true,
+      isLoading: true, // 點擊時顯示「載入中」動畫
     }));
+
+    setTimeout(() => {
+      setPageState((prevState) => ({
+        ...prevState,
+        introVisible: true,
+        isLoading: false, // 停止顯示「載入中」動畫
+      }));
+    }, 500);  // 模擬短暫的載入過程
   }, [setPageState]);
 
   const showDialog = useCallback(() => {
@@ -264,7 +271,7 @@ const Login = () => {
     }));
   }, [setPageState]);
 
-  return (
+ return (
     <div className='dialog'>
       {!introVisible &&
         <Gamemodal
@@ -285,14 +292,14 @@ const Login = () => {
       )}
       {!dialogVisible && !introVisible && (
         <div className="centered-container">
-          <img src={found} alt="Placeholder Image" className="centered-image" />
+          <img src={found} alt="Placeholder Image" className={`centered-image ${isLoading ? 'loading' : ''}`} />
           <button type="button" onClick={openDialog} className="startButton">
-            <img src={button} alt="Start Button" />
+            {isLoading ? '載入中...' : <img src={button} alt="Start Button" />}
           </button>
         </div>
       )}
       {introVisible && (
-        <div className="intro-container">
+        <div className="intro-container fade-in"> {/* 增加 fade-in 動畫效果 */}
           <p>
             你也對三崁店神社及社區背後那段不為人知的故事很好奇嗎？若隱若現的神秘樹蛙神默默地守護著什麼呢？
             跟隨著阿民和阿公腳步，透過舊相機每一次快門的聲音，追尋那一段段的片段記憶，而這不僅是一段尋找失落記憶的旅程、一次心靈的對話，更是一次世代間的交流。

@@ -11,7 +11,7 @@ import Game6 from './pages/Game6';
 import Game7 from './pages/Game7';
 import ARCourse from './pages/ARCourse';
 import ARStart from './pages/ARStart';
-import Lesson from './pages/Lesson/Lesson';
+import Lesson from './pages/Lesson';
 
 
 const App = () => {
@@ -32,8 +32,9 @@ const App = () => {
         <Route path="/Game6" element={<Game6 />} />
         <Route path="/Game7" element={<Game7 />} />
 
+        <Route path="/Game7" element={<Game7 />} />
         {/* 教案路由 */}
-        <Route path="/Game1/lesson" element={<Lesson />} />
+        <Route path="/lesson" element={<Lesson />} />
         {/* 其他頁面 */}
         <Route path="/Dialog" element={<Dialog dialogIndex={dialogIndex} setDialogIndex={setDialogIndex} />} />
         <Route path="/ARCourse" element={<ARCourse />} />

@@ -54,6 +54,7 @@ const Dialog = ({
 
   const updateBackgroundClass = (index) => {
     document.body.style.backgroundImage = `url(${getBackgroundImage(index, orientation)})`;
+    document.body.style.transition = 'background-image 0.5s ease'; // 加入背景過渡效果
   };
 
   useEffect(() => {
@@ -177,7 +178,7 @@ const Dialog = ({
       </div>
       {buttonConfigs[currentIndex] && (
         <Button
-          className="assemble-button"
+          className={`assemble-button ${state.isButtonEnabled ? 'enabled' : 'disabled'}`} // 動態按鈕狀態
           onClick={buttonConfigs[currentIndex].onClick}
           disabled={(currentIndex === 18 || currentIndex === 41) && !state.isButtonEnabled}
         >
@@ -185,6 +186,7 @@ const Dialog = ({
         </Button>
       )}
     </>
+
   );
 };
 
