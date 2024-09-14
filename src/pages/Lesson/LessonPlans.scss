@@ -1,0 +1,131 @@
+/* 全局變數 */
+$primary-color: #6a4e35;   // 柔和且具可讀性的背景顏色
+$hover-color: #8c674c;     // 懸停時的顏色
+$font-family: 'Arial', sans-serif;  // 更具可讀性的字體
+$button-padding: 1.5rem 2.5rem;    // 調整按鈕的間距，讓它更適合觸控操作
+$button-font-size: 1.2rem;         // 調整按鈕字體大小
+$button-border-radius: 0.5rem;
+$box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+
+/* 基本容器樣式 */
+.container1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background-color: #f4f4f4;   // 更柔和的背景顏色，減少眼疲勞
+  color: #333;
+  text-align: center;
+  font-family: $font-family;
+}
+
+/* 按鈕容器樣式 */
+.buttonContainer {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  justify-content: center;
+}
+
+/* 按鈕基本樣式 */
+.button {
+  padding: $button-padding;
+  font-size: $button-font-size;
+  background-color: $primary-color;
+  color: white;
+  border: none;
+  border-radius: $button-border-radius;
+  cursor: pointer;
+  box-shadow: $box-shadow;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  line-height: 1.5;
+  text-align: center;
+  margin-top: 1rem;
+
+  &:hover {
+    background-color: $hover-color;
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(0.98);  // 增加點擊時的輕微壓縮效果
+  }
+}
+
+/* 居中內容的樣式 */
+.centered-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* 具體按鈕樣式 */
+.foundButton,
+.endButton {
+  @extend .button;
+}
+
+/* 媒體查詢：適應平板設備 */
+@media (max-width: 768px) {
+  .button {
+    font-size: 1.8rem;
+    padding: 1.5rem 2.5rem;
+    border-radius: 1rem;
+  }
+
+  .centered-content {
+    padding: 2rem;
+  }
+}
+
+/* 媒體查詢：適應手機設備 */
+@media (max-width: 480px) {
+  .button {
+    font-size: 1.6rem;
+    padding: 1.2rem 2.2rem;
+    border-radius: 1.2rem;
+  }
+
+  .centered-content {
+    padding: 1.5rem;
+  }
+}
+
+/* 隱藏背景樣式 */
+.hideBackground {
+  background-image: none !important;
+}
+
+/* QR 掃描按鈕樣式 */
+.qr-button-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;  // 確保按鈕位於頁面的最上層
+}
+
+.qr-scan-button {
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  box-shadow: $box-shadow;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
