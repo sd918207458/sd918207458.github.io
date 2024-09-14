@@ -1,3 +1,4 @@
+/* 主容器樣式 */
 .container1 {
     display: flex;
     justify-content: center;
@@ -10,57 +11,67 @@
     color: #fff;
     text-align: center;
     font-family: 'Comic Sans MS', cursive, sans-serif;
+    transition: background 0.5s ease; /* 背景的平滑過渡效果 */
 }
 
+/* 按鈕容器樣式 */
 .buttonContainer {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 2vh; /* 增加按鈕間的間距 */
 }
 
+/* 按鈕基本樣式 */
 .foundButton,
 .endButton {
-    padding: 1.3vh 2.6vh;
-    font-size: 1.3vw;
+    padding: 1.5vh 3vh;
+    font-size: 1.4vw;
     background-color: #8b5a2b;
     color: white;
     border: none;
-    border-radius: 0.5vw;
+    border-radius: 0.7vw;
     cursor: pointer;
-    box-shadow: 0 0.4vw 0.8vw rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 0.5vw 1vw rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
     line-height: 1.5;
     text-align: center;
+    outline: none;
 }
 
+/* 按鈕懸停時的互動效果 */
 .foundButton:hover,
 .endButton:hover {
     background-color: #a07246;
-    transform: scale(1.05);
+    transform: scale(1.08);
+    box-shadow: 0 0.6vw 1.2vw rgba(0, 0, 0, 0.4);
 }
 
+/* 手機和平板響應式調整 */
 @media (max-width: 768px) {
-
     .foundButton,
     .endButton {
-        font-size: 2.6vw;
-        padding: 2vw 4vw;
-        border-radius: 1vw;
+        font-size: 3vw;
+        padding: 2.5vh 5vh;
+        border-radius: 1.2vw;
     }
 }
 
 @media (max-width: 480px) {
-
     .foundButton,
     .endButton {
-        font-size: 3vw;
-        padding: 2.5vw 5vw;
+        font-size: 4vw;
+        padding: 3vh 6vh;
         border-radius: 1.5vw;
     }
 }
 
+/* 隱藏背景樣式 */
 .hideBackground {
     background-image: none !important;
+    transition: background 0.5s ease-in-out; /* 使背景消失更為平滑 */
 }

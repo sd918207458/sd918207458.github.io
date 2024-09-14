@@ -14,15 +14,15 @@ $box-shadow: 0 0.4vw 0.8vw rgba(0, 0, 0, 0.2);
 
 /* 基本容器樣式 */
 .container2 {
-  background: url("../../assets/picture/BG/背景-活動中心.png") center/cover
-    no-repeat;
-  width: 105vw;
-  height: 105vh;
+  background: url("../../assets/picture/BG/背景-活動中心.png") center/cover no-repeat;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   position: relative;
+  animation: fadeIn 1.2s ease-in-out; /* 增加背景進場動畫 */
 }
 
 /* 內容區域樣式 */
@@ -31,6 +31,7 @@ $box-shadow: 0 0.4vw 0.8vw rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
   align-items: center;
+  animation: slideIn 1.5s ease-out forwards; /* 圖片及按鈕進場動畫 */
 }
 
 /* 圖片樣式 */
@@ -42,6 +43,8 @@ $box-shadow: 0 0.4vw 0.8vw rgba(0, 0, 0, 0.2);
   border: 0.5vw solid $primary-color;
   border-radius: $border-radius-large;
   box-shadow: $box-shadow;
+  opacity: 0; /* 圖片初始狀態 */
+  animation: fadeInImage 2s ease-in forwards 0.3s; /* 圖片漸顯效果 */
 }
 
 /* 按鈕基本樣式 */
@@ -57,18 +60,26 @@ $box-shadow: 0 0.4vw 0.8vw rgba(0, 0, 0, 0.2);
   cursor: pointer;
   text-align: center;
   box-shadow: $box-shadow;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 2vh;
   line-height: 1.5;
+  opacity: 0; /* 初始狀態 */
+  animation: fadeInButton 1.2s ease-in forwards 0.5s; /* 漸顯效果 */
 
   &:hover {
     background-color: $hover-color;
-    transform: scale(1.05);
+    transform: scale(1.1);
+    box-shadow: 0 0.6vw 1vw rgba(0, 0, 0, 0.3);
   }
 
+  &:active {
+    transform: scale(0.98);
+    background-color: darken($hover-color, 10%);
+  }
+  
   &::before {
     margin-right: 1vw;
   }
@@ -96,6 +107,49 @@ $box-shadow: 0 0.4vw 0.8vw rgba(0, 0, 0, 0.2);
 
   &::before {
     content: "📸";
+  }
+}
+
+/* 進場動畫 */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInImage {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeInButton {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 

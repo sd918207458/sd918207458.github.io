@@ -1,9 +1,9 @@
 /* 全局變數 */
 $primary-color: #8b5a2b;
 $hover-color: #a07246;
-$button-padding: 12px 24px;
-$button-radius: 10px;
-$button-transition: background-color 0.3s ease;
+$button-padding: 14px 28px;
+$button-radius: 12px;
+$button-transition: background-color 0.3s ease, transform 0.2s ease;
 $box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
 $text-shadow: 0.2vw 0.2vw 0.4vw rgba(0, 0, 0, 0.7);
 
@@ -15,6 +15,7 @@ $text-shadow: 0.2vw 0.2vw 0.4vw rgba(0, 0, 0, 0.7);
   align-items: center;
   justify-content: center;
   font-family: "Comic Sans MS", cursive, sans-serif;
+  background: url('../../assets/picture/BG/背景-手水舍.png') center/cover no-repeat;
 
   &.hide-background {
     background-image: none;
@@ -50,9 +51,16 @@ $text-shadow: 0.2vw 0.2vw 0.4vw rgba(0, 0, 0, 0.7);
   line-height: 1.5;
   flex: 1;
   margin: 0 10px;
+  transform: scale(1);
 
   &:hover {
     background-color: $hover-color;
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(0.95);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   }
 }
 
@@ -66,32 +74,34 @@ body.hide-background {
   font-size: 18px;
   color: #333;
   margin-bottom: 10px;
-  background-color: rgba(204, 204, 204, 0.8);
-  padding: 10px;
-  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.85); /* 提高透明度以提升對比 */
+  padding: 12px;
+  border-radius: 8px;
   text-align: center;
   line-height: 1.6;
   width: 100%;
   max-width: 600px;
   margin: 0 auto;
+  box-shadow: $box-shadow;
 }
 
+/* 中心按鈕容器 */
 .centered-button-container {
   text-align: center;
-  padding-top: 0.5rem;
+  padding-top: 1rem;
 }
 
 /* 媒體查詢：適應平板設備 */
 @media (max-width: 1024px) {
   .foundButton5,
   .endGameButton5 {
-    padding: 10px 20px;
+    padding: 10px 24px;
     font-size: 16px;
   }
 
   .info-text {
     font-size: 16px;
-    padding: 8px;
+    padding: 10px;
   }
 }
 
@@ -99,13 +109,13 @@ body.hide-background {
 @media (max-width: 768px) {
   .foundButton5,
   .endGameButton5 {
-    padding: 8px 16px;
-    font-size: 14px;
+    padding: 8px 20px;
+    font-size: 15px;
   }
 
   .info-text {
     font-size: 14px;
-    padding: 6px;
+    padding: 8px;
   }
 }
 
@@ -115,19 +125,20 @@ body.hide-background {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
   }
 
   .foundButton5,
   .endGameButton5 {
-    font-size: 15px;
+    font-size: 14px;
+    padding: 10px;
     margin: 0;
   }
 
   .info-text {
     font-size: 12px;
-    padding: 4px;
-    width: 80%;
+    padding: 6px;
+    width: 90%;
     max-width: 300px;
   }
 }

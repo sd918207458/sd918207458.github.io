@@ -1,3 +1,13 @@
+/* 全局樣式變數 */
+$primary-color: #8b5a2b;
+$hover-color: #a07246;
+$button-padding: 12px 24px;
+$button-radius: 10px;
+$button-transition: background-color 0.3s ease, transform 0.3s ease;
+$box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+$text-shadow: 0.2vw 0.2vw 0.4vw rgba(0, 0, 0, 0.7);
+
+/* 主容器樣式 */
 .container1 {
     display: flex;
     justify-content: center;
@@ -10,57 +20,114 @@
     color: #fff;
     text-align: center;
     font-family: 'Comic Sans MS', cursive, sans-serif;
+    transition: background-color 0.5s ease-in-out;
 }
 
+/* 按鈕容器 */
 .buttonContainer {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;  /* 提高按鈕之間的間距 */
 }
 
+/* 按鈕樣式 */
 .foundButton,
 .endButton {
-    padding: 1.3vh 2.6vh;
-    font-size: 1.3vw;
-    background-color: #8b5a2b;
+    padding: 1.5vh 3vh;
+    font-size: 1.5vw;
+    background-color: $primary-color;
     color: white;
     border: none;
-    border-radius: 0.5vw;
+    border-radius: 0.8vw;
     cursor: pointer;
-    box-shadow: 0 0.4vw 0.8vw rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: $box-shadow;
+    transition: $button-transition;
     line-height: 1.5;
     text-align: center;
+    text-shadow: $text-shadow;
+
+    &:hover {
+        background-color: $hover-color;
+        transform: scale(1.1);
+    }
 }
 
-.foundButton:hover,
-.endButton:hover {
-    background-color: #a07246;
-    transform: scale(1.05);
-}
-
+/* 調整按鈕大小與樣式適應不同裝置 */
 @media (max-width: 768px) {
-
     .foundButton,
     .endButton {
-        font-size: 2.6vw;
-        padding: 2vw 4vw;
-        border-radius: 1vw;
+        font-size: 3vw;
+        padding: 3vh 4vh;
+        border-radius: 1.2vw;
     }
 }
 
 @media (max-width: 480px) {
-
     .foundButton,
     .endButton {
-        font-size: 3vw;
-        padding: 2.5vw 5vw;
-        border-radius: 1.5vw;
+        font-size: 4vw;
+        padding: 4vh 6vh;
+        border-radius: 2vw;
     }
 }
 
+/* 背景隱藏樣式 */
 .hideBackground {
     background-image: none !important;
+    background-color: rgba(0, 0, 0, 0.6); /* 提供深色背景以強調內容 */
+    transition: background-color 0.5s ease-in-out;
+}
+
+/* 動態按鈕效果：在找到目標時顯示 */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: $box-shadow;
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: $box-shadow;
+    }
+}
+
+/* 在找到目標時，讓按鈕進行脈動動畫 */
+.targetFound .foundButton,
+.targetFound .endButton {
+    animation: pulse 1.5s infinite;
+}
+
+/* 信息提示樣式 */
+.infoText {
+    font-size: 2vw;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 1.5vh 2vh;
+    border-radius: 0.8vw;
+    text-align: center;
+    margin-top: 2vh;
+    box-shadow: $box-shadow;
+}
+
+/* 針對較小螢幕的提示樣式 */
+@media (max-width: 768px) {
+    .infoText {
+        font-size: 3vw;
+        padding: 2vh 3vh;
+    }
+}
+
+@media (max-width: 480px) {
+    .infoText {
+        font-size: 4vw;
+        padding: 2.5vh 4vh;
+    }
 }

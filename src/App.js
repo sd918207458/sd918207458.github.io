@@ -27,7 +27,7 @@ const App = () => {
         <Route path="/Game1" element={<Game1 />} />
         <Route path="/Game2" element={<Game2 />} />
         <Route path="/Game3" element={<Game3 />} />
-        <Route path="/Game3" element={<Game4 />} />
+        <Route path="/Game4" element={<Game4 />} />
         <Route path="/Game5" element={<Game5 />} />
         <Route path="/Game6" element={<Game6 />} />
         <Route path="/Game7" element={<Game7 />} />

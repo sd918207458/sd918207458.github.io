@@ -42,7 +42,7 @@ $box-shadow: 0 0.4vw 0.8vw rgba(0, 0, 0, 0.2);
   border-radius: $button-border-radius;
   cursor: pointer;
   box-shadow: $box-shadow;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
   line-height: 1.5;
   text-align: center;
   margin-top: 0.5rem;
@@ -50,6 +50,12 @@ $box-shadow: 0 0.4vw 0.8vw rgba(0, 0, 0, 0.2);
   &:hover {
     background-color: $hover-color;
     transform: scale(1.05);
+    box-shadow: 0 0.6vw 1.2vw rgba(0, 0, 0, 0.3);  // 提升按鈕懸停時的陰影效果
+  }
+
+  &:active {
+    transform: scale(0.98);  // 按壓時的反饋效果
+    box-shadow: none;  // 移除按壓時的陰影
   }
 }
 
@@ -65,6 +71,37 @@ $box-shadow: 0 0.4vw 0.8vw rgba(0, 0, 0, 0.2);
 .foundButton,
 .endButton {
   @extend .button;
+}
+
+.endButton {
+  background-color: darkred;
+  &:hover {
+    background-color: firebrick;
+  }
+}
+
+/* QR掃描按鈕樣式 */
+.qr-scan-button {
+  padding: 1vh 2vw;
+  font-size: 1.5vw;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 1vw;
+  cursor: pointer;
+  box-shadow: 0 0.3vw 0.6vw rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+
+  &:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+    box-shadow: 0 0.6vw 1.2vw rgba(0, 0, 0, 0.3);
+  }
+
+  &:active {
+    transform: scale(0.95);
+    box-shadow: none;
+  }
 }
 
 /* 媒體查詢：適應平板設備 */
@@ -83,6 +120,11 @@ $box-shadow: 0 0.4vw 0.8vw rgba(0, 0, 0, 0.2);
     padding: 2.5vw 5vw;
     border-radius: 1.5vw;
   }
+
+  .qr-scan-button {
+    font-size: 3.5vw;
+    padding: 3vw 6vw;
+  }
 }
 
 /* 隱藏背景樣式 */
@@ -90,23 +132,10 @@ $box-shadow: 0 0.4vw 0.8vw rgba(0, 0, 0, 0.2);
   background-image: none !important;
 }
 
+/* QR按鈕容器樣式 */
 .qr-button-container {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  z-index: 1000;  // 确保按钮位于页面的最上层
-}
-
-.qr-scan-button {
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.qr-scan-button:hover {
-  background-color: #0056b3;
+  z-index: 1000;  // 確保按鈕位於頁面最上層
 }

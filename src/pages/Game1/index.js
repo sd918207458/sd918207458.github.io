@@ -11,7 +11,7 @@ const WrappedQrScanner = memo(({ onScan, onError, style, ...props }) => {
     <QrScanner
       onScan={onScan}
       onError={onError}
-      style={{ ...style, width: '100%', maxWidth: '100vw', height: 'auto', aspectRatio: '16 / 9' }}
+      style={{ ...style, width: '100%', maxWidth: '100vw', height: 'auto', aspectRatio: '16/9' }}
       constraints={{
         audio: false,
         video: { facingMode: "environment" }
@@ -28,11 +28,13 @@ const Game1 = () => {
   const [buttonClicked, setButtonClicked] = useState(false); // 追蹤是否點擊了"找到了"按鈕
   const [isAREnabled, setIsAREnabled] = useState(true); // 控制AR功能是否啟用
   const [hasScanned, setHasScanned] = useState(false); // 控制提示是否已顯示
+  const [showScanner, setShowScanner] = useState(true); // 控制QR掃描器顯示
   const formRef = useRef(null); // 用於提交表單的引用
 
   // 處理目標找到的回調函數
   const handleTargetFound = useCallback(() => {
     setMarkerFound(true);
+    setShowScanner(false); // 成功後隱藏掃描器
     if (!hasScanned) {
       message.success('AR 目標找到了！', 2);
       setHasScanned(true);
@@ -40,10 +42,14 @@ const Game1 = () => {
   }, [hasScanned]);
 
   // 處理"找到了"按鈕點擊的回調函數
-  const handleFoundButtonClick = useCallback(() => setButtonClicked(true), []);
+  const handleFoundButtonClick = useCallback(() => {
+    message.info('遊戲目標已確認，請點擊「結束遊戲」！');
+    setButtonClicked(true);
+  }, []);
 
   // 處理結束遊戲的回調函數
   const handleEndGame = useCallback(() => {
+    message.success('遊戲結束，將返回主頁面。');
     if (formRef.current) {
       formRef.current.submit();
     }
@@ -61,6 +67,7 @@ const Game1 = () => {
   const handleQRScan = useCallback((data) => {
     if (data && data.includes('sanmingmemoryjourney')) {
       setMarkerFound(true);
+      setShowScanner(false); // 成功後隱藏掃描器
       if (!hasScanned) {
         message.success('QR 碼掃描成功！', 2);
         setHasScanned(true);
@@ -70,6 +77,7 @@ const Game1 = () => {
 
   // 處理 QR 掃描錯誤的回調函數
   const handleQRError = useCallback((err) => {
+    message.error('掃描失敗，請重試');
     console.error(err);
   }, []);
 
@@ -82,16 +90,22 @@ const Game1 = () => {
           onTargetFound={handleTargetFound}
           renderARContent={renderARContent}
           isEnabled={isAREnabled}
+          onError={(err) => {
+            message.error('AR 加載失敗，請檢查設備或檔案是否正確。');
+            console.error('AR 加載錯誤:', err);
+          }}
         />
       </div>
       {/* QR 掃描器 */}
-      <div style={{ width: '100%', aspectRatio: '16/9', marginBottom: '1rem' }}>
-        <WrappedQrScanner
-          onScan={handleQRScan}
-          onError={handleQRError}
-          delay={300}
-        />
-      </div>
+      {showScanner && (
+        <div style={{ width: '100%', aspectRatio: '16/9', marginBottom: '1rem' }}>
+          <WrappedQrScanner
+            onScan={handleQRScan}
+            onError={handleQRError}
+            delay={300}
+          />
+        </div>
+      )}
       {markerFound && (
         <div className="buttonContainer">
           {!buttonClicked ? (

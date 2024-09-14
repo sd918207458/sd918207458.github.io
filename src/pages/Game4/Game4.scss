@@ -3,7 +3,7 @@ $primary-color: #8b5a2b;
 $hover-color: #7a4728;
 $button-padding: 2.5vh 2.5vw;
 $button-radius: 1vh;
-$button-transition: background-color 0.3s ease, transform 0.3s ease;
+$button-transition: background-color 0.3s ease, transform 0.2s ease-in-out;
 $shadow: 0 0.4vh 0.8vh rgba(0, 0, 0, 0.2);
 
 /* Main container styles */
@@ -78,9 +78,15 @@ $shadow: 0 0.4vh 0.8vh rgba(0, 0, 0, 0.2);
   justify-content: center;
   transition: $button-transition;
   height: 10vh;
-
+  box-shadow: $shadow;
+  
   &:hover {
     background-color: $hover-color;
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(0.95);
   }
 
   svg {
@@ -108,9 +114,9 @@ $shadow: 0 0.4vh 0.8vh rgba(0, 0, 0, 0.2);
   bottom: 2vh;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.85); /* 提高對比，讓輸入框更顯眼 */
   padding: 2vh 2vw;
-  border-radius: 2vh 2vh 2vh 2vh;
+  border-radius: 2vh;
   width: 90%;
   max-width: 60vh;
 }
@@ -125,6 +131,12 @@ $shadow: 0 0.4vh 0.8vh rgba(0, 0, 0, 0.2);
   margin-right: 2vw;
   height: 6vh;
   width: 30vw;
+  box-shadow: $shadow;
+
+  &:focus {
+    outline: none;
+    border-color: $primary-color;
+  }
 }
 
 /* End button styles */
@@ -142,10 +154,15 @@ $shadow: 0 0.4vh 0.8vh rgba(0, 0, 0, 0.2);
   align-items: center;
   justify-content: center;
   transition: $button-transition;
-  margin-top: 0px;
+  margin-top: 0;
 
   &:hover {
     background-color: $hover-color;
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(0.95);
   }
 }
 
@@ -174,6 +191,11 @@ $shadow: 0 0.4vh 0.8vh rgba(0, 0, 0, 0.2);
 
   &:hover {
     background-color: $hover-color;
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(0.95);
   }
 }
 
@@ -224,7 +246,7 @@ $shadow: 0 0.4vh 0.8vh rgba(0, 0, 0, 0.2);
 
   .resultContainer {
     bottom: -18vh;
-    border-radius: 2vh 2vh 2vh 2vh;
+    border-radius: 2vh;
   }
 }
 

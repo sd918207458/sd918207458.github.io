@@ -1,25 +1,51 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AudioOutlined, AudioMutedOutlined } from '@ant-design/icons';
-import alertSound from '../../assets/alert.mp3'; // 引入音效文件
-import './Game3.scss'; // 導入 SCSS 文件
+import alertSound from '../../assets/alert.mp3';
+import './Game3.scss';
 
 const Game3 = () => {
   const [state, setState] = useState({
-    step: 1, 
-    inputValue: '', 
-    isCorrect: false, 
-    showFindFragmentButton: false, 
-    showPuzzleButton: false, 
-    showGuideMessage: false, 
-    showFinalButton: false, 
+    step: 1,
+    inputValue: '',
+    isCorrect: false,
+    showFindFragmentButton: false,
+    showPuzzleButton: false,
+    showGuideMessage: false,
+    showFinalButton: false,
     isAlertPlaying: false,
   });
 
   const navigate = useNavigate();
   const audioRef = useRef(null);
 
-  // 處理輸入框的變化
+  // 音效初始化及清理
+  useEffect(() => {
+    audioRef.current = new Audio(alertSound);
+    audioRef.current.loop = true;
+
+    return () => {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+    };
+  }, []);
+
+  // 步驟控制邏輯
+  useEffect(() => {
+    let timer;
+    if (state.step === 1) {
+      timer = setTimeout(() => {
+        setState((prevState) => ({ ...prevState, showFindFragmentButton: true }));
+      }, 9000);
+    } else if (state.step === 2) {
+      timer = setTimeout(() => {
+        setState((prevState) => ({ ...prevState, showPuzzleButton: true }));
+      }, 3000);
+    }
+    return () => clearTimeout(timer);
+  }, [state.step]);
+
+  // 處理輸入框變化
   const handleInputChange = (e) => {
     const value = e.target.value;
     setState((prevState) => ({
@@ -29,7 +55,17 @@ const Game3 = () => {
     }));
   };
 
-  // 處理遊戲結束
+  // 遊戲步驟控制
+  const handleButtonClick = () => {
+    setState((prevState) => ({
+      ...prevState,
+      step: prevState.step + 1,
+      showFindFragmentButton: false,
+      showPuzzleButton: false,
+    }));
+  };
+
+  // 遊戲結束
   const handleEndGame = () => {
     audioRef.current?.pause();
     audioRef.current.currentTime = 0;
@@ -48,54 +84,18 @@ const Game3 = () => {
     }, 3600);
   };
 
-  // 處理最終按鈕點擊
+  // 最終按鈕行為
   const handleFinalButtonClick = () => {
     navigate('/?dialogIndex=22');
   };
 
-  // 處理步驟切換
-  const handleButtonClick = () => {
-    setState((prevState) => ({
-      ...prevState,
-      step: prevState.step + 1,
-      showFindFragmentButton: false,
-      showPuzzleButton: false,
-    }));
-  };
-
-  // 初始化音效
-  useEffect(() => {
-    audioRef.current = new Audio(alertSound);
-    audioRef.current.loop = true;
-
-    return () => {
-      audioRef.current?.pause();
-      audioRef.current.currentTime = 0;
-    };
-  }, []);
-
-  // 設置步驟的計時器
-  useEffect(() => {
-    let timer;
-    if (state.step === 1) {
-      timer = setTimeout(() => {
-        setState((prevState) => ({ ...prevState, showFindFragmentButton: true }));
-      }, 9000);
-    } else if (state.step === 2) {
-      timer = setTimeout(() => {
-        setState((prevState) => ({ ...prevState, showPuzzleButton: true }));
-      }, 3000);
-    }
-    return () => clearTimeout(timer);
-  }, [state.step]);
-
-  // 切換音效播放狀態
+  // 切換警報音效
   const toggleAlert = () => {
     if (state.isAlertPlaying) {
       audioRef.current.pause();
     } else {
       audioRef.current.play().catch((error) => {
-        console.error('Audio playback was prevented:', error);
+        console.error('音效播放失敗:', error);
       });
     }
     setState((prevState) => ({
@@ -105,14 +105,14 @@ const Game3 = () => {
   };
 
   const {
-    step, 
-    inputValue, 
-    isCorrect, 
-    showFindFragmentButton, 
-    showPuzzleButton, 
-    showGuideMessage, 
-    showFinalButton, 
-    isAlertPlaying 
+    step,
+    inputValue,
+    isCorrect,
+    showFindFragmentButton,
+    showPuzzleButton,
+    showGuideMessage,
+    showFinalButton,
+    isAlertPlaying,
   } = state;
 
   return (
@@ -120,22 +120,29 @@ const Game3 = () => {
       <div className="alert-toggle" onClick={toggleAlert}>
         {isAlertPlaying ? <AudioOutlined /> : <AudioMutedOutlined />}
       </div>
+
       {step === 1 && (
         <div className="content3">
-          <p className="text3">小朋友們! 快到防空洞旁邊仔細找找看，有沒有甚麼解除警報的方式</p>
+          <p className="text3">快到防空洞旁找找解除警報的方式!</p>
           {showFindFragmentButton && (
-            <button className="button3" onClick={handleButtonClick}>找到碎片了</button>
+            <button className="button3" onClick={handleButtonClick}>
+              找到碎片了
+            </button>
           )}
         </div>
       )}
+
       {step === 2 && (
         <div className="content3">
-          <p className="text3">將找到的碎片拼拼看吧!</p>
+          <p className="text3">試著把碎片拼好吧！</p>
           {showPuzzleButton && (
-            <button className="button3" onClick={handleButtonClick}>拼好了</button>
+            <button className="button3" onClick={handleButtonClick}>
+              拼好了
+            </button>
           )}
         </div>
       )}
+
       {step === 3 && (
         <div className="content3">
           <input
@@ -146,15 +153,20 @@ const Game3 = () => {
             className="input3"
           />
           {isCorrect && (
-            <button className="button3 endButton3" onClick={handleEndGame}>答對了</button>
+            <button className="button3 endButton3" onClick={handleEndGame}>
+              答對了
+            </button>
           )}
         </div>
       )}
+
       {step === 4 && showGuideMessage && (
         <div className="content3">
           <p className="text3">記得找導覽人員拿相片喔!</p>
           {showFinalButton && (
-            <button className="button3 finalButton3" onClick={handleFinalButtonClick}>抵達糖廠宿舍區</button>
+            <button className="button3 finalButton3" onClick={handleFinalButtonClick}>
+              抵達糖廠宿舍區
+            </button>
           )}
         </div>
       )}

@@ -29,11 +29,10 @@ const WrappedQrScanner = memo(({ onScan, onError, style, ...props }) => {
 WrappedQrScanner.displayName = 'WrappedQrScanner';
 
 const Game7 = () => {
-  // 狀態定義
   const [targetFound, setTargetFound] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
   const [qrResult, setQrResult] = useState('');
-  const [messageShown, setMessageShown] = useState(false); // 用來控制提示信息是否已顯示
+  const [messageShown, setMessageShown] = useState(false); 
   const formRef = useRef(null);
 
   // 處理目標找到的回調函數
@@ -46,10 +45,9 @@ const Game7 = () => {
     setTimeout(() => setShowMessage(true), 100);
   }, [messageShown]);
 
-  // 處理目標丟失的回調函數
   const handleTargetLost = useCallback(() => {
-    // setTargetFound(false);
-    // setShowMessage(false);
+    setTargetFound(false);
+    setShowMessage(false);
   }, []);
 
   // 處理結束遊戲的回調函數
@@ -59,10 +57,8 @@ const Game7 = () => {
     }
   }, []);
 
-  // 渲染 AR 內容的回調函數
+  // 渲染 AR 內容
   const renderARContent = useCallback((scene) => {
-    if (!scene) return;
-
     const geometry = new THREE.PlaneGeometry(1, 0.552);
     const material = new THREE.MeshBasicMaterial({ color: 0x0000ff, transparent: true, opacity: 0.5 });
     const plane = new THREE.Mesh(geometry, material);
@@ -75,17 +71,15 @@ const Game7 = () => {
     animate();
   }, []);
 
-  // 處理 QR 掃描結果的回調函數
   const handleQRScan = useCallback((data) => {
     if (data && data.text.includes('sanmingmemoryjourney')) {
       setQrResult(data.text);
       if (!messageShown) {
-        handleTargetFound(); // 只在第一次掃描到有效QR碼時觸發
+        handleTargetFound(); 
       }
     }
   }, [handleTargetFound, messageShown]);
 
-  // 用於調試的 useEffect
   useEffect(() => {
     console.log('Current states - targetFound:', targetFound, 'showMessage:', showMessage, 'qrResult:', qrResult);
   }, [targetFound, showMessage, qrResult]);
@@ -99,7 +93,6 @@ const Game7 = () => {
         alignItems: 'center',
         padding: '5vh 5vw'
       }}>
-        {/* AR 組件 */}
         <ARComponent
           imageTargetSrc={imageTargetSrc}
           onTargetFound={handleTargetFound}
@@ -108,14 +101,13 @@ const Game7 = () => {
           isEnabled={true}
           style={{ width: '100%', height: 'auto', aspectRatio: '16 / 9' }}
         />
-        {/* QR 掃描器 */}
         <div style={{ width: '100%', maxWidth: '100vw', marginTop: '5vh' }}>
           <WrappedQrScanner
             onScan={handleQRScan}
             delay={300}
           />
         </div>
-        {/* 動畫消息顯示 */}
+
         <AnimatePresence>
           {targetFound && showMessage && (
             <motion.div
@@ -133,11 +125,12 @@ const Game7 = () => {
                 justifyContent: 'center',
                 alignItems: 'center',
                 zIndex: 10000,
-                padding: '5vmin'
+                padding: '5vmin',
+                background: 'rgba(0, 0, 0, 0.6)', // 背景加深，提升可視性
               }}
             >
               <div style={{
-                background: 'rgba(0, 0, 0, 0.5)',
+                background: 'rgba(0, 0, 0, 0.7)',
                 padding: '4vmin',
                 borderRadius: '2vmin',
                 marginBottom: '4vmin',
@@ -147,12 +140,12 @@ const Game7 = () => {
                 overflow: 'auto',
                 display: 'flex',
                 justifyContent: 'center',
-                alignItems: 'center'
+                alignItems: 'center',
               }}>
                 <Text style={{
                   color: 'white',
                   fontSize: 'clamp(14px, 3vmin, 24px)',
-                  textAlign: 'center'
+                  textAlign: 'center',
                 }}>找到囉，記得找導覽人員拿相片哦</Text>
               </div>
               <Button
@@ -167,7 +160,7 @@ const Game7 = () => {
                   padding: '2vmin 4vmin',
                   height: 'auto',
                   maxWidth: '90%',
-                  width: 'auto'
+                  width: 'auto',
                 }}
               >
                 結束遊戲
@@ -175,7 +168,6 @@ const Game7 = () => {
             </motion.div>
           )}
         </AnimatePresence>
-        {/* 搜尋目標的提示消息 */}
 
         <AnimatePresence>
           {!targetFound && (
@@ -195,12 +187,12 @@ const Game7 = () => {
                 justifyContent: 'center',
                 alignItems: 'center',
                 zIndex: 10000,
-                padding: '5vmin'
+                padding: '5vmin',
               }}
             >
               <div style={{
                 padding: '4vmin',
-                background: 'rgba(0, 0, 0, 0.05)',
+                background: 'rgba(0, 0, 0, 0.5)', // 更加明顯的提示框背景
                 borderRadius: '2vmin',
                 maxWidth: '90%',
                 width: '100%',
@@ -208,11 +200,11 @@ const Game7 = () => {
                 overflow: 'auto',
                 display: 'flex',
                 justifyContent: 'center',
-                alignItems: 'center'
+                alignItems: 'center',
               }}>
                 <Text style={{
                   fontSize: 'clamp(14px, 3vmin, 24px)',
-                  textAlign: 'center'
+                  textAlign: 'center',
                 }}>
                   請將相機對準目標圖片或QR碼
                 </Text>
@@ -220,7 +212,7 @@ const Game7 = () => {
             </motion.div>
           )}
         </AnimatePresence>
-        {/* 隱藏的表單，用於結束遊戲 */}
+
         <form ref={formRef} action="/" method="GET" style={{ display: 'none' }}>
           <input type="hidden" name="dialogIndex" value="68" />
         </form>
