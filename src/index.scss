@@ -4,7 +4,7 @@
   --bg-gradient-start: #7892c2;
   --bg-gradient-end: #476e9e;
   --border-color: #4e6096;
-  --shadow-color: #9fb4f2;
+  --shadow-color: rgba(159, 180, 242, 0.5); /* 半透明陰影，提升層次感 */
   --text-color: #ffffff;
   --highlight-color: #3da35d;
   --highlight-hover-color: #329547; /* 更鮮明的按鈕懸停顏色 */
@@ -29,7 +29,12 @@ html, body {
   display: flex;
   justify-content: center;
   flex-direction: column;
-  background-image: url(./assets/picture/BG/背景-活動中心.png);
+  background-image: linear-gradient(
+      to bottom,
+      var(--bg-gradient-start),
+      var(--bg-gradient-end)
+    ),
+    url(./assets/picture/BG/背景-活動中心.png);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -48,40 +53,64 @@ html, body {
 
 /* 圖片樣式 */
 .centered-image {
-  width: 100%;
+  max-width: 90%;
   height: auto;
-  object-fit: cover;
-  border: 2% solid #fff;
+  object-fit: contain; /* 確保圖片比例不變 */
+  border: 2px solid #fff;
   border-radius: 2%;
-  box-shadow: var(--box-shadow);
+  box-shadow: 0 10px 20px var(--shadow-color);
 }
 
-/* 按鈕樣式 */
-.button, .startButton, .intro-container button {
-  background-color: var(--highlight-color);
-  color: var(--text-color);
+.button, .startButton {
+  background-image: url(./assets/picture/按鈕-遊戲開始.png); /* Adjust path as necessary */
+  background-size: cover;
   border: none;
+  height: 50px; /* Adjust size as necessary */
+  width: 200px; /* Adjust size as necessary */
+}
+.intro-container {
+  background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+  color: black; /* Ensures text color is readable */
+  padding: 10px;
   border-radius: var(--border-radius);
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  overflow-y: auto; /* Allows scrolling */
+  max-height: 80vh; /* Adjust based on your design preference */
+}
+.centered-container {
+  padding: 20px; /* Adds padding around the content */
 }
 
 .button:hover, .startButton:hover, .intro-container button:hover {
   background-color: var(--highlight-hover-color);
   transform: scale(1.05);
-  box-shadow: 0 0.5em 0.5em -0.4em var(--shadow-color);
+  box-shadow: 0 10px 20px var(--shadow-color);
 }
 
 /* 媒體查詢：適應不同設備 */
-@media screen and (max-width: 1024px), (max-width: 768px), (max-width: 480px), (orientation: portrait) {
-  /* 針對不同屏幕大小的按鈕和字體調整 */
+@media screen and (max-width: 1024px) {
   .startButton, .intro-container {
-    width: 50vw;
-    height: 20vh;
+    width: 80vw;
+    height: auto;
     font-size: var(--font-size-sm);
   }
 
-  .intro-container button {
-    font-size: var(--font-size-sm);
+  .centered-image {
+    max-width: 80%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+
+  .startButton {
+    width: 150px; /* Smaller button on smaller screens */
+    height: 40px;
+  }
+  .intro-container {
+    padding: 5px;
+    font-size: var(--font-size-xs);
+  }
+
+  .centered-image {
+    max-width: 70%;
   }
 }
