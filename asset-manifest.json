@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.78c4f19d.css",
-    "main.js": "/static/js/main.cf5655a2.js",
+    "main.css": "/static/css/main.7bed0154.css",
+    "main.js": "/static/js/main.2db3180f.js",
     "static/media/DIY相機教學圖-01.png": "/static/media/DIY相機教學圖-01.410ccfd9697174477613.png",
     "static/media/背景-神社外.png": "/static/media/背景-神社外.00e1c15117665b21ba54.png",
     "static/media/背景-防空洞.png": "/static/media/背景-防空洞.f90faeb0de54b12e303f.png",
@@ -15,8 +15,10 @@
     "static/media/3-3.mp3": "/static/media/3-3.5192d86a36864597732e.mp3",
     "static/media/背景-手水舍-直.png": "/static/media/背景-手水舍-直.37de97c161caac6faca0.png",
     "static/media/3-1.mp3": "/static/media/3-1.910c26e0b144d3c3d581.mp3",
+    "static/media/LessonPlans.mind": "/static/media/LessonPlans.6b58ca3e536fe3913dbc.mind",
     "static/media/3-2.mp3": "/static/media/3-2.9527e0c9cc42d6c3ebdb.mp3",
-    "static/media/LinkTojourney.mind": "/static/media/LinkTojourney.0701eb77f48e1c8af16b.mind",
+    "static/media/LinkTojourney.mind": "/static/media/LinkTojourney.5c573032f0d3683eeee7.mind",
+    "static/media/targets.mind": "/static/media/targets.22324f078ffde2610235.mind",
     "static/media/辨識圖_阿公的箱子.mind": "/static/media/辨識圖_阿公的箱子.4b5022ab44acbad61a0e.mind",
     "static/media/阿民3-認真2.png": "/static/media/阿民3-認真2.51d344d5baf92dac29a9.png",
     "static/media/阿民5-興奮.png": "/static/media/阿民5-興奮.a7387ab0cc7af74f7afb.png",
@@ -33,11 +35,11 @@
     "static/media/阿公3-驚訝.png": "/static/media/阿公3-驚訝.0332255d43f5be768cf2.png",
     "static/media/阿公2-難過.png": "/static/media/阿公2-難過.9576b8b0c507fa7b9d70.png",
     "static/media/阿公6-嘆氣.png": "/static/media/阿公6-嘆氣.3ebd5a8be86130c3dfcd.png",
-    "static/media/郵差蛙蛙2-疑問.png": "/static/media/郵差蛙蛙2-疑問.aae59024b6e2b06e06ad.png",
-    "static/media/郵差蛙蛙3-開心笑.png": "/static/media/郵差蛙蛙3-開心笑.9f90a3361db4c4e256cf.png",
+    "static/media/郵差蛙蛙2-疑問.png": "/static/media/郵差蛙蛙2-疑問.36483f25522e320f468d.png",
+    "static/media/郵差蛙蛙3-開心笑.png": "/static/media/郵差蛙蛙3-開心笑.974f95de640bdcab9b7f.png",
     "static/media/辨識圖-手水舍.mind": "/static/media/辨識圖-手水舍.5fe8024b4f9e7477721f.mind",
     "static/media/阿公1-一般常駐表情.png": "/static/media/阿公1-一般常駐表情.cbb7b57c97cc3695cf0d.png",
-    "static/media/郵差蛙蛙1-常駐表情.png": "/static/media/郵差蛙蛙1-常駐表情.bd75d7753b901a04ed49.png",
+    "static/media/郵差蛙蛙1-常駐表情.png": "/static/media/郵差蛙蛙1-常駐表情.e91f508e400169b40d9a.png",
     "static/media/辨識圖-郵差蛙蛙.mind": "/static/media/辨識圖-郵差蛙蛙.f9e752039e659696b61a.mind",
     "static/media/蛙蛙0-備用.png": "/static/media/蛙蛙0-備用.6f06188ea8f46fbaaf2f.png",
     "static/media/alert.mp3": "/static/media/alert.ddd3d113fa7232489f8e.mp3",
@@ -45,11 +47,11 @@
     "static/media/地圖反面.jpg": "/static/media/地圖反面.ffddf20a9bdd6f16c163.jpg",
     "static/media/按鈕-遊戲開始.png": "/static/media/按鈕-遊戲開始.cab92c0b8a8cc7c60be1.png",
     "index.html": "/index.html",
-    "main.78c4f19d.css.map": "/static/css/main.78c4f19d.css.map",
-    "main.cf5655a2.js.map": "/static/js/main.cf5655a2.js.map"
+    "main.7bed0154.css.map": "/static/css/main.7bed0154.css.map",
+    "main.2db3180f.js.map": "/static/js/main.2db3180f.js.map"
   },
   "entrypoints": [
-    "static/css/main.78c4f19d.css",
-    "static/js/main.cf5655a2.js"
+    "static/css/main.7bed0154.css",
+    "static/js/main.2db3180f.js"
   ]
 }
