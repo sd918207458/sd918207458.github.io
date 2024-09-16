@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.e7ff05a3.css",
-    "main.js": "/static/js/main.c7a98161.js",
+    "main.css": "/static/css/main.5e657fdc.css",
+    "main.js": "/static/js/main.822b948a.js",
     "static/media/DIY相機教學圖-01.png": "/static/media/DIY相機教學圖-01.410ccfd9697174477613.png",
     "static/media/背景-神社外.png": "/static/media/背景-神社外.00e1c15117665b21ba54.png",
     "static/media/背景-防空洞.png": "/static/media/背景-防空洞.f90faeb0de54b12e303f.png",
@@ -15,7 +15,9 @@
     "static/media/3-3.mp3": "/static/media/3-3.5192d86a36864597732e.mp3",
     "static/media/背景-手水舍-直.png": "/static/media/背景-手水舍-直.37de97c161caac6faca0.png",
     "static/media/3-1.mp3": "/static/media/3-1.910c26e0b144d3c3d581.mp3",
+    "static/media/LessonPlans.mind": "/static/media/LessonPlans.6b58ca3e536fe3913dbc.mind",
     "static/media/3-2.mp3": "/static/media/3-2.9527e0c9cc42d6c3ebdb.mp3",
+    "static/media/LinkTojourney.mind": "/static/media/LinkTojourney.5c573032f0d3683eeee7.mind",
     "static/media/targets.mind": "/static/media/targets.22324f078ffde2610235.mind",
     "static/media/辨識圖_阿公的箱子.mind": "/static/media/辨識圖_阿公的箱子.4b5022ab44acbad61a0e.mind",
     "static/media/阿民3-認真2.png": "/static/media/阿民3-認真2.51d344d5baf92dac29a9.png",
@@ -45,11 +47,11 @@
     "static/media/地圖反面.jpg": "/static/media/地圖反面.ffddf20a9bdd6f16c163.jpg",
     "static/media/按鈕-遊戲開始.png": "/static/media/按鈕-遊戲開始.cab92c0b8a8cc7c60be1.png",
     "index.html": "/index.html",
-    "main.e7ff05a3.css.map": "/static/css/main.e7ff05a3.css.map",
-    "main.c7a98161.js.map": "/static/js/main.c7a98161.js.map"
+    "main.5e657fdc.css.map": "/static/css/main.5e657fdc.css.map",
+    "main.822b948a.js.map": "/static/js/main.822b948a.js.map"
   },
   "entrypoints": [
-    "static/css/main.e7ff05a3.css",
-    "static/js/main.c7a98161.js"
+    "static/css/main.5e657fdc.css",
+    "static/js/main.822b948a.js"
   ]
 }
