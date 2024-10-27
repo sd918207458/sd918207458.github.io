@@ -1,6 +1,6 @@
-import React, { useState, useCallback, useEffect, memo } from "react";
-import "./LessonPlans.scss";
+import React, { useState, useCallback, memo } from "react";
 import { message } from "antd";
+import { useNavigate } from "react-router-dom"; // 新增 useNavigate 引入
 import ARComponent from "../../components/arcomp/ARComponent";
 import imageTargetSrc from "./LessonPlans.mind";
 import ImageTargetSrc02 from "./LinkTojourney.mind";
@@ -32,6 +32,8 @@ const LessonPlans = () => {
   const [isAREnabled, setIsAREnabled] = useState(true);
   const [hasScanned, setHasScanned] = useState(false);
 
+  const navigate = useNavigate(); // 新增 useNavigate hook
+
   const handleTargetFound = useCallback(() => {
     setMarkerFound(true);
     if (!hasScanned) {
@@ -47,8 +49,9 @@ const LessonPlans = () => {
 
   const handleQRScan = useCallback(
     (data) => {
-      console.log("Scanned data:", data); // 調試輸出
-      if (data) {
+      if (data && typeof data === "string") {
+        // 確認 data 是字符串
+        console.log("Scanned data:", data);
         if (data.includes("sanmingmemoryjourney")) {
           setMarkerFound(true);
           if (!hasScanned) {
@@ -56,14 +59,14 @@ const LessonPlans = () => {
             setHasScanned(true);
           }
         }
-        if (data.includes(ImageTargetSrc02)) {
-          if (window.confirm("你確定要跳轉到記憶之旅網站嗎？")) {
-            window.location.href = "https://sanmingmemoryjourney.com";
+        if (data === ImageTargetSrc02) {
+          if (window.confirm("你確定要跳轉到三民記憶之旅網站嗎？")) {
+            navigate("/");
           }
         }
       }
     },
-    [hasScanned]
+    [hasScanned, navigate]
   );
 
   const handleEndGame = useCallback(() => {
